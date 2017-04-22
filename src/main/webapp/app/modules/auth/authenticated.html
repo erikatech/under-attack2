@@ -1,0 +1,50 @@
+<div layout-fill ng-cloak class="auth-container" layout="column" flex>
+
+	<div class="header" layout="row" layout-align="end center" flex="10">
+		<md-button class="md-primary" ng-click="$authCtrl.adminMode()">Sou professor</md-button>
+	</div>
+
+	<div ng-cloak layout="column" layout-align="center center" flex layout-padding>
+		<md-button md-no-ink class="md-primary" ng-click="$authCtrl.register()">
+			Cadastre-se
+		</md-button>
+
+		<md-button md-no-ink class="md-primary" ng-click="$authCtrl.listaFases()">
+			Lista
+		</md-button>
+
+
+		<form novalidate name="registerForm" ng-submit="$authCtrl.authenticate()">
+			<md-card style="width: 400px;">
+				<md-card-content layout="column">
+					<md-input-container flex="100">
+						<label>Login</label>
+						<input required name="login" ng-model="$authCtrl.usuario.login">
+						<div ng-messages="registerForm.login.$error">
+							<div ng-message="required">Campo obrigatório</div>
+						</div>
+					</md-input-container>
+
+					<md-input-container flex="100">
+						<label>Senha</label>
+						<input required type="{{ $authCtrl.showPassword ? 'text' : 'password'}}"
+							   name="senha" ng-model="$authCtrl.usuario.senha">
+						<div ng-messages="registerForm.senha.$error">
+							<div ng-message="required">Campo obrigatório</div>
+						</div>
+						<md-checkbox md-no-ink aria-label="Mostrar senha"
+									 ng-model="$authCtrl.showPassword" style="margin-top: 10px"
+									 class="md-primary">
+							Exibir senha
+						</md-checkbox>
+					</md-input-container>
+				</md-card-content>
+				<md-card-actions layout="column" layout-align="center center">
+					<md-button class="md-raised md-primary" type="submit" style="width: 100%;">
+						Entrar
+					</md-button>
+				</md-card-actions>
+			</md-card>
+		</form>
+	</div>
+</div>
