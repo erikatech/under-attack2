@@ -21,7 +21,8 @@
 
 		'login-validator',
 		'admin',
-		'auth'
+		'auth',
+		'register'
 	]);
 
 })();
