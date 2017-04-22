@@ -3,6 +3,7 @@
 .jshintrc
 .yo-rc.json
 .iml
+.sass-cache
 WEB-INF
 node_modules
 src
