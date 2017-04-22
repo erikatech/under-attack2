@@ -17,6 +17,7 @@
 	function configure($urlRouterProvider, $locationProvider, $httpProvider) {
 		$locationProvider.hashPrefix('!');
 		$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+        $httpProvider.interceptors.push('AuthInterceptor');
 		$urlRouterProvider.otherwise('/');
 	}
 
