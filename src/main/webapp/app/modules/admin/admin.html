@@ -1,0 +1,62 @@
+<div class="register-container" layout="column" flex layout-align="center center">
+	REGISTRE-SE
+	<form novalidate name="adminRegisterForm" layout="column"
+		  ng-submit="adminRegisterForm.$valid && $adminCtrl.register();
+				  			adminRegisterForm.$setPristine(); adminRegisterForm.$setUntouched()">
+		<md-input-container class="md-block">
+			<label>Login</label>
+			<input required name="newProfessorLogin" login-validator="{{ $adminCtrl.endPoint  }}"
+				   ng-model="$adminCtrl.newProfessor.login">
+			<div ng-messages="adminRegisterForm.newProfessorLogin.$error">
+				<div ng-message="required">Campo obrigatório</div>
+				<div ng-message="unavailable">Login indisponível</div>
+			</div>
+		</md-input-container>
+
+		<md-input-container flex="100">
+			<label>Senha</label>
+			<input required type="{{ $adminCtrl.newProfessorShowPassword ? 'text' : 'password'}}"
+				   name="newProfessorPassword" ng-model="$adminCtrl.newProfessor.senha">
+			<md-checkbox md-no-ink aria-label="Mostrar senha" ng-model="$adminCtrl.newProfessorShowPassword"
+						 class="md-primary">
+				Mostrar senha
+			</md-checkbox>
+			<div ng-messages="adminRegisterForm.newProfessorPassword.$error">
+				<div ng-message="required">Campo obrigatório</div>
+			</div>
+		</md-input-container>
+		<md-button type="submit">Entrar</md-button>
+	</form>
+</div>
+
+<!-- Login container -->
+<div class="login-container" layout="column" flex layout-align="center center">
+	LOGIN
+	<form name="loginForm" layout="column"
+		  ng-submit="loginForm.$valid && $adminCtrl.login();
+				  			loginForm.$setPristine(); loginForm.$setUntouched()">
+		<md-input-container flex="100">
+			<label>Login</label>
+			<input required name="login" ng-model="$adminCtrl.professor.login">
+			<div ng-messages="loginForm.login.$error">
+				<div ng-message="required">Campo obrigatório</div>
+			</div>
+		</md-input-container>
+
+		<md-input-container flex="100">
+			<label>Senha</label>
+			<input required type="{{ $adminCtrl.showPassword ? 'text' : 'password'}}"
+				   name="password" ng-model="$adminCtrl.professor.senha">
+			<md-checkbox md-no-ink aria-label="Mostrar senha" ng-model="$adminCtrl.showPassword"
+						 class="md-primary">
+				Mostrar senha
+			</md-checkbox>
+			<div ng-messages="loginForm.newStudentLogin.$error">
+				<div ng-message="required">Campo obrigatório</div>
+			</div>
+		</md-input-container>
+
+		<md-button type="submit">Entrar</md-button>
+	</form>
+</div>
+

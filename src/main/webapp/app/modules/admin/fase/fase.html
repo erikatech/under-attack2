@@ -1,0 +1,252 @@
+<div layout="column" flex layout-padding>
+	<div layout="row" flex="10" layout-align="start center">
+		<span>Desafios</span>
+		<md-button class="md-primary" ng-click="$faseCtrl.editingFase = !$faseCtrl.editingFase">
+			Novo Desafio
+		</md-button>
+	</div>
+
+	<md-table-container>
+		<table md-table md-row-select ng-model="$faseCtrl.selectedDesafios" multiple>
+			<thead md-head>
+			<tr md-row>
+				<th md-column><span>Descrição</span></th>
+				<th md-column><span>Nível</span></th>
+			</tr>
+			</thead>
+			<tbody md-body>
+			<tr md-row ng-repeat="desafio in $faseCtrl.fase.desafios">
+				<td md-cell>{{desafio.programa.descricao}}</td>
+				<td md-cell>{{desafio.nivel}}</td>
+			</tr>
+			</tbody>
+		</table>
+	</md-table-container>
+
+	<div ng-show="$faseCtrl.editingFase" flex>
+		<form ng-submit="$desafioForm.$valid && $faseCtrl.saveFase()" name="desafioForm">
+			<md-card>
+				<md-card-title>
+					<md-card-title-text layout="row" layout-align="start center">
+						<h3 class="md-headline">Desafio</h3>
+					</md-card-title-text>
+				</md-card-title>
+
+				<md-card-content>
+
+					<div layout="row">
+						<md-input-container flex="50" class="md-block">
+							<label>Nível</label>
+							<md-select ng-model="$faseCtrl.desafio.nivel" required name="nivel">
+								<md-option ng-value="nivel.value" ng-selected="nivel == ngModel"
+										   ng-repeat="nivel in $faseCtrl.niveis">
+									{{ nivel.label }}
+								</md-option>
+							</md-select>
+							<div ng-messages="desafioForm.nivel.$error">
+								<div ng-message="required">Campo obrigatório</div>
+							</div>
+						</md-input-container>
+
+						<md-input-container flex="50" class="md-block">
+							<label>Título</label>
+							<input required name="titulo" ng-model="$faseCtrl.desafio.programa.titulo">
+							<div ng-messages="desafioForm.titulo.$error">
+								<div ng-message="required">Campo obrigatório</div>
+							</div>
+						</md-input-container>
+					</div>
+
+					<div layout="column">
+						<md-input-container flex="100" class="md-block">
+							<label>Descrição</label>
+							<textarea ng-model="$faseCtrl.desafio.programa.descricao" name="descricao"
+									  maxlength="600" md-maxlength="600"
+									  style="max-height: 100px; overflow-y: scroll" rows="6">
+							</textarea>
+							<div ng-messages="desafioForm.descricao.$error">
+								<div ng-message="required">Campo obrigatório</div>
+							</div>
+						</md-input-container>
+					</div>
+
+
+					<div layout="column">
+						<div layout="row">
+							<h3>Valores de Entrada</h3>
+							<md-button ng-click="$faseCtrl.addingValorDeEntrada = !$faseCtrl.addingValorDeEntrada">
+								Novo
+							</md-button>
+						</div>
+
+						<!-- exact table from live demo -->
+						<md-table-container>
+							<table md-table md-row-select ng-model="$faseCtrl.valorDeEntradaSelected"
+								   multiple>
+								<thead md-head>
+									<tr md-row>
+										<th md-column><span>Descrição</span></th>
+										<th md-column><span>Tipo</span></th>
+										<th md-column><span>Dificuldade</span></th>
+									</tr>
+								</thead>
+								<tbody md-body>
+								<tr md-row ng-repeat="valorDeEntrada in $faseCtrl.desafio.programa.valoresEntrada">
+									<td md-cell>{{valorDeEntrada.descricao}}</td>
+									<td md-cell>{{valorDeEntrada.tipo}}</td>
+									<td md-cell>{{valorDeEntrada.dificuldade}}</td>
+								</tr>
+								</tbody>
+							</table>
+						</md-table-container>
+
+						<div ng-show="$faseCtrl.addingValorDeEntrada">
+							<form name="valorEntradaForm">
+								<div layout="row">
+									<md-input-container flex="33" class="md-block">
+										<label>Descrição</label>
+										<input required name="valorEntradaDescricao" ng-model="$faseCtrl.valorDeEntrada.descricao">
+										<div ng-messages="valorEntradaForm.valorEntradaDescricao.$error">
+											<div ng-message="required">Campo obrigatório</div>
+										</div>
+									</md-input-container>
+									<md-input-container flex="33" class="md-block">
+										<label>Tipo</label>
+										<md-select ng-model="$faseCtrl.valorDeEntrada.tipo" required name="tipoValorEntrada">
+											<md-option ng-value="tipo.value" ng-selected="tipo == ngModel"
+													   ng-repeat="tipo in $faseCtrl.tipos">
+												{{ tipo.label }}
+											</md-option>
+										</md-select>
+										<div ng-messages="valorEntradaForm.tipoValorEntrada.$error">
+											<div ng-message="required">Campo obrigatório</div>
+										</div>
+									</md-input-container>
+									<md-input-container flex="33" class="md-block">
+										<label>Dificuldade</label>
+										<md-select ng-model="$faseCtrl.valorDeEntrada.dificuldade" required name="dificuldade">
+											<md-option ng-value="dificuldade.value" ng-selected="dificuldade == ngModel"
+													   ng-repeat="dificuldade in $faseCtrl.dificuldades">
+												{{ dificuldade.label }}
+											</md-option>
+										</md-select>
+										<div ng-messages="valorEntradaForm.dificuldade.$error">
+											<div ng-message="required">Campo obrigatório</div>
+										</div>
+									</md-input-container>
+								</div>
+
+								<div layout="column">
+									<div layout="row" layout-align="start center">
+										<h4>Classes de Equivalência</h4>
+										<md-button ng-click="$faseCtrl.addingClasse = !$faseCtrl.addingClasse">Nova</md-button>
+									</div>
+
+									<table md-table md-row-select ng-model="$faseCtrl.classesEquivalenciaSelected"
+										   multiple>
+										<thead md-head>
+										<tr md-row>
+											<th md-column><span>Descrição</span></th>
+											<th md-column><span>Tipo</span></th>
+											<th md-column><span>Dificuldade</span></th>
+											<th md-column><span>Ingrediente</span></th>
+										</tr>
+										</thead>
+										<tbody md-body>
+										<tr md-row ng-repeat="classeEquivalencia in $faseCtrl.valorDeEntrada.classesEquivalencia">
+											<td md-cell>{{classeEquivalencia.descricao}}</td>
+											<td md-cell>{{classeEquivalencia.tipo}}</td>
+											<td md-cell>{{classeEquivalencia.dificuldade}}</td>
+											<td md-cell>{{classeEquivalencia.ingrediente.descricao}}</td>
+										</tr>
+										</tbody>
+									</table>
+
+									<div ng-show="$faseCtrl.addingClasse" layout="column">
+										<form name="classeForm" ng-submit="classeForm.$valid && $faseCtrl.addClasse()">
+											<div layout="row">
+												<md-input-container flex="33" class="md-block">
+													<label>Descrição</label>
+													<input name="classeDescricao" required ng-model="$faseCtrl.classeEquivalencia.descricao">
+												</md-input-container>
+
+												<md-input-container flex="33" class="md-block">
+													<label>Expressão Regular</label>
+													<input name="classeRegex" ng-model="$faseCtrl.classeEquivalencia.expressaoRegular">
+												</md-input-container>
+
+												<md-input-container flex="33" class="md-block">
+													<md-checkbox md-no-ink aria-label="Bug na Fase" class="md-primary"
+																 ng-model="$authCtrl.classeEquivalencia.bugExistente">
+													</md-checkbox>
+													Bug Existente?
+												</md-input-container>
+											</div>
+
+											<div layout="row">
+												<md-input-container flex="33" class="md-block">
+													<label>Tipo</label>
+													<md-select ng-model="$faseCtrl.classeEquivalencia.tipo" required name="tipoClasse">
+														<md-option ng-value="tipo.value" ng-selected="tipo == ngModel"
+																   ng-repeat="tipo in $faseCtrl.tiposClasse">
+															{{ tipo.label }}
+														</md-option>
+													</md-select>
+												</md-input-container>
+
+												<md-input-container flex="33" class="md-block">
+													<label>Dificuldade</label>
+													<md-select ng-model="$faseCtrl.classeEquivalencia.dificuldade" required
+															   name="dificuldadeClasse">
+														<md-option ng-value="dificuldade.value" ng-selected="dificuldade == ngModel"
+																   ng-repeat="dificuldade in $faseCtrl.dificuldades">
+															{{ dificuldade.label }}
+														</md-option>
+													</md-select>
+												</md-input-container>
+
+												<md-input-container flex="33" class="md-block">
+													<label>Ingrediente</label>
+													<md-select ng-model="$faseCtrl.classeEquivalencia.ingrediente"
+															   name="ingredienteClasse">
+														<md-option ng-value="ingrediente" ng-selected="ingrediente == ngModel"
+																   ng-repeat="ingrediente in $faseCtrl.ingredientes">
+															{{ ingrediente.descricao }}
+														</md-option>
+													</md-select>
+												</md-input-container>
+											</div>
+
+											<div layout="row">
+												<md-input-container flex="50" class="md-block">
+													<label>Resultado Esperado</label>
+													<input name="classeResultado" ng-model="$faseCtrl.classeEquivalencia.resultadoEsperado">
+												</md-input-container>
+												<md-input-container flex="50" class="md-block">
+													<label>Saída</label>
+													<input name="classeSaida" ng-model="$faseCtrl.classeEquivalencia.saida">
+												</md-input-container>
+											</div>
+											<div layout="row">
+												<md-button ng-click="$faseCtrl.addClasse()">Incluir Classe</md-button>
+											</div>
+										</form>
+									</div>
+								</div>
+								<div layout="row">
+									<md-button ng-click="$faseCtrl.addValorEntrada()">
+										Incluir Valor de Entrada
+									</md-button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</md-card-content>
+				<md-card-actions layout="row" layout-align="end center">
+					<md-button ng-click="$faseCtrl.addDesafio()">Salvar Desafio</md-button>
+					<md-button ng-click="$faseCtrl.cancel()">Cancelar</md-button>
+				</md-card-actions>
+			</md-card>
+		</form>
+	</div>
+</div>

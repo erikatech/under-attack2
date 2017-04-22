@@ -1,0 +1,38 @@
+<div layout-fill ng-cloak class="auth-container">
+
+	<div class="header" layout="row" layout-align="end center" flex="15">
+		<md-button class="md-primary" ng-click="$authCtrl.adminMode()">Sou professor</md-button>
+	</div>
+
+	<div ng-cloak layout="row" layout-align="center center">
+
+		<div class="register-container">
+
+			<form name="registerForm" ng-submit="$authCtrl.register()">
+				<md-input-container flex="100">
+					<label>Login</label>
+					<input required name="newStudentLogin" ng-model="$authCtrl.newStudent.login">
+					<div ng-messages="registerForm.newStudentLogin.$error">
+						<div ng-message="required">Campo obrigatório</div>
+					</div>
+				</md-input-container>
+
+				<md-input-container flex="100">
+					<label>Senha</label>
+					<input required type="{{ $authCtrl.showPassword ? 'text' : 'password'}}"
+						   name="newStudentPassword" ng-model="$authCtrl.newStudent.password">
+					<md-checkbox md-no-ink aria-label="Mostrar senha" ng-model="$authCtrl.showPassword"
+								 class="md-primary">
+						Mostrar senha
+					</md-checkbox>
+					<div ng-messages="registerForm.newStudentLogin.$error">
+						<div ng-message="required">Campo obrigatório</div>
+					</div>
+				</md-input-container>
+
+				<md-button type="submit" style="width: 100%;">Entrar</md-button>
+			</form>
+		</div>
+
+	</div>
+</div>

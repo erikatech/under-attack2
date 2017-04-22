@@ -1,0 +1,10 @@
+<div layout="column" flex layout-padding>
+	<div layout="row" flex ng-repeat="fase in $dashCtrl.fases">
+		<span flex="80">
+			{{ fase.titulo }}
+		</span>
+		<span>
+			<md-button ng-click="$dashCtrl.configuraFase(fase)">CONFIGURAR</md-button>
+		</span>
+	</div>
+</div>
