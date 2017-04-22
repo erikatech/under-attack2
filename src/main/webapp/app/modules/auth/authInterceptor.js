@@ -3,31 +3,44 @@
 
 	/**
 	 * @ngdoc function
-	 * @name app.service:authService
+	 * @name app.service:authInterceptor
 	 * @description
-	 * # authService
-	 * Service responsible for authenticate the user
+	 * # authInterceptor
+	 * Service responsible for dealing with request and response authorization
 	 */
 
   	angular
 		.module('auth')
-		.factory('authService', Auth);
+		.factory('AuthInterceptor', AuthInterceptor);
 
-		Auth.$inject = ['ServiceAPI'];
+    	AuthInterceptor.$inject = ['$q', '$location'];
 
-		function Auth (ServiceAPI) {
+		function AuthInterceptor ($q, $location) {
 
-			return {
-				login: login,
-                lista: lista
+            function responseError(responseError){
+            	if(responseError.status === 401)
+                    location.href = '#/';
+                console.log("[authInterceptor] response >>> ",responseError);
+                return $q.reject(responseError);
+            };
+
+            function request(config){
+                var _token = localStorage.getItem("token");
+                var _login = localStorage.getItem("login");
+                var _isLogado = _token != null;
+
+                config.headers = config.headers || {};
+
+                if(_isLogado){
+                    config.headers.Authorization = _login + ' ' + _token;
+                }
+                return config;
+
 			};
 
-			function login(usuario){
-				return ServiceAPI.post(usuario, '/login/autentica');
-			}
-
-			function lista(){
-                return ServiceAPI.get('/login/listaFases');
-			}
+			return {
+                responseError: responseError,
+                request: request
+			};
 		}
 })();

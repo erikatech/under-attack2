@@ -18,34 +18,34 @@
 		function AuthCtrl(authService, $state) {
 			var context = this;
 
-			context.newStudent = {login: null, password: null};
+			context.usuario = {login: null, senha: null};
 			context.register = register;
-			context.login = login;
+			context.authenticate = authenticate;
 			context.adminMode = adminMode;
 
-			function login(){
-				authService.login("erika", "erika")
+            /**
+			 * Autentica um usuário
+             */
+			function authenticate(){
+				authService.login(context.usuario)
 					.then(function (response) {
 						console.log("Success >>> ", response);
-						$state.go('authenticated.home.dashboard');
+						// $state.go('authenticated.home.dashboard');
 					})
 					.catch(function (errorResponse) {
 						console.log(errorResponse.data.errors[0].message);
 					});
 			}
 
+            /**
+			 * Manda pro estado de registro
+             */
 			function register(){
-				authService.register(context.newStudent)
-					.then(function (successResponse) {
-						console.log("Register goes ok! ", successResponse);
-					})
-					.catch(function(errorResponse){
-						console.error("Register gone wrong! ", errorResponse);
-					});
+				$state.go("register");
 			}
 
 			function adminMode(){
-				$state.go('adminHome.login');
+				$state.go("login");
 			}
 
 		}

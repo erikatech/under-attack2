@@ -6,29 +6,40 @@
 	 * @name app.service:authService
 	 * @description
 	 * # authService
-	 * Service of the app
+	 * Service responsible for authenticate the user
 	 */
 
   	angular
 		.module('auth')
 		.factory('authService', Auth);
 
-		Auth.$inject = ['$http', '$q'];
+		Auth.$inject = ['ServiceAPI'];
 
-		function Auth ($http, $q) {
+		function Auth (ServiceAPI) {
+
 			return {
-				login: function(login, senha){
-					var data = {login: login, senha: senha};
-					return $http.post("http://localhost:8080/under-attack/professor", data)
-						.then(function (response) {
-							return $q.resolve(response);
+				login: login,
+				logout: logout,
+				getUser: getUser
+			};
 
-						})
-						.catch(function (errorResponse) {
-							return $q.reject(errorResponse);
+			function login(usuario){
+				return ServiceAPI.post(usuario, '/login/autentica')
+					.then(function (success) {
+                        var usuarioLogado = success.data;
+                        localStorage.setItem("token", usuarioLogado.token);
+                        localStorage.setItem("login", usuarioLogado.login);
+                    });
+			}
 
-						})
-				}
+			function logout(){
+                localStorage.removeItem("token");
+                localStorage.removeItem("login");
+                location.href = '#/';
+			}
+
+			function getUser(){
+				return ServiceAPI.get('/login/getUser');
 			}
 		}
 })();

@@ -11,38 +11,17 @@
 
   	angular
 		.module('admin')
-		.factory('adminService', AdminService);
+		.factory('AdminService', Admin);
 
-		AdminService.$inject = ['$http', '$q'];
+    	Admin.$inject = ['ServiceAPI'];
 
-		function AdminService ($http, $q) {
+		function Admin (ServiceAPI) {
 			return {
-				login: login,
-				register: register
+				login: login
 			};
 
 			function login(professor){
-				return $http.post("http://localhost:8080/under-attack/professor", professor)
-					.then(function (response) {
-						return $q.resolve(response);
-
-					})
-					.catch(function (errorResponse) {
-						return $q.reject(errorResponse);
-
-					})
-			}
-
-			function register(professor){
-				return $http.post("http://localhost:8080/under-attack/professor/register", professor)
-					.then(function (response) {
-						return $q.resolve(response);
-
-					})
-					.catch(function (errorResponse) {
-						return $q.reject(errorResponse);
-
-					})
+				return ServiceAPI.post(professor, '/login/autenticaProfessor');
 			}
 		}
 })();

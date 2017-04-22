@@ -1,8 +1,10 @@
-<div layout="column" layout-fill ng-cloak>
-	<md-toolbar>
-		<div class="md-toolbar-tools" layout="row" layout-align="start center">
-		</div>
-	</md-toolbar>
+<div layout="column" class="auth-container" layout-fill ng-cloak>
+	<div class="header" layout="row" layout-align="end center" flex="10" ng-controller="AdminCtrl as $adminCtrl">
+		<md-button class="md-primary" ng-if="$adminCtrl.isLogado()" ng-click="$adminCtrl.logout()">
+			Logout
+		</md-button>
+	</div>
+
 	<div ng-cloak flex layout="row" ui-view>
 	</div>
 </div>

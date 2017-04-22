@@ -13,38 +13,48 @@
 		.module('admin')
 		.controller('AdminCtrl', Admin);
 
-	Admin.$inject = ['adminService', 'CustomToastService', '$state'];
+	Admin.$inject = ['CustomToastService', '$state', 'authService'];
 
-	function Admin(adminService, CustomToastService, $state) {
+	function Admin(CustomToastService, $state, authService) {
 		var context = this;
-
-		context.newProfessor = {login: null, senha: null};
 		context.professor = {login: null, senha: null};
-		context.endPoint = "http://localhost:8080/under-attack/professor";
 
-		context.register = register;
-		context.login = login;
+		context.authenticate = authenticate;
+		context.backToHome = backToHome;
+		context.isLogado = isLogado;
+        context.logout = logout;
 
-		function register(){
-			adminService.register(context.newProfessor)
-				.then(function () {
-					CustomToastService.show("Professor cadastrado", "top right", 2000);
-					context.newProfessor = {login: null, senha: null };
-				})
-				.catch(function (errorResponse) {
-					CustomToastService.show("Erro ao cadastrar professor", "top right", 2000);
-					console.error("Register gone wrong >>> ", errorResponse);
-				})
-		}
-		function login(){
-			adminService.login(context.professor)
+        /**
+		 *
+         */
+		function authenticate(){
+            authService.login(context.professor)
 				.then(function(){
-					$state.go('adminHome.dashboard');
+					$state.go('authenticated.adminHome.dashboard');
 				})
 				.catch(function (errorResponse) {
-					console.log("[ADMIN LOGIN] >>> ",errorResponse);
-
+					CustomToastService.show(errorResponse.data.errors[0].message, "top right", 2000);
+					console.log("[ADMIN LOGIN] >>> ", errorResponse.data.errors[0].message);
 				});
+		}
+
+        /**
+		 *
+         */
+		function backToHome(){
+			$state.go('auth');
+		}
+
+        /**
+		 * Check if a user is logged
+         * @returns {boolean}
+         */
+		function isLogado(){
+			return localStorage.getItem("token") !== null;
+		}
+
+		function logout(){
+            authService.logout();
 		}
 	}
 })();
