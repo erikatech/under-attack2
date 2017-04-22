@@ -23,7 +23,8 @@
     "angular-material": ">=1.0.1",
     "angular-ui-router": "~0.4.2",
     "angular-material-data-table": "^0.10.10",
-    "angular-loading-bar": "^0.9.0"
+    "angular-loading-bar": "^0.9.0",
+    "ngstorage": "^0.3.11"
   },
   "resolutions": {
     "angular": ">=1.6.*"
