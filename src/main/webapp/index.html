@@ -17,13 +17,13 @@
 	<link rel="stylesheet" href="src/bower_components/angular-loading-bar/build/loading-bar.min.css">
 
 	<!-- injector:css -->
-
+	<link rel="stylesheet" href="app/assets/css/under-attack.css">
 	<!-- endinjector -->
 </head>
 <body ng-cloak>
 
 <!--Beginning-->
-<div ui-view layout-fill></div>
+<div ui-view layout-fill style="background: white"></div>
 <!--End-->
 
 <!-- bower dependencies -->
@@ -46,22 +46,28 @@
 <script src="app/modules/admin/dashboard/dashboardModule.js"></script>
 <script src="app/modules/admin/fase/faseModule.js"></script>
 <script src="app/modules/auth/authModule.js"></script>
+<script src="app/modules/register/registerModule.js"></script>
 <script src="app/modules/shared/directives/check-login/loginValidatorModule.js"></script>
 <script src="app/modules/admin/adminRoute.js"></script>
 <script src="app/modules/admin/dashboard/dashboardRoute.js"></script>
 <script src="app/modules/admin/fase/faseRoute.js"></script>
 <script src="app/modules/auth/authRoute.js"></script>
+<script src="app/modules/register/registerRoute.js"></script>
 <script src="app/modules/admin/adminCtrl.js"></script>
 <script src="app/modules/admin/dashboard/dashboardCtrl.js"></script>
 <script src="app/modules/admin/fase/faseCtrl.js"></script>
 <script src="app/modules/auth/authCtrl.js"></script>
+<script src="app/modules/register/registerCtrl.js"></script>
 <script src="app/modules/admin/adminService.js"></script>
 <script src="app/modules/admin/dashboard/dashboardService.js"></script>
 <script src="app/modules/admin/fase/faseService.js"></script>
 <script src="app/modules/auth/authService.js"></script>
+<script src="app/modules/register/registerService.js"></script>
+<script src="app/modules/shared/APIService.js"></script>
 <script src="app/modules/shared/custom-toast/customToastService.js"></script>
 <script src="app/modules/shared/directives/check-login/loginService.js"></script>
 <script src="app/modules/shared/directives/check-login/loginValidatorDirective.js"></script>
+<script src="app/modules/auth/authInterceptor.js"></script>
 <!-- endinjector -->
 </body>
 </html>
