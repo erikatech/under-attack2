@@ -10,8 +10,8 @@ import javax.persistence.Entity;
 @DiscriminatorValue(value = "Professor")
 public class Professor extends Usuario {
 
-    public Professor(String login, String senha){
-        super(login, senha);
+    public Professor(String nome, String login, String senha){
+        super(nome, login, senha);
     }
 
     public Professor() {

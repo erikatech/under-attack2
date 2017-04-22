@@ -8,14 +8,19 @@ import br.edu.ifam.underattack.util.JPAUtil;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import java.util.List;
 
 public class InitialDataObserver {
 
 	public void createProfessor(@Observes VRaptorInitialized event) {
 		EntityManager em = JPAUtil.criaEntityManager();
-		em.getTransaction().begin();
-		em.persist(new Professor("jucimar", "123"));
-		em.getTransaction().commit();
-		em.close();
+		String jpql = "select p from Professor p";
+		List<Professor> professores = em.createQuery(jpql, Professor.class).getResultList();
+		if (professores.isEmpty()){
+			em.getTransaction().begin();
+			em.persist(new Professor("Jucimar Brito", "jucimar", "123"));
+			em.getTransaction().commit();
+			em.close();
+		}
 	}
 }

@@ -8,8 +8,12 @@ import java.io.Serializable;
 @DiscriminatorColumn(name = "user_type")
 public abstract class Usuario implements Serializable{
 
+	private static final long serialVersionUID = -5201172714281534128L;
+
 	@Id @GeneratedValue(strategy = GenerationType.TABLE)
 	private Long id;
+
+	private String nome;
 	
 	private String login;
 
@@ -18,9 +22,18 @@ public abstract class Usuario implements Serializable{
 	public Usuario() {
 	}
 	
-	public Usuario(String login, String senha) {
+	public Usuario(String nome, String login, String senha) {
+		this.nome = nome;
 		this.login = login;
 		this.senha = senha;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getLogin() {

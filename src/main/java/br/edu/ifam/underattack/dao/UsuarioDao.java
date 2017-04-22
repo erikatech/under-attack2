@@ -4,6 +4,7 @@ import br.edu.ifam.underattack.model.Usuario;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import java.util.List;
 
 
 public class UsuarioDao {
@@ -20,16 +21,11 @@ public class UsuarioDao {
 		this(null); // para uso do CDI
 	}
 	
-	public boolean existe(Usuario usuario) {
-		return !em.createQuery("select u from Usuario u where u.login = "
+	public List<Usuario> consulta(String login, String senha) {
+		return em.createQuery("select u from Usuario u where u.login = "
 			+ ":login and u.senha = :senha", Usuario.class)
-			.setParameter("login", usuario.getLogin())
-			.setParameter("senha", usuario.getSenha())
-			.getResultList().isEmpty();
-	}
-
-	public void salva(Usuario usuario) {
-		em.persist(usuario);
+			.setParameter("login", login)
+			.setParameter("senha", senha).getResultList();
 	}
 
 }

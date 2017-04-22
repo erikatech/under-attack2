@@ -1,41 +1,63 @@
 package br.edu.ifam.underattack.controller;
 
-import br.com.caelum.vraptor.Controller;
-import br.com.caelum.vraptor.Path;
-import br.com.caelum.vraptor.Post;
-import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.*;
+import br.com.caelum.vraptor.validator.I18nMessage;
 import br.com.caelum.vraptor.validator.Validator;
+import br.com.caelum.vraptor.view.Results;
+import br.edu.ifam.underattack.annotations.Public;
 import br.edu.ifam.underattack.dao.UsuarioDao;
+import br.edu.ifam.underattack.dto.UsuarioLogadoDTO;
+import br.edu.ifam.underattack.model.Aluno;
+import br.edu.ifam.underattack.model.Professor;
 import br.edu.ifam.underattack.model.Usuario;
+import br.edu.ifam.underattack.util.JWTUtil;
+
+import javax.inject.Inject;
+import javax.persistence.NoResultException;
+import java.util.List;
 
 /**
  * Created by erika.silva on 22/04/2017.
  */
 
-@Path("/usuario")
 @Controller
-public class UsuarioController {
+public class LoginController {
 
     private final Result result;
     private final Validator validator;
     private final UsuarioDao dao;
 
-    public UsuarioController(Result result, Validator validator, UsuarioDao dao){
+    @Inject
+    public LoginController(Result result, Validator validator, UsuarioDao dao){
         this.result = result;
         this.validator = validator;
         this.dao = dao;
     }
 
-    public UsuarioController(){
+    public LoginController(){
         this(null, null, null);
     }
 
     @Post
-    public void autentica(Usuario usuario){
-        boolean existe = this.dao.existe(usuario);
-        validator.addIf(!existe)
+    @Public
+    @Consumes(value = "application/json")
+    public void autentica(String login, String senha){
+        List<Usuario> usuarios = this.dao.consulta(login, senha);
+        validator.addIf(usuarios.isEmpty(), new I18nMessage("login","login.invalido"));
+        validator.onErrorSendBadRequest();
 
+        Usuario usuario = usuarios.get(0);
+        String token = JWTUtil.generateToken(usuario.getLogin());
 
+        UsuarioLogadoDTO usuarioLogadoDTO = new UsuarioLogadoDTO(login, token);
+//        usuarioLogadoDTO.setToken(token);
+
+        this.result.use(Results.json()).withoutRoot().from(usuarioLogadoDTO).serialize();
+//        result.use(Results.json()).from(usuarioLogadoDTO).include("user").serialize();
     }
 
+    @Get
+    public void getUser(){
+        result.use(Results.status()).ok();
+    }
 }
