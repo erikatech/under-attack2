@@ -7,13 +7,10 @@ import br.com.caelum.vraptor.view.Results;
 import br.edu.ifam.underattack.annotations.Public;
 import br.edu.ifam.underattack.dao.UsuarioDao;
 import br.edu.ifam.underattack.dto.UsuarioLogadoDTO;
-import br.edu.ifam.underattack.model.Aluno;
-import br.edu.ifam.underattack.model.Professor;
 import br.edu.ifam.underattack.model.Usuario;
 import br.edu.ifam.underattack.util.JWTUtil;
 
 import javax.inject.Inject;
-import javax.persistence.NoResultException;
 import java.util.List;
 
 /**
@@ -50,10 +47,7 @@ public class LoginController {
         String token = JWTUtil.generateToken(usuario.getLogin());
 
         UsuarioLogadoDTO usuarioLogadoDTO = new UsuarioLogadoDTO(login, token);
-//        usuarioLogadoDTO.setToken(token);
-
         this.result.use(Results.json()).withoutRoot().from(usuarioLogadoDTO).serialize();
-//        result.use(Results.json()).from(usuarioLogadoDTO).include("user").serialize();
     }
 
     @Get
