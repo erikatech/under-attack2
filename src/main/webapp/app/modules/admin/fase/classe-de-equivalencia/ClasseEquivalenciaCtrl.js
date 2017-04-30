@@ -11,27 +11,48 @@
 
 	angular
 		.module('fase')
-		.controller('ClasseDeEquivalenciaCtrl', ClasseEquivalencia);
+		.controller('ClasseEquivalenciaCtrl', ClasseEquivalencia);
 
-    ClasseEquivalencia.$inject = ['$stateParams', '$mdDialog', 'ValorDeEntradaService', 'AdminService'];
+    ClasseEquivalencia.$inject = ['valorEntrada', '$mdDialog', 'ClasseEquivalenciaService', 'AdminService'];
 
-	function ClasseEquivalencia($stateParams, $mdDialog, ValorDeEntradaService, AdminService) {
+	function ClasseEquivalencia(valorEntrada, $mdDialog, ClasseEquivalenciaService, AdminService) {
 		var context = this;
 
-		context.classesEquivalenciaSelected = [];
-        context.tipos = ValorDeEntradaService.getTipos();
+		onOpenPage();
+
+		context.valorEntrada = valorEntrada;
+        context.valorEntrada.classesEquivalencia = valorEntrada.classesEquivalencia !== undefined ?
+			valorEntrada.classesEquivalencia : [];
+
+        context.classesEquivalenciaSelected = [];
+        context.tipos = ClasseEquivalenciaService.getTipos();
         context.dificuldades = AdminService.getDificuldades();
 
         context.hide = hide;
         context.add = add;
+		context.finalizar = finalizar;
+
+        function onOpenPage(){
+            ClasseEquivalenciaService.getIngredientes()
+                .then(function (successResponse) {
+                    context.ingredientes = successResponse.data.ingredientes;
+                })
+                .catch(function (errorResponse) {
+                    console.log("ERROR WHILE GETTING INGREDIENTS >>> ", errorResponse);
+                });
+        }
 
 		function hide(){
 			$mdDialog.hide({status: 'cancel'});
 		}
 
 		function add(){
-			var response = { status: 'ok', valorEntrada: context.valorEntrada };
-			$mdDialog.hide(response);
+			context.valorEntrada.classesEquivalencia.push(context.classe);
+			delete context.classe;
+		}
+
+		function finalizar(){
+			$mdDialog.hide({status: 'ok', valorEntrada: context.valorEntrada});
 		}
 	}
 })();
