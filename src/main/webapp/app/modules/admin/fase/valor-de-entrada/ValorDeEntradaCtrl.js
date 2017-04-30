@@ -3,76 +3,38 @@
 
 	/**
 	* @ngdoc function
-	* @name app.controller:FaseCtrl
+	* @name app.controller:ValorDeEntradaCtrl
 	* @description
-	* # FaseCtrl
+	* # ValorDeEntradaCtrl
 	* Controller of the app
 	*/
 
 	angular
 		.module('fase')
-		.controller('FaseCtrl', Fase);
+		.controller('ValorDeEntradaCtrl', ValorDeEntrada);
 
-	Fase.$inject = ['$stateParams', 'faseService'];
+    ValorDeEntrada.$inject = ['valorEntrada', '$mdDialog', 'ValorDeEntradaService', 'AdminService'];
 
-	function Fase($stateParams, faseService) {
+	function ValorDeEntrada(valorEntrada, $mdDialog, ValorDeEntradaService, AdminService) {
 		var context = this;
 
-		onOpenPage();
+        context.classesEquivalenciaSelected = [];
+        context.tipos = ValorDeEntradaService.getTipos();
+        context.dificuldades = AdminService.getDificuldades();
 
-        context.cadastrandoDesafio = true;
-		context.desafio = {nivel: null,  programa: {titulo: null, descricao: null, valoresEntrada: []}};
-		context.valorDeEntradaSelected = [];
-		context.selectedDesafios = [];
+        context.valorDeEntrada = angular.copy(valorEntrada);
+        console.log(context.valorDeEntrada);
 
-		/*context.fase = $stateParams.fase;
+        context.hide = hide;
+        context.add = add;
 
-		context.fase.desafios = [];*/
-
-		context.niveis = faseService.getNiveis();
-		context.tipos = faseService.getTipos();
-		context.dificuldades = faseService.getDificuldades();
-		context.tiposClasses = faseService.getTiposClasses();
-
-		context.addClasse = addClasse;
-		context.addValorDeEntrada = addValorDeEntrada;
-		context.addDesafio = addDesafio;
-
-
-		function onOpenPage(){
-			faseService.getIngredientes()
-				.then(function (successResponse) {
-					context.ingredientes = successResponse.data.ingredientes;
-                })
-				.catch(function (errorResponse) {
-					console.log("ERROR WHILE GETTING INGREDIENTS >>> ", errorResponse);
-                });
+		function hide(){
+			$mdDialog.hide({status: 'cancel'});
 		}
 
-		function addClasse(){
-			context.valorDeEntrada.classesEquivalencia.push(context.classeEquivalencia);
-			context.classeEquivalencia = {descricao: null, expressaoRegular: null,
-				bugExistente: false, tipo: null, dificuldade: null, ingrediente: null,
-				resultadoEsperado: null, saida: null};
+		function add(){
+			var response = { status: 'ok', valorEntrada: context.valorDeEntrada };
+			$mdDialog.hide(response);
 		}
-
-		function addValorDeEntrada(){
-            $mdDialog.show({
-                controller: 'ValorDeEntradaCtrl',
-                templateUrl: 'app/modules/sheet-upload/tmpl/upload-dialog.tmpl.html',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                clickOutsideToClose:true,
-                locals: { uploadSheetInfo: uploadSheetInfo }
-            });/*
-			context.desafio.programa.valoresEntrada.push(context.valorDeEntrada);
-			context.valorDeEntrada = {descricao: null, tipo: null, dificuldade: null, classesEquivalencia: []};*/
-		}
-
-		function addDesafio(){
-			context.fase.desafios.push(context.desafio);
-			console.log(context.fase);
-		}
-
 	}
 })();
