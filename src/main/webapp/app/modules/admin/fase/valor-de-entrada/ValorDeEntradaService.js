@@ -11,46 +11,19 @@
 
   	angular
 		.module('fase')
-		.factory('faseService', FaseService);
+		.factory('ValorDeEntradaService', valorDeEntradaService);
 
-		FaseService.$inject = ['ServiceAPI'];
-
-		function FaseService (ServiceAPI) {
+		function valorDeEntradaService () {
 
 			return {
-				getAll: getAll,
-                getNiveis: getNiveis,
 				getTipos: getTipos,
-				getDificuldades: getDificuldades,
-				getTiposClasses: getTiposClasses,
-				getIngredientes: getIngredientes
+				getTiposClasses: getTiposClasses
 			};
-
-			function getAll(){
-                return ServiceAPI.get('/fase/listAll');
-			}
-
-			function getNiveis(){
-                return [
-                    {value: 'FACIL', label: 'Fácil'},
-                    {value: 'INTERMEDIARIO', label: 'Intermediário'},
-                    {value: 'DIFICIL', label: 'Difícil'}
-                ];
-			}
 
 			function getTipos(){
                 return [
                     {value: "DISTRATIVO", label: "Distrativo"},
                     {value: "CORRETO", label: "Correto"}
-                ];
-			}
-
-			function getDificuldades(){
-                return [
-                    {value: "FACIL", label: "Fácil"},
-                    {value: "NORMAL", label: "Normal"},
-                    {value: "DIFICIL", label: "Fácil"},
-                    {value: "CHUCK_NORRIS", label: "Chuck Norris"}
                 ];
 			}
 
@@ -61,8 +34,5 @@
                 ];
 			}
 
-			function getIngredientes(){
-				return ServiceAPI.get("/fase/listIngredientes");
-			}
 		}
 })();

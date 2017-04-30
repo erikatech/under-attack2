@@ -11,28 +11,26 @@
 
   	angular
 		.module('fase')
-		.factory('ValorDeEntradaService', valorDeEntradaService);
+		.factory('ClasseEquivalenciaService', classeEquivalenciaService);
 
-		function valorDeEntradaService () {
+  		classeEquivalenciaService().$inject = ['ServiceAPI'];
+
+		function classeEquivalenciaService (ServiceAPI) {
 
 			return {
 				getTipos: getTipos,
-				getTiposClasses: getTiposClasses
+                getIngredientes: getIngredientes
 			};
 
 			function getTipos(){
-                return [
-                    {value: "DISTRATIVO", label: "Distrativo"},
-                    {value: "CORRETO", label: "Correto"}
-                ];
-			}
-
-			function getTiposClasses(){
 				return [
                     {value: 'VALIDA', label: "Válida"},
                     {value: 'INVALIDA', label: "Inválida"}
                 ];
 			}
 
+            function getIngredientes(){
+                return ServiceAPI.get("/fase/listIngredientes");
+            }
 		}
 })();
