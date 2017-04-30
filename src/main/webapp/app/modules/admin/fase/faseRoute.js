@@ -11,7 +11,7 @@
 angular.module('fase')
 	.config(['$stateProvider', function ($stateProvider) {
 		$stateProvider
-			.state('adminHome.fase', {
+			.state('authenticated.adminHome.fase', {
 				templateUrl: 'app/modules/admin/fase/fase.html',
 				params: {
 					fase: null
