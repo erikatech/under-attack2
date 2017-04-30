@@ -11,38 +11,19 @@
 
   	angular
 		.module('fase')
-		.factory('faseService', FaseService);
+		.factory('FaseService', FaseService);
 
-		FaseService.$inject = ['$http', '$q'];
+		FaseService.$inject = ['ServiceAPI'];
 
-		function FaseService ($http, $q) {
+		function FaseService (ServiceAPI) {
+
 			return {
-				getAll: getAll,
-				atualiza: atualiza
+				getAll: getAll
 			};
 
 			function getAll(){
-				return $http.get("http://localhost:8080/under-attack/fase")
-					.then(function (response) {
-						return $q.resolve(response);
-
-					})
-					.catch(function (errorResponse) {
-						return $q.reject(errorResponse);
-
-					});
+                return ServiceAPI.get('/fase/listAll');
 			}
 
-			function atualiza(fase){
-				return $http.put("http://localhost:8080/under-attack/fase", fase)
-					.then(function (response) {
-						return $q.resolve(response);
-
-					})
-					.catch(function (errorResponse) {
-						return $q.reject(errorResponse);
-
-					});
-			}
 		}
 })();
