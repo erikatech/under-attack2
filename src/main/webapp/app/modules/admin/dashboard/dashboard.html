@@ -1,3 +1,16 @@
-<div>
-	<h1>Olá ${usuarioLogado} </h1>
+<div flex layout-padding layout-fill layout="row" class="dashboard-namespace">
+
+	<div class="fase-box" flex="50"
+		 layout-align="center center"
+		 layout="row"
+		 ng-repeat="fase in $dashCtrl.fases">
+
+		<div flex="80">
+			<h3>{{ fase.titulo }}</h3>
+		</div>
+		<div flex>
+			<md-button ng-click="$dashCtrl.configuraFase(fase)"
+					   class="md-button md-primary">Configurar</md-button>
+		</div>
+	</div>
 </div>
