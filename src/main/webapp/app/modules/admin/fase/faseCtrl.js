@@ -13,85 +13,69 @@
 		.module('fase')
 		.controller('FaseCtrl', Fase);
 
-	Fase.$inject = ['$stateParams', '$http', 'faseService'];
+	Fase.$inject = ['$stateParams', 'FaseService', '$mdDialog', 'AdminService'];
 
-	function Fase($stateParams, $http, faseService) {
+	function Fase($stateParams, FaseService, $mdDialog, AdminService) {
 		var context = this;
-		onOpenPage();
 
+        context.cadastrandoDesafio = true;
 		context.desafio = {nivel: null,  programa: {titulo: null, descricao: null, valoresEntrada: []}};
-
 		context.valorDeEntradaSelected = [];
-		context.classesEquivalenciaSelected = [];
+		context.selectedDesafios = [];
 
-		context.valorDeEntrada = {classesEquivalencia: [] };
+		/*context.fase = $stateParams.fase;
 
-		context.fase = $stateParams.fase;
+		context.fase.desafios = [];*/
 
-		context.fase.desafios = [];
+        context.fase = {
+        	desafio: {
+        		programa:
+					{
+						valoresEntrada: []
+					}
+        	}
+        };
 
-		context.niveis = [
-			{value: 'FACIL', label: 'Fácil'},
-			{value: 'INTERMEDIARIO', label: 'Intermediário'},
-			{value: 'DIFICIL', label: 'Difícil'}
-		];
-		context.tipos = [
-			{value: "DISTRATIVO", label: "Distrativo"},
-			{value: "CORRETO", label: "Correto"}
-		];
-		context.dificuldades = [
-			{value: "FACIL", label: "Fácil"},
-			{value: "NORMAL", label: "Normal"},
-			{value: "DIFICIL", label: "Fácil"},
-			{value: "CHUCK_NORRIS", label: "Chuck Norris"}
-		];
+		context.niveis = AdminService.getNiveis();
+		context.dificuldades = AdminService.getDificuldades();
 
-		context.tiposClasse = [
-			{value: 'VALIDA', label: "Válida"},
-			{value: 'INVALIDA', label: "Inválida"}
-		];
-
-		context.addClasse = addClasse;
-		context.addValorEntrada = addValorEntrada;
+		context.addClasses = addClasses;
+		context.addValorDeEntrada = addValorDeEntrada;
 		context.addDesafio = addDesafio;
-		context.saveFase = saveFase;
 
-		function onOpenPage(){
-			$http.get("http://localhost:8080/under-attack/ingrediente")
-				.then(function (successResponse) {
-					context.ingredientes = successResponse.data.list;
-				})
-				.catch(function (error) {
-					console.log("Erro ingredientes >>> ",error);
-				})
+
+		function addClasses(valorDeEntrada){
+            $mdDialog.show({
+				locals: {valorEntrada: valorDeEntrada},
+                controller: 'ClasseEquivalenciaCtrl',
+                controllerAs: '$classeCtrl',
+                templateUrl: 'app/modules/admin/fase/classe-de-equivalencia/add-classes-equivalencia.html',
+                clickOutsideToClose: true
+            }).then(function (response) {
+                if(response.status === 'ok'){
+                    console.log(context.fase.desafio.programa.valoresEntrada);
+                }
+            });
 		}
 
-		function addClasse(){
-			context.valorDeEntrada.classesEquivalencia.push(context.classeEquivalencia);
-			context.classeEquivalencia = {descricao: null, expressaoRegular: null,
-				bugExistente: false, tipo: null, dificuldade: null, ingrediente: null,
-				resultadoEsperado: null, saida: null};
-		}
-
-		function addValorEntrada(){
-			context.desafio.programa.valoresEntrada.push(context.valorDeEntrada);
-			context.valorDeEntrada = {descricao: null, tipo: null, dificuldade: null, classesEquivalencia: []};
+		function addValorDeEntrada(valorDeEntrada){
+            $mdDialog.show({
+                locals: {valorEntrada: valorDeEntrada},
+                controller: 'ValorDeEntradaCtrl',
+                controllerAs: '$valorEntradaCtrl',
+                templateUrl: 'app/modules/admin/fase/valor-de-entrada/add-valor-de-entrada.html',
+                clickOutsideToClose: true
+            }).then(function (response) {
+            	if(response.status === 'ok'){
+                    context.fase.desafio.programa.valoresEntrada.push(response.valorEntrada);
+                    console.log("onHide>>> ",response.valorEntrada);
+                }
+            });
 		}
 
 		function addDesafio(){
 			context.fase.desafios.push(context.desafio);
 			console.log(context.fase);
-		}
-
-
-		function saveFase(){
-			faseService.atualiza(context.fase)
-				.then(function (success) {
-					console.log("Sucess >>> ", success);
-				})
-				.catch(function (error) {
-					console.log("Error >>> ", error);
-				})
 		}
 
 	}
