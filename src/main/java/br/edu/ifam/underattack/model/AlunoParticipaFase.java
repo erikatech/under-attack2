@@ -1,27 +1,15 @@
 package br.edu.ifam.underattack.model;
 
+import br.edu.ifam.underattack.model.enums.SituacaoDesafio;
+import br.edu.ifam.underattack.model.enums.SituacaoFase;
+import br.edu.ifam.underattack.model.enums.TipoObjetivo;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import br.edu.ifam.underattack.model.enums.SituacaoDesafio;
-import br.edu.ifam.underattack.model.enums.SituacaoFase;
-import br.edu.ifam.underattack.model.enums.TipoObjetivo;
 
 @Entity
 @Table(name = "aluno_fase")

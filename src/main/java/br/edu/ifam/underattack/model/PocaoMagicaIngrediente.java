@@ -1,22 +1,9 @@
 package br.edu.ifam.underattack.model;
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-import org.apache.commons.codec.binary.Base64;
-
 import br.edu.ifam.underattack.model.enums.SituacaoIngrediente;
+
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "pocao_magica_ingrediente")

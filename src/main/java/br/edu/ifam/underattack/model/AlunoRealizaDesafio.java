@@ -148,17 +148,7 @@ public class AlunoRealizaDesafio implements Serializable {
 
 		double desempenho = (totalbugsEncontrados * 100) / totalBugs;
 
-		if (desempenho >= 0 && desempenho <= 25) {
-			return Desempenho.RUIM;
-		} else if (desempenho > 25 && desempenho <= 50) {
-			return Desempenho.NORMAL;
-		} else if (desempenho > 50 && desempenho <= 85) {
-			return Desempenho.BOM;
-		} else if (desempenho > 85) {
-			return Desempenho.OTIMO;
-		}
-
-		return null;
+		return getDesempenho(desempenho);
 	}
 
 	public Desempenho calcularDesempenhoEscritaTestes(int totalTestesEscritos) {
@@ -171,6 +161,10 @@ public class AlunoRealizaDesafio implements Serializable {
 		}
 		double desempenho = (totalTestesEscritos * 100) / totalTestes;
 
+		return getDesempenho(desempenho);
+	}
+
+	private Desempenho getDesempenho(double desempenho) {
 		if (desempenho >= 0 && desempenho <= 25) {
 			return Desempenho.RUIM;
 		} else if (desempenho > 25 && desempenho <= 50) {
@@ -180,7 +174,6 @@ public class AlunoRealizaDesafio implements Serializable {
 		} else if (desempenho > 85) {
 			return Desempenho.OTIMO;
 		}
-
 		return null;
 	}
 	
