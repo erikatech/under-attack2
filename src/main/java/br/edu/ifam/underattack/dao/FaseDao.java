@@ -1,31 +1,28 @@
 package br.edu.ifam.underattack.dao;
 
-import br.edu.ifam.underattack.model.Usuario;
+import br.edu.ifam.underattack.model.Fase;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import java.util.List;
 
 
-public class UsuarioDao {
+public class FaseDao {
 
 	private final EntityManager em;
 
 	@Inject
-	public UsuarioDao(EntityManager em) {
+	public FaseDao(EntityManager em) {
 		this.em = em;
 	}
-	
+
 	@Deprecated
-	public UsuarioDao() {
+	public FaseDao() {
 		this(null); // para uso do CDI
 	}
 	
-	public List<Usuario> consulta(String login, String senha) {
-		return em.createQuery("select u from Usuario u where u.login = "
-			+ ":login and u.senha = :senha", Usuario.class)
-			.setParameter("login", login)
-			.setParameter("senha", senha).getResultList();
+	public List<Fase> listAll() {
+		return em.createQuery("select f from Fase f", Fase.class).getResultList();
 	}
 
 }
