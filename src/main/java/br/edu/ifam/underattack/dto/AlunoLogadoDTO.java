@@ -3,13 +3,13 @@ package br.edu.ifam.underattack.dto;
 /**
  * Created by erika.silva on 22/04/2017.
  */
-public class UsuarioLogadoDTO {
+public class AlunoLogadoDTO {
 
     private String login;
 
     private String token;
 
-    public UsuarioLogadoDTO(String login, String token){
+    public AlunoLogadoDTO(String login, String token){
         this.login = login;
         this.token = token;
     }
