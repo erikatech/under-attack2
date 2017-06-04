@@ -15,7 +15,7 @@ import java.util.List;
  * Created by erika.silva on 30/04/2017.
  */
 @Controller
-public class FaseController {
+public class AdminController {
 
     private final Result result;
 
@@ -24,14 +24,14 @@ public class FaseController {
     private final IngredienteDao ingredienteDao;
 
     @Inject
-    public FaseController(Result result, FaseDao faseDao, IngredienteDao ingredienteDao){
+    public AdminController(Result result, FaseDao faseDao, IngredienteDao ingredienteDao){
         this.result = result;
         this.faseDao = faseDao;
         this.ingredienteDao = ingredienteDao;
     }
 
     @Deprecated
-    public FaseController(){
+    public AdminController(){
         this(null, null, null);
     }
 

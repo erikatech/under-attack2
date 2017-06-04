@@ -71,7 +71,7 @@ public class AlunoController {
 
         AlunoLogadoDTO usuarioLogadoDTO = new AlunoLogadoDTO(aluno.getLogin(), token);
 
-        this.alunoInfo.login(alunoConsultado);
+//        this.alunoInfo.login(alunoConsultado);
 
         this.result.use(Results.json()).withoutRoot().from(usuarioLogadoDTO).serialize();
     }
