@@ -20,12 +20,13 @@
 			var baseEndPoint = "http://localhost:8080/under-attack";
 
 			return {
-				post: post,
-				get: get,
-                put: put
+				post: _post,
+				get: _get,
+                // getWithParameters: _getWithParameters,
+                put: _put
 			};
 
-            function post(entity, endPoint){
+            function _post(entity, endPoint){
             	var finalEndpoint = baseEndPoint + endPoint;
 
             	console.info("[ServiceAPI] finalEndpoint >>> ", finalEndpoint);
@@ -39,7 +40,7 @@
                     });
             }
 
-            function put(entity, endPoint){
+            function _put(entity, endPoint){
                 var finalEndpoint = baseEndPoint + endPoint;
 
                 console.info("[ServiceAPI] finalEndpoint >>> ", finalEndpoint);
@@ -53,7 +54,21 @@
                     });
             }
 
-            function get(endPoint){
+            function _get(endPoint, config){
+                console.info("[ServiceAPI] config >>>", config);
+                var finalEndpoint = baseEndPoint + endPoint;
+                console.info("[ServiceAPI] finalEndpoint >>> ", finalEndpoint);
+
+                return $http.get(finalEndpoint, config || null)
+                    .then(function (response) {
+                        return $q.resolve(response);
+                    })
+                    .catch(function (errorResponse) {
+                        return $q.reject(errorResponse);
+                    });
+            }
+
+            /*function _getWithParameters(endPoint, config){
                 var finalEndpoint = baseEndPoint + endPoint;
 
                 console.info("[ServiceAPI] finalEndpoint >>> ", finalEndpoint);
@@ -65,6 +80,6 @@
                     .catch(function (errorResponse) {
                         return $q.reject(errorResponse);
                     });
-            }
+            }*/
 		}
 })();

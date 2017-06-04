@@ -28,9 +28,7 @@
 			function authenticate(){
 				authService.login(context.usuario)
 					.then(function () {
-						console.info("redirect to fasesss...");
-						// $state.go('authenticated.home.dashboard');
-
+						$state.go('authenticated.home');
 					})
 					.catch(function (errorResponse) {
                         CustomToastService.show(errorResponse.data.errors[0].message, "top right", 2000);
