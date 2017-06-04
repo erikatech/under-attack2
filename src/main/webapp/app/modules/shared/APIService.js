@@ -21,7 +21,8 @@
 
 			return {
 				post: post,
-				get: get
+				get: get,
+                put: put
 			};
 
             function post(entity, endPoint){
@@ -30,6 +31,20 @@
             	console.info("[ServiceAPI] finalEndpoint >>> ", finalEndpoint);
 
                 return $http.post(finalEndpoint, entity)
+                    .then(function (response) {
+                        return $q.resolve(response);
+                    })
+                    .catch(function (errorResponse) {
+                        return $q.reject(errorResponse);
+                    });
+            }
+
+            function put(entity, endPoint){
+                var finalEndpoint = baseEndPoint + endPoint;
+
+                console.info("[ServiceAPI] finalEndpoint >>> ", finalEndpoint);
+
+                return $http.put(finalEndpoint, entity)
                     .then(function (response) {
                         return $q.resolve(response);
                     })

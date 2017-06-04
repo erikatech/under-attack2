@@ -22,13 +22,7 @@
 			};
 
             function register(user){
-                return ServiceAPI.post("/usuario", user)
-                    .then(function (response) {
-                        return $q.resolve(response);
-                    })
-                    .catch(function (errorResponse) {
-                        return $q.reject(errorResponse);
-                    })
+                return ServiceAPI.post(user, '/aluno/register');
             }
 		}
 })();
