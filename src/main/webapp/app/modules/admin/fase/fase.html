@@ -18,7 +18,7 @@
 
 		<div ng-show="$faseCtrl.cadastrandoDesafio">
 
-			<form ng-submit="$desafioForm.$valid && $faseCtrl.updateFase()" name="desafioForm">
+			<form name="desafioForm">
 
 				<div layout="row">
 					<md-input-container flex="50" class="md-block">
@@ -76,7 +76,7 @@
 								</tr>
 								</thead>
 								<tbody md-body>
-								<tr md-row ng-repeat="valorDeEntrada in $faseCtrl.fase.desafio.programa.valoresEntrada">
+								<tr md-row ng-repeat="valorDeEntrada in $faseCtrl.desafio.programa.valoresEntrada">
 									<td md-cell>{{valorDeEntrada.descricao}}</td>
 									<td md-cell>{{valorDeEntrada.tipo}}</td>
 									<td md-cell>{{valorDeEntrada.dificuldade}}</td>
@@ -89,6 +89,10 @@
 							</table>
 						</md-table-container>
 					</div>
+				</div>
+
+				<div layout="row">
+					<md-button ng-click="$faseCtrl.update()">Salvar</md-button>
 				</div>
 
 			</form>

@@ -10,7 +10,7 @@
 	 */
 
   	angular
-		.module('fase')
+		.module('admin-fase')
 		.factory('ValorDeEntradaService', valorDeEntradaService);
 
 		function valorDeEntradaService () {

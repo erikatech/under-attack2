@@ -10,7 +10,7 @@
 	 */
 
   	angular
-		.module('fase')
+		.module('admin-fase')
 		.factory('FaseService', FaseService);
 
 		FaseService.$inject = ['ServiceAPI'];
@@ -18,11 +18,16 @@
 		function FaseService (ServiceAPI) {
 
 			return {
-				getAll: getAll
+				getAll: getAll,
+                updateFase: _updateFase
 			};
 
 			function getAll(){
                 return ServiceAPI.get('/fase/listAll');
+			}
+
+			function _updateFase(fase){
+				return ServiceAPI.put(fase, '/fase/updateFase');
 			}
 
 		}

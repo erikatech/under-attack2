@@ -9,5 +9,5 @@
 	* Module of the app
 	*/
 
-	angular.module('admin', ['dashboard', 'fase', 'md.data.table']);
+	angular.module('admin', ['dashboard', 'admin-fase', 'md.data.table']);
 })();

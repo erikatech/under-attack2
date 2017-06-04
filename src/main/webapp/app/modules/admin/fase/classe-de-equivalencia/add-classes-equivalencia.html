@@ -37,7 +37,7 @@
 				<md-input-container flex="33" class="md-block">
 					<label>Dificuldade</label>
 					<md-select ng-model="$classeCtrl.classe.dificuldade" required name="dificuldade">
-						<md-option ng-value="dificuldade" ng-selected="dificuldade == ngModel"
+						<md-option ng-value="dificuldade.value" ng-selected="dificuldade == ngModel"
 								   ng-repeat="dificuldade in $classeCtrl.dificuldades">
 							{{ dificuldade.label }}
 						</md-option>

@@ -11,7 +11,7 @@
 angular.module('dashboard')
 	.config(['$stateProvider', function ($stateProvider) {
 		$stateProvider
-			.state('authenticated.adminHome.dashboard', {
+			.state('adminHome.dashboard', {
 				templateUrl: 'app/modules/admin/dashboard/dashboard.html',
 				url: "/dashboard",
 				controller: 'DashboardCtrl',

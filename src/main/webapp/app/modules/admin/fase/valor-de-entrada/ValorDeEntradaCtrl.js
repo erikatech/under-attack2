@@ -10,7 +10,7 @@
 	*/
 
 	angular
-		.module('fase')
+		.module('admin-fase')
 		.controller('ValorDeEntradaCtrl', ValorDeEntrada);
 
     ValorDeEntrada.$inject = ['valorEntrada', '$mdDialog', 'ValorDeEntradaService', 'AdminService'];
@@ -23,7 +23,6 @@
         context.dificuldades = AdminService.getDificuldades();
 
         context.valorDeEntrada = angular.copy(valorEntrada);
-        console.log(context.valorDeEntrada);
 
         context.hide = hide;
         context.add = add;

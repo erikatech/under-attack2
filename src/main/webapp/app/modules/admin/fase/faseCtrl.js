@@ -10,7 +10,7 @@
 	*/
 
 	angular
-		.module('fase')
+		.module('admin-fase')
 		.controller('FaseCtrl', Fase);
 
 	Fase.$inject = ['$stateParams', 'FaseService', '$mdDialog', 'AdminService'];
@@ -18,30 +18,19 @@
 	function Fase($stateParams, FaseService, $mdDialog, AdminService) {
 		var context = this;
 
+		context.fase = $stateParams.fase;
+
         context.cadastrandoDesafio = true;
 		context.desafio = {nivel: null,  programa: {titulo: null, descricao: null, valoresEntrada: []}};
 		context.valorDeEntradaSelected = [];
 		context.selectedDesafios = [];
-
-		/*context.fase = $stateParams.fase;
-
-		context.fase.desafios = [];*/
-
-        context.fase = {
-        	desafio: {
-        		programa:
-					{
-						valoresEntrada: []
-					}
-        	}
-        };
 
 		context.niveis = AdminService.getNiveis();
 		context.dificuldades = AdminService.getDificuldades();
 
 		context.addClasses = addClasses;
 		context.addValorDeEntrada = addValorDeEntrada;
-		context.addDesafio = addDesafio;
+		context.update = _update;
 
 
 		function addClasses(valorDeEntrada){
@@ -53,7 +42,7 @@
                 clickOutsideToClose: true
             }).then(function (response) {
                 if(response.status === 'ok'){
-                    console.log(context.fase.desafio.programa.valoresEntrada);
+                    console.log(context.desafio.programa.valoresEntrada);
                 }
             });
 		}
@@ -67,16 +56,24 @@
                 clickOutsideToClose: true
             }).then(function (response) {
             	if(response.status === 'ok'){
-                    context.fase.desafio.programa.valoresEntrada.push(response.valorEntrada);
-                    console.log("onHide>>> ",response.valorEntrada);
+                    context.desafio.programa.valoresEntrada.push(response.valorEntrada);
                 }
             });
 		}
 
-		function addDesafio(){
-			context.fase.desafios.push(context.desafio);
-			console.log(context.fase);
-		}
+		function _update(){
+            console.log("FASE AO ATUALIZAR >>> ",context.fase);
+            context.fase.desafios = [context.desafio];
+            /*context.desafio = {nivel: null,  programa: {titulo: null, descricao: null, valoresEntrada: []}};
+            console.log(context.fase);*/
+            FaseService.updateFase(context.fase)
+				.then(function (response) {
+					console.log("Success >>> ",  response);
+                })
+				.catch(function (error) {
+					console.log("ERROR >>> ",error);
+                });
+        }
 
 	}
 })();

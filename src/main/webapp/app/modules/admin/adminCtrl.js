@@ -30,7 +30,7 @@
 		function authenticate(){
             authService.login(context.professor)
 				.then(function(){
-					$state.go('authenticated.adminHome.dashboard');
+					$state.go('adminHome.dashboard');
 				})
 				.catch(function (errorResponse) {
 					CustomToastService.show(errorResponse.data.errors[0].message, "top right", 2000);

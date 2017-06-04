@@ -10,7 +10,7 @@
 	*/
 
 	angular
-		.module('fase')
+		.module('admin-fase')
 		.controller('ClasseEquivalenciaCtrl', ClasseEquivalencia);
 
     ClasseEquivalencia.$inject = ['valorEntrada', '$mdDialog', 'ClasseEquivalenciaService', 'AdminService'];

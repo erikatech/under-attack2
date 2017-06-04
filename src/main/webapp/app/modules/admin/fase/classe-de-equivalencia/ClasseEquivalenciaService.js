@@ -10,7 +10,7 @@
 	 */
 
   	angular
-		.module('fase')
+		.module('admin-fase')
 		.factory('ClasseEquivalenciaService', classeEquivalenciaService);
 
   		classeEquivalenciaService().$inject = ['ServiceAPI'];

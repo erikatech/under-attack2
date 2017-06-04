@@ -13,9 +13,9 @@
 		.module('dashboard')
 		.controller('DashboardCtrl', Dashboard);
 
-	Dashboard.$inject = ['faseService', '$state'];
+	Dashboard.$inject = ['FaseService', '$state'];
 
-	function Dashboard(faseService, $state) {
+	function Dashboard(FaseService, $state) {
 
 		var context = this;
 		onOpenPage();
@@ -23,7 +23,7 @@
 		context.configuraFase = configuraFase;
 
 		function onOpenPage(){
-			faseService.getAll()
+            FaseService.getAll()
 				.then(function (successResponse) {
 					context.fases = successResponse.data.list;
 				})
@@ -33,7 +33,7 @@
 		}
 
 		function configuraFase(fase){
-			$state.go('authenticated.adminHome.fase', { fase: fase });
+			$state.go('adminHome.fase', { fase: fase });
 		}
 	}
 })();

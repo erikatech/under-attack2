@@ -8,10 +8,10 @@
 	* Route for the fase module
 	*/
 
-angular.module('fase')
+angular.module('admin-fase')
 	.config(['$stateProvider', function ($stateProvider) {
 		$stateProvider
-			.state('authenticated.adminHome.fase', {
+			.state('adminHome.fase', {
 				templateUrl: 'app/modules/admin/fase/fase.html',
 				params: {
 					fase: null

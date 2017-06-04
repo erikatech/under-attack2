@@ -11,7 +11,7 @@
 angular.module('admin')
 	.config(['$stateProvider', function ($stateProvider) {
 		$stateProvider
-			.state('authenticated.adminHome', {
+			.state('adminHome', {
 				url: '',
 				abstract: true,
 				templateUrl: 'app/modules/admin/admin-home.html'
