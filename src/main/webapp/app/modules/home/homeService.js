@@ -21,14 +21,9 @@
 				getFases: _getFases
 			};
 
-			function _getFases(){
-				return ServiceAPI.get('/aluno/login')
-					.then(function (successResponse) {
-                        console.info(successResponse)
-                    })
-					.catch(function(errorResponse){
-						console.error(errorResponse);
-					});
+			function _getFases(login){
+				var config = { params: { login: login}};
+				return ServiceAPI.get('/fase/fasesFromAluno', config);
 			}
 
 		}

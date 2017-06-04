@@ -13,10 +13,21 @@
 		.module('home')
 		.controller('HomeCtrl', HomeCtrl);
 
-    	HomeCtrl.$inject = [''];
+    	HomeCtrl.$inject = ['HomeService'];
 
-		function HomeCtrl() {
+		function HomeCtrl(HomeService) {
 			var context = this;
+
+			context.login = localStorage.getItem("login");
+
+            HomeService.getFases(context.login)
+				.then(function (successResponse) {
+				    console.log(successResponse);
+					context.fasesAluno = successResponse.data.fasesAluno;
+                })
+				.catch(function (errorResponse) {
+					console.error(errorResponse)
+                })
 
 
 		}

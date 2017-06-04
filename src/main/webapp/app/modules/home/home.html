@@ -1,0 +1,67 @@
+<div layout-fill class="home-namespace background" layout="column">
+    <page-header></page-header>
+
+    <div layout="column" class="fases-container">
+
+        <!-- FASE DOS TESTADORES -->
+        <div layout="row" class="testadores-container">
+            <img flex="20">
+            <div layout="column" flex style="margin-left: 10px;" flex="40">
+                <h1>{{ $home.fasesAluno[0].fase.titulo}}</h1>
+                <p>{{ $home.fasesAluno[0].fase.descricao}}</p>
+
+                <h2>Objetivos:</h2>
+                <div layout="row" layout-align="start center">
+                    <div layout="column" class="objetivos-container" flex="80">
+                        <div ng-repeat="faseObjetivo in $home.fasesAluno[0].faseObjetivo" layout="row"
+                             layout-align="start center">
+                            <img ng-if="faseObjetivo.realizado" src="app/assets/images/dashboard/checked.png">
+                            <img ng-if="!faseObjetivo.realizado" src="app/assets/images/dashboard/unchecked.png">
+                            <p>
+                                {{ faseObjetivo.objetivo.descricao }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="iniciar-button-container" flex>
+                        <img>
+                    </div>
+                </div>
+            </div>
+            <div flex="20" layout="row" layout-align="center center">
+                <img src="app/assets/images/dashboard/cadeado_aberto.png" class="cadeado">
+            </div>
+        </div><!-- END OF FASE DOS TESTADORES -->
+
+
+        <!-- FASE DOS DESENVOLVEDORES -->
+        <div layout="row" class="desenvolvedores-container">
+            <div flex="20" layout="row" layout-align="center center">
+                <img src="app/assets/images/dashboard/cadeado_aberto.png" class="cadeado">
+            </div>
+
+            <div layout="column" flex style="margin-right: 10px;" flex="40" layout-align="end end">
+                <h1>{{ $home.fasesAluno[1].fase.titulo}}</h1>
+                <p>{{ $home.fasesAluno[1].fase.descricao}}</p>
+
+                <div layout="row" style="width: 100%;" flex layout-align="start center">
+                    <div class="iniciar-button-container" layout="row" layout-align="start center">
+                        <img>
+                    </div>
+                    <div layout="column" layout-align="end end" class="objetivos-container" flex="80">
+                        <h2>Objetivos:</h2>
+                        <div ng-repeat="faseObjetivo in $home.fasesAluno[1].faseObjetivo" layout="row"
+                             layout-align="start center">
+                            <img ng-if="faseObjetivo.realizado" src="app/assets/images/dashboard/checked.png">
+                            <img ng-if="!faseObjetivo.realizado" src="app/assets/images/dashboard/unchecked.png">
+                            <p>
+                                {{ faseObjetivo.objetivo.descricao }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <img flex="20">
+        </div> <!-- END FASE DOS DESENVOLVEDORES -->
+    </div>
+
+</div>

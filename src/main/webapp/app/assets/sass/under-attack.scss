@@ -2,6 +2,69 @@
 @import "../../modules/admin/dashboard/dashboard";
 @import "../../modules/home/home";
 
+* {
+    font-family: janda;
+    color: white;
+}
+
+@font-face {
+    font-family: 'janda';
+    src: url('../fonts/JandaManateeSolid.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.background {
+    overflow: auto;
+    background-position: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size:  cover;
+    background-image: url('../../assets/images/geral/tela-lisa.png');
+    background-repeat: no-repeat;
+}
+
+.abstract-img-button {
+    cursor: pointer;
+    outline: none;
+}
+
+.sair-button-container {
+    img {
+        @extend .abstract-img-button;
+        width: 95px;
+        height: 50px;
+        content:url('../../assets/images/geral/sair_off.png');
+    }
+
+    img:hover {
+        content:url('../../assets/images/geral/sair_on.png');
+    }
+}
+
+.iniciar-button-container {
+    img {
+        @extend .abstract-img-button;
+        width: 145px;
+        height: 50px;
+        content:url('../../assets/images/dashboard/iniciar_off.png');
+    }
+
+    img:hover {
+        content:url('../../assets/images/dashboard/iniciar_on.png');
+    }
+}
+
+.page-header {
+    height: 65px;
+    border-bottom: 5px solid #202636;
+    border-radius: 8px;
+    h1 {
+        margin-left: 20px;
+    }
+}
+
 .custom-button {
     height: 36px;
     border-radius: 5px;
