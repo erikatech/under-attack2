@@ -8,4 +8,6 @@ WEB-INF
 node_modules
 src
 app/modules/admin
+app/assets/images/
+
 
