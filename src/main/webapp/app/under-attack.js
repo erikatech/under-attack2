@@ -20,9 +20,10 @@
 		'angular-loading-bar',
 
 		'login-validator',
-		'admin',
+		// 'admin',
 		'auth',
-		'register'
+		'register',
+		'home'
 	]);
 
 })();
