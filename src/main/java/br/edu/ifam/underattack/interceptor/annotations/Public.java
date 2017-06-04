@@ -1,4 +1,4 @@
-package br.edu.ifam.underattack.annotations;
+package br.edu.ifam.underattack.interceptor.annotations;
 
 import java.lang.annotation.*;
 

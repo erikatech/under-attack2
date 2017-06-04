@@ -7,7 +7,7 @@ import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.controller.ControllerMethod;
 import br.com.caelum.vraptor.interceptor.SimpleInterceptorStack;
 import br.com.caelum.vraptor.view.Results;
-import br.edu.ifam.underattack.annotations.Public;
+import br.edu.ifam.underattack.interceptor.annotations.Public;
 import br.edu.ifam.underattack.util.JWTUtil;
 
 import javax.inject.Inject;
