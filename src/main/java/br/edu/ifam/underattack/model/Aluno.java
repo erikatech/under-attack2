@@ -1,15 +1,26 @@
 package br.edu.ifam.underattack.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by erika.silva on 22/04/2017.
  */
-
 @Entity
-@DiscriminatorValue(value = "Aluno")
-public class Aluno extends Usuario {
+@Table(name = "aluno")
+public class Aluno implements Serializable{
+
+    private static final long serialVersionUID = 9194851105334451104L;
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String nome;
+
+    private String login;
+
+    private String senha;
 
     @OneToOne
     private NivelAluno nivelAluno;
@@ -30,6 +41,38 @@ public class Aluno extends Usuario {
 
     @OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL)
     private List<AlunoEncontraClasseEquivalencia> alunoEncontraClasseEquivalencia;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 
     public NivelAluno getNivelAluno() {
         return nivelAluno;

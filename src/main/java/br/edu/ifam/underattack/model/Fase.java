@@ -26,11 +26,11 @@ public class Fase implements Serializable {
 
 	private String nomeImagem;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "fase_desafio", joinColumns = { @JoinColumn(name = "fase_id") }, inverseJoinColumns = { @JoinColumn(name = "desafio_id") })
 	private List<Desafio> desafios;
 
-	@OneToMany(mappedBy = "fase", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "fase", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Objetivo> objetivos;
 
 	public Fase() {
