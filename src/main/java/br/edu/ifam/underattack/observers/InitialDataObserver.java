@@ -1,7 +1,10 @@
 package br.edu.ifam.underattack.observers;
 
 import br.com.caelum.vraptor.events.VRaptorInitialized;
-import br.edu.ifam.underattack.model.*;
+import br.edu.ifam.underattack.model.Fase;
+import br.edu.ifam.underattack.model.Ingrediente;
+import br.edu.ifam.underattack.model.NivelAluno;
+import br.edu.ifam.underattack.model.Objetivo;
 import br.edu.ifam.underattack.util.JPAUtil;
 
 import javax.enterprise.event.Observes;
@@ -160,7 +163,7 @@ public class InitialDataObserver {
 		/**
          *
          * @param event
-         */
+
 	public void createProfessor(@Observes VRaptorInitialized event) {
 		EntityManager em = JPAUtil.criaEntityManager();
 		String jpql = "select p from Professor p";
@@ -171,5 +174,5 @@ public class InitialDataObserver {
 			em.getTransaction().commit();
 			em.close();
 		}
-	}
+	}*/
 }
