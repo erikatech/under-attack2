@@ -1,11 +1,10 @@
 package br.edu.ifam.underattack.controller;
 
-import br.com.caelum.vraptor.Controller;
-import br.com.caelum.vraptor.Get;
-import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.*;
 import br.com.caelum.vraptor.view.Results;
 import br.edu.ifam.underattack.dao.FaseDao;
 import br.edu.ifam.underattack.dao.IngredienteDao;
+import br.edu.ifam.underattack.interceptor.annotations.Public;
 import br.edu.ifam.underattack.model.Fase;
 import br.edu.ifam.underattack.model.Ingrediente;
 
@@ -38,15 +37,26 @@ public class FaseController {
 
 
     @Get
+    @Public
     public void listAll(){
         List<Fase> fases = this.faseDao.listAll();
         this.result.include("fases").use(Results.json()).from(fases).serialize();
     }
 
     @Get
+    @Public
     public void listIngredientes(){
         List<Ingrediente> ingredientes = this.ingredienteDao.listAll();
         this.result.use(Results.json()).from(ingredientes, "ingredientes").serialize();
+    }
+
+    @Put
+    @Consumes(value = "application/json")
+    @Public
+    public void updateFase(Fase fase){
+        this.faseDao.updateFase(fase);
+        this.result.include("message").use(Results.json())
+                .from("Desafio salvo com sucesso").serialize();
     }
 
 
