@@ -7,4 +7,5 @@
 WEB-INF
 node_modules
 src
+app/modules/admin
 
