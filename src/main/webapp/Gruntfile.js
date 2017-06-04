@@ -108,7 +108,7 @@ module.exports = function (grunt) {
 				}
 			},
             css: {
-                files: ['app/assets/sass/**/*.scss', 'app/modules/**/*.scss'],
+                files: ['app/assets/sass/*.scss', 'app/modules/**/*.scss'],
                 tasks: ['sass']
             }
 		},
