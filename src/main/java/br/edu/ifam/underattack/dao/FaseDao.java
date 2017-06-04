@@ -1,5 +1,6 @@
 package br.edu.ifam.underattack.dao;
 
+import br.edu.ifam.underattack.model.AlunoParticipaFase;
 import br.edu.ifam.underattack.model.Fase;
 import br.edu.ifam.underattack.model.Objetivo;
 
@@ -35,5 +36,13 @@ public class FaseDao {
 
 	public void updateFase(Fase fase){
 		this.em.merge(fase);
+	}
+
+	public List<AlunoParticipaFase> listFasesFromAluno(String login){
+		TypedQuery<AlunoParticipaFase> query =
+				this.em.createQuery("select a from AlunoParticipaFase a where a.aluno.login =:login",
+						AlunoParticipaFase.class);
+		query.setParameter("login", login);
+		return query.getResultList();
 	}
 }
