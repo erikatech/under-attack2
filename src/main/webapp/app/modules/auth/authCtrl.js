@@ -13,27 +13,27 @@
 		.module('auth')
 		.controller('AuthCtrl', AuthCtrl);
 
-		AuthCtrl.$inject = ['authService', '$state'];
+		AuthCtrl.$inject = ['authService', '$state', 'CustomToastService'];
 
-		function AuthCtrl(authService, $state) {
+		function AuthCtrl(authService, $state, CustomToastService) {
 			var context = this;
 
 			context.usuario = {login: null, senha: null};
 			context.register = register;
 			context.authenticate = authenticate;
-			context.adminMode = adminMode;
 
             /**
 			 * Autentica um usuário
              */
 			function authenticate(){
 				authService.login(context.usuario)
-					.then(function (response) {
-						console.log("Success >>> ", response);
+					.then(function () {
+						console.info("redirect to fasesss...");
 						// $state.go('authenticated.home.dashboard');
+
 					})
 					.catch(function (errorResponse) {
-						console.log(errorResponse.data.errors[0].message);
+                        CustomToastService.show(errorResponse.data.errors[0].message, "top right", 2000);
 					});
 			}
 
@@ -42,10 +42,6 @@
              */
 			function register(){
 				$state.go("register");
-			}
-
-			function adminMode(){
-				$state.go("login");
 			}
 
 		}

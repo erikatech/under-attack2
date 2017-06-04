@@ -24,7 +24,7 @@
 			};
 
 			function login(usuario){
-				return ServiceAPI.post(usuario, '/login/autentica')
+				return ServiceAPI.post(usuario, '/aluno/login')
 					.then(function (success) {
                         var usuarioLogado = success.data;
                         localStorage.setItem("token", usuarioLogado.token);
@@ -39,7 +39,7 @@
 			}
 
 			function getUser(){
-				return ServiceAPI.get('/login/getUser');
+				return ServiceAPI.get('/aluno/getUser');
 			}
 		}
 })();
