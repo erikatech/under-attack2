@@ -17,12 +17,20 @@
 
 		function ValoresDeEntradaService (ServiceAPI) {
 			return {
-				iniciarDesafio: _iniciarDesafio
+                validateValorDeEntrada: _validateValorDeEntrada,
+				goToNextStage: _gotoNextStage
 			};
 
-			function _iniciarDesafio(){
-				var requestData = { login: localStorage.getItem("login"), idDesafio: localStorage.getItem("desafioId")};
-				return ServiceAPI.post(requestData, '/salaTestadores/iniciaDesafio');
+
+            function _validateValorDeEntrada(idValorDeEntrada, idDesafio){
+                var config = { params: {idValorDeEntrada: idValorDeEntrada, login: localStorage.getItem("login"),
+                    desafioId: idDesafio}};
+                return ServiceAPI.get('/salaTestadores/isValorValido', config);
+            }
+
+			function _gotoNextStage(valoresSelecionados){
+                var requestData = { login: localStorage.getItem("login"), valoresSelecionados: valoresSelecionados};
+                return ServiceAPI.post(requestData, '/salaTestadores/goToNextStage');
 			}
 
 		}
