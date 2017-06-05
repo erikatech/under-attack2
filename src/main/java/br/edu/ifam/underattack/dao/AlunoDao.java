@@ -2,11 +2,11 @@ package br.edu.ifam.underattack.dao;
 
 import br.edu.ifam.underattack.model.*;
 import br.edu.ifam.underattack.model.enums.SituacaoFase;
+import br.edu.ifam.underattack.model.enums.TipoValorEntrada;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -22,16 +22,19 @@ public class AlunoDao {
 
 	private final NivelAlunoDao nivelAlunoDao;
 
+	private final ValorDeEntradaDao valorDeEntradaDao;
+
 	@Inject
-	public AlunoDao(EntityManager em, FaseDao faseDao, NivelAlunoDao nivelAlunoDao) {
+	public AlunoDao(EntityManager em, FaseDao faseDao, NivelAlunoDao nivelAlunoDao, ValorDeEntradaDao valorDeEntradaDao) {
 		this.em = em;
 		this.faseDao = faseDao;
 		this.nivelAlunoDao = nivelAlunoDao;
+		this.valorDeEntradaDao = valorDeEntradaDao;
 	}
 	
 	@Deprecated
 	public AlunoDao() {
-		this(null, null, null); // para uso do CDI
+		this(null, null, null, null); // para uso do CDI
 	}
 
 	public void adiciona(Aluno aluno) {
@@ -129,14 +132,6 @@ public class AlunoDao {
 		return count > 0;
 	}
 
-	public boolean emailEmUtilizacao(String email) {
-		Long count = em
-				.createQuery("select count(a) from Aluno a where a.email = :email", Long.class)
-				.setParameter("email", email)
-				.getSingleResult();
-		return count > 0;
-	}
-
 	public AlunoRealizaDesafio desafiosDoAluno(String login, Long idDesafio) throws NoResultException{
 		try {
 			TypedQuery<AlunoRealizaDesafio> query = this.em.createQuery("select ad from AlunoRealizaDesafio ad " +
@@ -151,5 +146,27 @@ public class AlunoDao {
 
 	public void iniciaDesafio(AlunoRealizaDesafio alunoDesafio) {
 		this.em.persist(alunoDesafio);
+	}
+
+
+    public void encontraValoresDeEntrada(String login, List<ValorDeEntrada> valoresSelecionados) {
+		final Aluno aluno = this.consulta(login);
+		for (ValorDeEntrada valorSelecionado : valoresSelecionados) {
+			ValorDeEntrada valorEncontrado = this.valorDeEntradaDao.getValorDeEntrada(valorSelecionado.getId());
+			if(valorEncontrado.getTipo().equals(TipoValorEntrada.CORRETO)){
+				AlunoEncontraValorDeEntrada alunoValor = new AlunoEncontraValorDeEntrada();
+				alunoValor.setAluno(aluno);
+				alunoValor.setValorDeEntrada(valorEncontrado);
+				this.em.persist(alunoValor);
+			}
+		}
+	}
+
+	public boolean alunoEncontrouValores(String login) {
+		TypedQuery<AlunoEncontraValorDeEntrada> query = this.em.createQuery("select av " +
+				"from AlunoEncontraValorDeEntrada av where av.aluno.login=:login", AlunoEncontraValorDeEntrada.class);
+		query.setParameter("login", login);
+		List<AlunoEncontraValorDeEntrada> resultList = query.getResultList();
+		return resultList.size() != 0;
 	}
 }
