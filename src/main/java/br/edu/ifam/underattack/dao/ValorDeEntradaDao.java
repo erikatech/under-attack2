@@ -1,37 +1,39 @@
 package br.edu.ifam.underattack.dao;
 
-import br.edu.ifam.underattack.model.Desafio;
-import br.edu.ifam.underattack.model.Fase;
+import br.edu.ifam.underattack.model.AlunoEncontraValorDeEntrada;
+import br.edu.ifam.underattack.model.ValorDeEntrada;
+import br.edu.ifam.underattack.model.enums.TipoValorEntrada;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 
 
-public class DesafioDao {
+public class ValorDeEntradaDao {
 
     private final EntityManager em;
 
     @Inject
-    public DesafioDao(EntityManager em) {
+    public ValorDeEntradaDao(EntityManager em) {
         this.em = em;
     }
 
     @Deprecated
-    public DesafioDao() {
+    public ValorDeEntradaDao() {
         this(null); // para uso do CDI
     }
 
-    public List<Desafio> listAll() {
-        return em.createQuery("select d from Desafio d", Desafio.class).getResultList();
+    public ValorDeEntrada getValorDeEntrada(Long id){
+        return this.em.find(ValorDeEntrada.class, id);
     }
 
-    public void add(Desafio desafio){
-        this.em.persist(desafio);
-    }
-
-    public Desafio getDesafio(Long id){
-        return em.find(Desafio.class, id);
+    public List<AlunoEncontraValorDeEntrada> getValoresAluno(String login){
+        TypedQuery<AlunoEncontraValorDeEntrada> query = this.em.createQuery("select av from " +
+                "AlunoEncontraValorDeEntrada av where av.aluno.login=:login", AlunoEncontraValorDeEntrada.class);
+        query.setParameter("login", login);
+        return query.getResultList();
     }
 
 }
