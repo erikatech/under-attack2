@@ -30,4 +30,8 @@ public class DesafioDao {
         this.em.persist(desafio);
     }
 
+    public Desafio getDesafio(Long id){
+        return em.find(Desafio.class, id);
+    }
+
 }

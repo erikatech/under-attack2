@@ -6,6 +6,7 @@ import br.edu.ifam.underattack.model.enums.SituacaoFase;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -90,6 +91,19 @@ public class AlunoDao {
 		return query.getSingleResult();
 	}
 
+	public Aluno consulta(String login){
+		TypedQuery<Aluno> query = this.em.createQuery(
+				"select a from Aluno a where a.login =:login", Aluno.class);
+		query.setParameter("login", login);
+		try {
+			query.getSingleResult();
+		} catch(NoResultException e){
+			e.printStackTrace();
+			throw new NoResultException("Login ou senha inválidos");
+		}
+		return query.getSingleResult();
+	}
+
 	public Aluno consulta(String login, String senha) {
 		try {
 			TypedQuery<Aluno> query = this.em
@@ -121,5 +135,21 @@ public class AlunoDao {
 				.setParameter("email", email)
 				.getSingleResult();
 		return count > 0;
+	}
+
+	public AlunoRealizaDesafio desafiosDoAluno(String login, Long idDesafio) throws NoResultException{
+		try {
+			TypedQuery<AlunoRealizaDesafio> query = this.em.createQuery("select ad from AlunoRealizaDesafio ad " +
+					"where ad.aluno.login=:login and ad.desafio.id=:idDesafio", AlunoRealizaDesafio.class);
+			query.setParameter("login", login);
+			query.setParameter("idDesafio", idDesafio);
+			return query.getSingleResult();
+		} catch(NoResultException ex){
+			throw new NoResultException("Nenhum resultado");
+		}
+	}
+
+	public void iniciaDesafio(AlunoRealizaDesafio alunoDesafio) {
+		this.em.persist(alunoDesafio);
 	}
 }

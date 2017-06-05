@@ -7,19 +7,19 @@ import javax.persistence.EntityManager;
 
 
 public class PocaoMagicaDao {
-	private final EntityManager em;
+    private final EntityManager em;
 
-	@Inject
-	public PocaoMagicaDao(EntityManager em) {
-		this.em = em;
-	}
+    @Inject
+    public PocaoMagicaDao(EntityManager em) {
+        this.em = em;
+    }
 
-	@Deprecated
-	public PocaoMagicaDao() {
-		this(null); // para uso do CDI
-	}
-	
-	public void atualiza(PocaoMagica pocaoMagica){
-		this.em.merge(pocaoMagica);
-	}
+    @Deprecated
+    public PocaoMagicaDao() {
+        this(null); // para uso do CDI
+    }
+
+    public void atualiza(PocaoMagica pocaoMagica) {
+        this.em.merge(pocaoMagica);
+    }
 }

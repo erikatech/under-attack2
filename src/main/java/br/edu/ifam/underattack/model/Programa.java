@@ -24,7 +24,7 @@ public class Programa implements Serializable {
     @Lob
     private String descricao;
 
-    @OneToMany(mappedBy = "programa", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "programa", cascade = CascadeType.ALL)
     private List<ValorDeEntrada> valoresEntrada;
 
     @OneToMany(mappedBy = "programa")
