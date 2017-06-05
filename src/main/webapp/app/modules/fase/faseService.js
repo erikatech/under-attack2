@@ -3,14 +3,14 @@
 
 	/**
 	 * @ngdoc function
-	 * @name app.service:adminService
+	 * @name app.service:FaseService
 	 * @description
-	 * # adminService
+	 * # FaseService
 	 * Service of the app
 	 */
 
   	angular
-		.module('admin-fase')
+		.module('under-attack')
 		.factory('FaseService', FaseService);
 
 		FaseService.$inject = ['ServiceAPI'];
@@ -18,18 +18,8 @@
 		function FaseService (ServiceAPI) {
 
 			return {
-				getAll: getAll,
-                updateFase: _updateFase,
 				getDesafio: _getDesafio
 			};
-
-			function getAll(){
-                return ServiceAPI.get('/fase/listAll');
-			}
-
-			function _updateFase(fase){
-				return ServiceAPI.put(fase, '/fase/updateFase');
-			}
 
 			function _getDesafio(idDesafio){
 				var config = {params: {idDesafio: idDesafio}};
