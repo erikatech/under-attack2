@@ -1,0 +1,17 @@
+<md-dialog style="background: transparent; box-shadow: none"
+           class="desafio-dialog-namespace">
+    <div class="background-popup" style="width: 735px; height: 400px">
+        <div class="desafio-dialog-content iniciar-button-container" layout="column" layout-align="center center"
+             style="padding-top: 40px;">
+            <h1 style="letter-spacing: 2px">Não foi dessa vez</h1>
+            <p style="letter-spacing: 1px; font-size: 20px">Os ZOMBUGS devoraram todos os seus cérebros</p>
+
+            <div layout="row" layout-align="center" style="margin-top: 75px;">
+                <img style="width: 200px;" ng-click="$gameOver.back()">
+                <img style="width: 200px; margin-left: 15px" ng-click="$gameOver.tryAgain()">
+            </div>
+
+        </div>
+    </div>
+</md-dialog>
+
