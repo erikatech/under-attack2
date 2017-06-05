@@ -18,6 +18,25 @@ angular.module('sala-testadores')
                 controllerAs: '$testadores'
 
             })
+            .state('authenticated.classesEquivalencia', {
+                url:'/fases/testadores/classes-de-equivalencia',
+                templateUrl: 'app/modules/sala-testadores/desafio/classes-equivalencia/classes-de-equivalencia.html',
+                controller: 'ClassesDeEquivalenciaCtrl',
+                controllerAs: '$classes',
+                resolve: {
+                    alunoDesafio:
+                        ['$q', '$state', 'ClassesDeEquivalenciaService',
+                            function ($q, $state, ClassesDeEquivalenciaService) {
+                                return ClassesDeEquivalenciaService.getDesafios(localStorage.getItem("desafioId"))
+                                    .then(function (response) {
+                                        return response.data.alunoDesafio;
+                                    }).catch(function () {
+                                        $state.go('authenticated.valoresDeEntrada');
+                                    });
+                            }]
+                }
+
+            })
             .state('authenticated.valoresDeEntrada', {
                 url:'/fases/testadores/valores-de-entrada',
                 templateUrl: 'app/modules/sala-testadores/desafio/valores-de-entrada/valores-de-entrada.html',
@@ -25,13 +44,14 @@ angular.module('sala-testadores')
                 controllerAs: '$valores',
                 resolve: {
                     alunoDesafio:
-                        ['$q', 'ValoresDeEntradaService',
-                            function ($q, ValoresDeEntradaService) {
-                                return ValoresDeEntradaService.iniciarDesafio()
+                        ['$q', '$state', 'SalaTestadoresService',
+                            function ($q, $state, SalaTestadoresService) {
+                                return SalaTestadoresService.iniciaDesafio()
                                     .then(function (response) {
                                         return response.data.alunoDesafio;
-                                    }).catch(function (errorResponse) {
-                                        console.error("Resolve valor de entrada >>> ", errorResponse);
+                                    }).catch(function () {
+                                        $state.go('authenticated.classesEquivalencia');
+                                        // console.error("Catch valor de entrada >>> ", errorResponse);
                                     });
                             }]
                 }

@@ -18,13 +18,19 @@
 		function SalaTestadores (ServiceAPI) {
 
 			return {
-				getItemsPocaoMagica: _getItemsPocaoMagica
+				getItemsPocaoMagica: _getItemsPocaoMagica,
+				iniciaDesafio: _iniciaDesafio
 			};
 
 			function _getItemsPocaoMagica(){
 				var config = { params: { login: localStorage.getItem("login")}};
 				return ServiceAPI.get('/salaTestadores/getPocaoMagicaItems', config);
 			}
+
+            function _iniciaDesafio(){
+                var requestData = { login: localStorage.getItem("login"), idDesafio: localStorage.getItem("desafioId")};
+                return ServiceAPI.post(requestData, '/salaTestadores/iniciaDesafio');
+            }
 
 		}
 })();
