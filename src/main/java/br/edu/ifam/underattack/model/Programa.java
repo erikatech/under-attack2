@@ -67,7 +67,6 @@ public class Programa implements Serializable {
     }
 
     public List<ValorDeEntrada> getValoresEntrada() {
-        Collections.shuffle(this.valoresEntrada);
         return this.valoresEntrada;
     }
 
