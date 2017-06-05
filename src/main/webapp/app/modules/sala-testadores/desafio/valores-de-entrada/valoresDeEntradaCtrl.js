@@ -3,52 +3,41 @@
 
 	/**
 	* @ngdoc function
-	* @name app.controller:SalaTestadoresCtrl
+	* @name app.controller:ValoresDeEntradaCtrl
 	* @description
-	* # SalaTestadoresCtrl
+	* # ValoresDeEntradaCtrl
 	* Controller of the module sala-testadores
 	*/
 
   	angular
 		.module('sala-testadores')
-		.controller('SalaTestadoresCtrl', SalaTestadoresCtrl);
+		.controller('ValoresDeEntradaCtrl', ValoresDeEntradaCtrl);
 
-    	SalaTestadoresCtrl.$inject = ['SalaTestadoresService', 'FaseService', '$mdDialog', '$state'];
+    	ValoresDeEntradaCtrl.$inject = ['alunoDesafio'];
 
-		function SalaTestadoresCtrl(SalaTestadoresService, FaseService, $mdDialog, $state) {
+		function ValoresDeEntradaCtrl(alunoDesafio) {
 			var context = this;
-			var fase = JSON.parse(localStorage.getItem("fase"));
 
-			context.desafios = fase.desafios;
-			context.openDesafio = _openDesafio;
+			context.selecionados = [];
+			context.valorEntrada = {};
 
-            SalaTestadoresService.getItemsPocaoMagica()
-				.then(function (successResponse) {
-					console.info(successResponse)
-                })
-				.catch(function (errorResponse) {
-					console.error(errorResponse);
-                });
-
-            function _openDesafio(idDesafio){
-                FaseService.getDesafio(idDesafio)
-					.then(function (successResponse) {
-                        $mdDialog.show({
-                            controller: 'DesafioDialogCtrl',
-                            controllerAs: '$desafioDialog',
-                            templateUrl: 'app/modules/sala-testadores/desafio/tmpl/desafio-dialog.tmpl.html',
-                            clickOutsideToClose: true,
-                            locals: { desafioDialogInfo: successResponse.data.desafio }
-                        }).then(function(desafioId){
-                        	console.log(desafioId);
-                        	localStorage.setItem("desafioId", desafioId);
-                        	// $state.go();
-						})
-
-                    })
-					.catch(function (errorResponse) {
-						console.error("openDesafio >>> ", errorResponse);
-                    })
+			context.cerebrosDisponiveis = [];
+			for(var i = 1; i < 4; i++){
+				context.cerebrosDisponiveis.push(i);
 			}
+			context.desafio = alunoDesafio.desafio;
+
+			context.validate = _validate;
+
+			function _validate(){
+                console.log(context.valorSelecionado )
+			}
+
+			context.startCallback = function(event, ui, item){
+				context.valorSelecionado = item;
+			}
+
+
+
 		}
 })();

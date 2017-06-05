@@ -3,35 +3,50 @@
 
 	/**
 	* @ngdoc function
-	* @name app.controller:HomeCtrl
+	* @name app.controller:SalaTestadoresCtrl
 	* @description
-	* # HomeCtrl
-	* Controller of the module home
+	* # SalaTestadoresCtrl
+	* Controller of the module sala-testadores
 	*/
 
   	angular
-		.module('home')
-		.controller('HomeCtrl', HomeCtrl);
+		.module('sala-testadores')
+		.controller('SalaTestadoresCtrl', SalaTestadoresCtrl);
 
-    	HomeCtrl.$inject = ['HomeService', '$state'];
+    	SalaTestadoresCtrl.$inject = ['SalaTestadoresService', 'FaseService', '$mdDialog', '$state'];
 
-		function HomeCtrl(HomeService, $state) {
+		function SalaTestadoresCtrl(SalaTestadoresService, FaseService, $mdDialog, $state) {
 			var context = this;
-            context.login = localStorage.getItem("login");
+			var fase = JSON.parse(localStorage.getItem("fase"));
 
-            HomeService.getFases(context.login)
-                .then(function (successResponse) {
-                    console.log(successResponse);
-                    context.fasesAluno = successResponse.data.fasesAluno;
+			context.desafios = fase.desafios;
+			context.openDesafio = _openDesafio;
+
+            SalaTestadoresService.getItemsPocaoMagica()
+				.then(function (successResponse) {
                 })
-                .catch(function (errorResponse) {
-                    console.error(errorResponse)
+				.catch(function (errorResponse) {
+					console.error(errorResponse);
                 });
 
-			context.iniciarFase = _iniciarFase;
+            function _openDesafio(idDesafio){
+                FaseService.getDesafio(idDesafio)
+					.then(function (successResponse) {
+                        $mdDialog.show({
+                            controller: 'DesafioDialogCtrl',
+                            controllerAs: '$desafioDialog',
+                            templateUrl: 'app/modules/sala-testadores/desafio/tmpl/desafio-dialog.tmpl.html',
+                            clickOutsideToClose: true,
+                            locals: { desafioDialogInfo: successResponse.data.desafio }
+                        }).then(function(desafioId){
+                        	localStorage.setItem("desafioId", desafioId);
+                        	$state.go('authenticated.valoresDeEntrada');
+						})
 
-			function _iniciarFase (fase){
-                $state.go('fase', { fase: fase });
-			};
+                    })
+					.catch(function (errorResponse) {
+						console.error("openDesafio >>> ", errorResponse);
+                    })
+			}
 		}
 })();

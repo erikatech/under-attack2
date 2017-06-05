@@ -1,16 +1,14 @@
-<div style="height: 100%" class="sala-testadores-namespace background" layout="column" flex>
-    <page-header></page-header>
+<md-dialog style="background: transparent; box-shadow: none" class="desafio-dialog-namespace">
+    <div class="background-popup" style="width: 735px; height: 400px">
+        <div class="desafio-dialog-content iniciar-button-container" layout="column" layout-align="center center"
+             style="padding-top: 40px;">
+            <h1 style="letter-spacing: 2px">{{ $desafioDialog.desafio.programa.titulo }}</h1>
+            <p style="letter-spacing: 1px; font-size: 20px">Utilize a documentação fornecida para encontrar os Zombugs</p>
 
-    <div layout="row" flex>
-        <div style="border: 1px solid red" flex="70">
-            <div ng-repeat="desafio in $testadores.desafios">
-                <span ng-click="$testadores.openDesafio(desafio.id)" class="desafio">{{ desafio.id }}</span>
-            </div>
-        </div>
+            <span style="font-size: 20px; letter-spacing: 1px">Nível: {{ $desafioDialog.desafio.nivel }}</span>
 
-        <div>
-
-
+            <img style="margin-top: 75px; width: 200px;" ng-click="$desafioDialog.startDesafio()">
         </div>
     </div>
-</div>
+</md-dialog>
+

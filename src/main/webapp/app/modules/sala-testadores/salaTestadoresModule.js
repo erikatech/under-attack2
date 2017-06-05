@@ -3,12 +3,12 @@
 
 	/**
 	 * @ngdoc function
-	 * @name app.module:homeModule
+	 * @name app.module:salaTestadoresModule
 	 * @description
-	 * # homeModule
-	 * Module that represents the dashboard of student
+	 * # salaTestadoresModule
+	 * Module that represents the first room that student will enter
 	 */
 
-  	angular.module('home', [])
+  	angular.module('sala-testadores', [])
 
 })();

@@ -3,27 +3,27 @@
 
 	/**
 	 * @ngdoc function
-	 * @name app.service:homeService
+	 * @name app.service:SalaTestadoresService
 	 * @description
-	 * # HomeService
-	 * Service of the module home
+	 * # SalaTestadoresService
+	 * Service of the module sala-testadores
 	 */
 
   	angular
-		.module('home')
-		.factory('HomeService', Home);
+		.module('sala-testadores')
+		.factory('SalaTestadoresService', SalaTestadores);
 
-    	Home.$inject = ['ServiceAPI'];
+    	SalaTestadores.$inject = ['ServiceAPI'];
 
-		function Home (ServiceAPI) {
+		function SalaTestadores (ServiceAPI) {
 
 			return {
-				getFases: _getFases
+				getItemsPocaoMagica: _getItemsPocaoMagica
 			};
 
-			function _getFases(login){
-				var config = { params: { login: login}};
-				return ServiceAPI.get('/fase/fasesFromAluno', config);
+			function _getItemsPocaoMagica(){
+				var config = { params: { login: localStorage.getItem("login")}};
+				return ServiceAPI.get('/salaTestadores/getPocaoMagicaItems', config);
 			}
 
 		}
