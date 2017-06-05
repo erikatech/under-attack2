@@ -1,0 +1,46 @@
+.home-namespace {
+    .fases-container {
+        p {
+            text-align: justify;
+        }
+        h1, h2, p {
+            margin: 0;
+        }
+
+        .cadeado {
+            width: 150px;
+            height: 150px;
+        }
+
+        .objetivos-container {
+            img {
+                width: 20px;
+                height: 20px;
+
+            }
+            p {
+              margin-left: 5px;
+            }
+        }
+
+        .testadores-container {
+            border-bottom: 5px solid #202636;
+            border-radius: 25px;
+            padding: 20px;
+        }
+
+        .desenvolvedores-container {
+            padding: 20px;
+        }
+    }
+
+
+    h1, h2 {
+      text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000;
+      letter-spacing: 2px;
+    }
+
+    p {
+      letter-spacing: 1px;
+    }
+}

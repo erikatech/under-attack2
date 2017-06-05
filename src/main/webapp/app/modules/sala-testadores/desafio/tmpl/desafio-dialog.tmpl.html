@@ -1,0 +1,16 @@
+<div style="height: 100%" class="sala-testadores-namespace background" layout="column" flex>
+    <page-header></page-header>
+
+    <div layout="row" flex>
+        <div style="border: 1px solid red" flex="70">
+            <div ng-repeat="desafio in $testadores.desafios">
+                <span ng-click="$testadores.openDesafio(desafio.id)" class="desafio">{{ desafio.id }}</span>
+            </div>
+        </div>
+
+        <div>
+
+
+        </div>
+    </div>
+</div>
