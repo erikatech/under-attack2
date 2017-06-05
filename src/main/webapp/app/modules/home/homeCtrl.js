@@ -13,22 +13,26 @@
 		.module('home')
 		.controller('HomeCtrl', HomeCtrl);
 
-    	HomeCtrl.$inject = ['HomeService'];
+    	HomeCtrl.$inject = ['HomeService', '$state'];
 
-		function HomeCtrl(HomeService) {
+		function HomeCtrl(HomeService, $state) {
 			var context = this;
-
-			context.login = localStorage.getItem("login");
+            context.login = localStorage.getItem("login");
 
             HomeService.getFases(context.login)
-				.then(function (successResponse) {
-				    console.log(successResponse);
-					context.fasesAluno = successResponse.data.fasesAluno;
+                .then(function (successResponse) {
+                    console.log(successResponse);
+                    context.fasesAluno = successResponse.data.fasesAluno;
                 })
-				.catch(function (errorResponse) {
-					console.error(errorResponse)
-                })
+                .catch(function (errorResponse) {
+                    console.error(errorResponse)
+                });
 
+			context.iniciarFase = _iniciarFase;
 
+			function _iniciarFase (fase){
+				localStorage.setItem("fase", JSON.stringify(fase));
+                $state.go('authenticated.salaTestadores');
+			};
 		}
 })();
