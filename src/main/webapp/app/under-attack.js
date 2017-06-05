@@ -18,12 +18,13 @@
 		'ngMessages',
 		'ui.router',
 		'angular-loading-bar',
-
+		'ngDragDrop',
 		'login-validator',
 		// 'admin',
 		'auth',
 		'register',
-		'home'
+		'home',
+		'sala-testadores'
 	]);
 
 })();
