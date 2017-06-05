@@ -1,6 +1,7 @@
 @import "../../modules/auth/auth";
 @import "../../modules/admin/dashboard/dashboard";
 @import "../../modules/home/home";
+@import "../../modules/sala-testadores/sala-testadores";
 
 * {
     font-family: janda;
@@ -15,13 +16,23 @@
 }
 
 .background {
-    overflow: auto;
     background-position: center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size:  cover;
     background-image: url('../../assets/images/geral/tela-lisa.png');
+    background-repeat: no-repeat;
+}
+
+
+.background-popup {
+    background-position: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size:  cover;
+    background-image: url('../../assets/images/geral/pop_up_liso.png');
     background-repeat: no-repeat;
 }
 
