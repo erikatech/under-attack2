@@ -6,11 +6,11 @@
 	* @name app.controller:GameOverDialogCtrl
 	* @description
 	* # GameOverDialogCtrl
-	* Controller of the module sala-testadores
+	* Controller of the game over popup
 	*/
 
   	angular
-		.module('sala-testadores')
+		.module('under-attack')
 		.controller('GameOverDialogCtrl', GameOverDialogCtrl);
 
     	GameOverDialogCtrl.$inject = ['$mdDialog'];
