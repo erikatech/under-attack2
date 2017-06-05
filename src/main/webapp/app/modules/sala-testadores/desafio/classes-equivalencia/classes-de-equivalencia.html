@@ -1,0 +1,41 @@
+<div style="height: 100%; overflow: auto" class="sala-testadores-namespace background" layout="column" flex>
+    <page-header></page-header>
+
+    <div style="margin: 0 40px">
+        <div layout="row" layout-align="start center">
+            <div style="background: #232736" class="cerebros-container" flex="30" layout="row" layout-align="center center">
+                <img src="app/assets/images/geral/cerebro_0.png" ng-repeat="cerebro in $classes.cerebrosDisponiveis">
+            </div>
+            <span flex="10"></span>
+            <h1 flex style="letter-spacing: 2px;">{{ $classes.desafio.programa.titulo }}</h1>
+        </div>
+
+        <div layout="row" layout-align="center center" style="background: #232736">
+            <p style="margin: 0 20px; font-size: 30px; letter-spacing: 1px; text-align: center">
+                {{ $classes.desafio.programa.descricao }}
+            </p>
+        </div>
+
+        <div layout="row" style="margin-top: 15px">
+
+            <div layout="column" layout-align="center end" flex="55">
+                <div style="font-size: 24px; margin-top:10px" layout="row" layout-align="end"
+                     ng-repeat="alunoValor in $classes.alunoValores">
+                    <span>{{ alunoValor.valorDeEntrada.descricao }}</span>
+                    <input style="background: #232736; border-radius: 3px; border: 2px solid #232736; margin-left: 10px"
+                           type="text">
+                </div>
+            </div>
+
+            <div layout="row" layout-align="center center" flex="10">
+                <img class="validate-classe-equivalencia">
+            </div>
+
+            <div flex style="background: #232736; min-height: 90px;" layout="row" layout-align="center center">
+                <span>
+
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

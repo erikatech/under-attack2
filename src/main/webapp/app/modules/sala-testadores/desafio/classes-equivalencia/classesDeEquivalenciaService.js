@@ -3,34 +3,33 @@
 
 	/**
 	 * @ngdoc function
-	 * @name app.service:ValoresDeEntradaService
+	 * @name app.service:ClassesDeEquivalenciaService
 	 * @description
-	 * # ValoresDeEntradaService
+	 * # ClassesDeEquivalenciaService
 	 * Service of the module sala-testadores
 	 */
 
   	angular
 		.module('sala-testadores')
-		.factory('ValoresDeEntradaService', ValoresDeEntradaService);
+		.factory('ClassesDeEquivalenciaService', ClassesDeEquivalenciaService);
 
-    	ValoresDeEntradaService.$inject = ['ServiceAPI'];
+    	ClassesDeEquivalenciaService.$inject = ['ServiceAPI'];
 
-		function ValoresDeEntradaService (ServiceAPI) {
+		function ClassesDeEquivalenciaService (ServiceAPI) {
 			return {
-                validateValorDeEntrada: _validateValorDeEntrada,
-				goToNextStage: _gotoNextStage
+                getDesafios: _getDesafios,
+				getValoresAluno: _getValoresAluno
 			};
 
-
-            function _validateValorDeEntrada(idValorDeEntrada, idDesafio){
-                var config = { params: {idValorDeEntrada: idValorDeEntrada, login: localStorage.getItem("login"),
+            function _getDesafios(idDesafio){
+                var config = { params: {login: localStorage.getItem("login"), idDesafio: idDesafio,
                     desafioId: idDesafio}};
-                return ServiceAPI.get('/salaTestadores/isValorValido', config);
+                return ServiceAPI.get('/desafio/getDesafiosAluno', config);
             }
 
-			function _gotoNextStage(valoresSelecionados){
-                var requestData = { login: localStorage.getItem("login"), valoresSelecionados: valoresSelecionados};
-                return ServiceAPI.post(requestData, '/salaTestadores/goToNextStage');
+            function _getValoresAluno(){
+            	var config = {params: {login: localStorage.getItem("login")}};
+            	return ServiceAPI.get('/salaTestadores/getValoresAluno', config);
 			}
 
 		}

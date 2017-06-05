@@ -11,59 +11,26 @@
 
   	angular
 		.module('sala-testadores')
-		.controller('ValoresDeEntradaCtrl', ValoresDeEntradaCtrl);
+		.controller('ClassesDeEquivalenciaCtrl', ClassesDeEquivalenciaCtrl);
 
-    	ValoresDeEntradaCtrl.$inject = ['alunoDesafio', 'ValoresDeEntradaService', '$mdDialog', '$state',
-			'CustomToastService'];
+    	ClassesDeEquivalenciaCtrl.$inject = ['alunoDesafio', 'ClassesDeEquivalenciaService'];
 
-		function ValoresDeEntradaCtrl(alunoDesafio, ValoresDeEntradaService, $mdDialog, $state, CustomToastService) {
+		function ClassesDeEquivalenciaCtrl(alunoDesafio, ClassesDeEquivalenciaService) {
 			var context = this;
+            context.cerebrosDisponiveis = [];
+            for(var i = 0; i < alunoDesafio.cerebrosDisponiveis; i++){
+                context.cerebrosDisponiveis.push(i);
+            }
+            context.desafio = alunoDesafio.desafio;
 
-			console.log(alunoDesafio);
+			ClassesDeEquivalenciaService.getValoresAluno()
+				.then(function (success) {
+					context.alunoValores = success.data.valores;
+                })
+				.catch(function (error) {
+					console.error("classesEquivalencia >>> ", error);
+                })
 
-			context.selecionados = [];
-			context.cerebrosDisponiveis = [];
-			for(var i = 0; i < alunoDesafio.cerebrosDisponiveis; i++){
-				context.cerebrosDisponiveis.push(i);
-			}
-			context.desafio = alunoDesafio.desafio;
 
-			context.validate = _validate;
-
-			function _validate(){
-                ValoresDeEntradaService.validateValorDeEntrada(context.valorSelecionado.id, alunoDesafio.desafio.id)
-					.then(function(response){
-						context.valorSelecionado.pontos = response.data;
-					})
-					.catch(function () {
-						context.cerebrosDisponiveis.pop();
-						if(!context.cerebrosDisponiveis.length){
-                            $mdDialog.show({
-                                controller: 'GameOverDialogCtrl',
-                                controllerAs: '$gameOver',
-                                templateUrl: 'app/modules/shared/game-over-dialog/tmpl/game-over.html',
-                                clickOutsideToClose: false
-                            }).then(function(){
-                            	$state.reload();
-                            }).catch(function () {
-                                $state.go('authenticated.salaTestadores');
-                            })
-						}
-                    });
-			}
-
-			context.goToNextStage = function(){
-                ValoresDeEntradaService.goToNextStage(context.selecionados)
-					.then(function (successResponse) {
-						console.info("goToNextStage >>> ", successResponse);
-                    })
-					.catch(function (errorResponse) {
-						CustomToastService.show(errorResponse.data.errors[0].message, "top right", 2000);
-                    });
-			}
-
-			context.startCallback = function(event, ui, item){
-				context.valorSelecionado = item;
-			}
-		}
+        }
 })();
