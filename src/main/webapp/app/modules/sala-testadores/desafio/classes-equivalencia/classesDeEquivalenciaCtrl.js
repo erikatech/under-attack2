@@ -14,11 +14,13 @@
 		.controller('ClassesDeEquivalenciaCtrl', ClassesDeEquivalenciaCtrl);
 
     	ClassesDeEquivalenciaCtrl.$inject = ['$mdDialog','alunoDesafio', 'ClassesDeEquivalenciaService', '$timeout',
-				'$interval', '$state'];
+				'$interval', '$state', 'SalaTestadoresService'];
 
 		function ClassesDeEquivalenciaCtrl($mdDialog, alunoDesafio, ClassesDeEquivalenciaService, $timeout,
-                   $interval, $state) {
+                   $interval, $state, SalaTestadoresService) {
+
 			var context = this;
+            context.classesAluno = [];
             context.count = 1;
             context.cerebrosDisponiveis = [];
             for(var i = 0; i < alunoDesafio.cerebrosDisponiveis; i++){
@@ -37,13 +39,13 @@
                 });
 
 
-            ClassesDeEquivalenciaService.getClassesAluno()
+            /*ClassesDeEquivalenciaService.getClassesAluno()
                 .then(function (success) {
                     context.classesAluno = success.data.classesAluno;
                 })
                 .catch(function () {
                     context.classesAluno = [];
-                });
+                });*/
 
 
 			context.validate = _validate;
@@ -53,11 +55,15 @@
 					login: localStorage.getItem("login"),
 					entradaAluno: context.valorPreenchido,
                     valorDeEntrada: context.valorSelecionado,
-                    idDesafio: context.desafio.id
+                    idDesafio: context.desafio.id,
+                    classesAluno: context.classesAluno
 				};
 				ClassesDeEquivalenciaService.validate(testDTO)
 					.then(function (successResponse) {
-                        context.classesAluno = successResponse.data.testResult.alunoEncontraClasseEquivalencia;
+                        angular.forEach(successResponse.data.testResult.alunoEncontraClasseEquivalencia, function(classe){
+                            context.classesAluno.push(classe);
+                        });
+                        // context.classesAluno = successResponse.data.testResult.alunoEncontraClasseEquivalencia;
                     })
 					.catch(function (errorResponse) {
 						context.errorMessage = errorResponse.data;
@@ -93,7 +99,7 @@
             }
 
             function _finalizar(){
-                ClassesDeEquivalenciaService.finalizaDesafio(context.desafio.id)
+                ClassesDeEquivalenciaService.finalizaDesafio(context.desafio.id, context.classesAluno)
                     .then(function (response) {
                         $mdDialog.show({
                             controller: 'ConcluiDesafioCtrl',
@@ -102,7 +108,13 @@
                             clickOutsideToClose: false,
                             locals: { desempenhoInfo: response.data.resultadoDesafio }
                         }).then(function(){
-                            console.log("restart desafio");
+                            SalaTestadoresService.restartaDesafio(context.desafio.id)
+                                .then(function(response){
+                                    $state.go('authenticated.valoresDeEntrada');
+                                })
+                                .catch(function (errorResponse) {
+                                    console.error(" finaliza >>> ", errorResponse);
+                                });
                         }).catch(function () {
                             $state.go('authenticated.salaTestadores');
                         });

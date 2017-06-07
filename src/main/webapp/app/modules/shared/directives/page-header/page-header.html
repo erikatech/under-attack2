@@ -1,8 +1,9 @@
 <div layout="row" layout-align="start center" class="page-header sair-button-container">
-	<h1 flex="50">Zombugs</h1>
+	<div flex="50" layout-align="start center">
+		<h1 style="cursor: pointer; outline: none" ng-click="$pageHeader.home()">Zombugs</h1>
+	</div>
 
-	<div style="background: #232736; font-size: 24px; border-radius: 5px; padding: 10px 0 10px 10px;"
-		 layout="row" layout-align="start center" flex="40">
+	<div class="header-background" layout="row" layout-align="start center" flex="40">
 		{{ aluno.login }} - {{ aluno.nivelAluno.descricao }} ({{ aluno.pontos }} pts)
 	</div>
 	<img ng-click="$pageHeader.logout()"/>

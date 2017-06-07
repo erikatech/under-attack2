@@ -14,10 +14,10 @@
 		.controller('ValoresDeEntradaCtrl', ValoresDeEntradaCtrl);
 
     	ValoresDeEntradaCtrl.$inject = ['alunoDesafio', 'ValoresDeEntradaService', '$interval', '$state',
-			'CustomToastService', '$timeout', '$mdDialog'];
+			'CustomToastService', '$timeout', '$mdDialog', '$rootScope'];
 
 		function ValoresDeEntradaCtrl(alunoDesafio, ValoresDeEntradaService, $interval, $state, CustomToastService,
-    			$timeout, $mdDialog) {
+    			$timeout, $mdDialog, $rootScope) {
 			var context = this;
 
             context.count = 1;
@@ -69,7 +69,10 @@
 
 			context.goToNextStage = function(){
                 ValoresDeEntradaService.goToNextStage(context.selecionados)
-					.then(function () {
+					.then(function (response) {
+                        var alunoInSession = JSON.parse(sessionStorage.getItem("aluno"));
+                        alunoInSession.pontos = response.data.aluno.pontos;
+                        sessionStorage.setItem("aluno", JSON.stringify(alunoInSession));
 						$state.go('authenticated.classesEquivalencia');
                     })
 					.catch(function (errorResponse) {

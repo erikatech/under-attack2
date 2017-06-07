@@ -1,12 +1,15 @@
 package br.edu.ifam.underattack.dao;
 
 import br.edu.ifam.underattack.model.*;
+import br.edu.ifam.underattack.model.enums.SituacaoDesafio;
 import br.edu.ifam.underattack.model.enums.SituacaoFase;
+import br.edu.ifam.underattack.model.enums.SituacaoIngrediente;
 import br.edu.ifam.underattack.model.enums.TipoValorEntrada;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -149,7 +152,7 @@ public class AlunoDao {
 	}
 
 
-    public void encontraValoresDeEntrada(String login, List<ValorDeEntrada> valoresSelecionados) {
+    public Aluno encontraValoresDeEntrada(String login, List<ValorDeEntrada> valoresSelecionados) {
 		final Aluno aluno = this.consulta(login);
 		for (ValorDeEntrada valorSelecionado : valoresSelecionados) {
 			ValorDeEntrada valorEncontrado = this.valorDeEntradaDao.getValorDeEntrada(valorSelecionado.getId());
@@ -157,24 +160,22 @@ public class AlunoDao {
 				AlunoEncontraValorDeEntrada alunoValor = new AlunoEncontraValorDeEntrada();
 				alunoValor.setAluno(aluno);
 				alunoValor.setValorDeEntrada(valorEncontrado);
+				aluno.setPontos(aluno.getPontos() + valorEncontrado.getDificuldade().getPontos());
 				this.em.persist(alunoValor);
 			}
 		}
+		this.atualiza(aluno);
+		return aluno;
 	}
 
 
-	public List<AlunoEncontraClasseEquivalencia> encontraClassesEquivalencia(String login, String entradaAluno,
-						 List<ClasseEquivalencia> classes) {
+	public void encontraClassesEquivalencia(String login, String entradaAluno, ClasseEquivalencia classeEquivalencia) {
 		final Aluno aluno = this.consulta(login);
-		for (ClasseEquivalencia classeEncontrada : classes) {
-			AlunoEncontraClasseEquivalencia alunoEncontraClasseEquivalencia = new AlunoEncontraClasseEquivalencia();
-			alunoEncontraClasseEquivalencia.setAluno(aluno);
-			alunoEncontraClasseEquivalencia.setEntradaAluno(entradaAluno);
-			alunoEncontraClasseEquivalencia.setClasseEquivalencia(classeEncontrada);
-			this.em.persist(alunoEncontraClasseEquivalencia);
-		}
-
-		return this.classesDoAluno(login);
+		AlunoEncontraClasseEquivalencia alunoEncontraClasseEquivalencia = new AlunoEncontraClasseEquivalencia();
+		alunoEncontraClasseEquivalencia.setAluno(aluno);
+		alunoEncontraClasseEquivalencia.setEntradaAluno(entradaAluno);
+		alunoEncontraClasseEquivalencia.setClasseEquivalencia(classeEquivalencia);
+		this.em.persist(alunoEncontraClasseEquivalencia);
 	}
 
 	public List<AlunoEncontraClasseEquivalencia> classesDoAluno(String login) {
@@ -200,5 +201,41 @@ public class AlunoDao {
 
 	public void atualizaDesafioAluno(AlunoRealizaDesafio alunoDesafio){
 		this.em.merge(alunoDesafio);
+	}
+
+	public void reiniciaDesafioAluno(String login) {
+		Aluno alunoConsultado = this.consulta(login);
+		//reseto a quantidade de bugs encontradas
+		alunoConsultado.getAlunoParticipaFase().get(0).setBugsEncontrados(0);
+
+		// Remove as classes encontradas
+		List<AlunoEncontraClasseEquivalencia> alunoEncontraClasseEquivalencias = this.classesDoAluno(login);
+		for (AlunoEncontraClasseEquivalencia alunoEncontraClasseEquivalencia : alunoEncontraClasseEquivalencias) {
+			this.em.remove(alunoEncontraClasseEquivalencia);
+		}
+
+		List<AlunoEncontraValorDeEntrada> valoresAluno = this.valorDeEntradaDao.getValoresAluno(login);
+		for (AlunoEncontraValorDeEntrada alunoEncontraValorDeEntrada : valoresAluno) {
+			this.em.remove(alunoEncontraValorDeEntrada);
+		}
+
+		AlunoRealizaDesafio alunoRealizaDesafio = alunoConsultado.getAlunoRealizaDesafio().get(0);
+		alunoRealizaDesafio.setCerebrosDisponiveis(3);
+		alunoRealizaDesafio.setDesempenho(null);
+		alunoRealizaDesafio.setSituacaoDesafio(SituacaoDesafio.EM_ANDAMENTO);
+
+
+		List<PocaoMagicaIngrediente> pocaoIngredienteList = alunoConsultado.getPocaoMagica().getPocaoIngredienteList();
+		for (PocaoMagicaIngrediente pocaoMagicaIngrediente : pocaoIngredienteList) {
+			pocaoMagicaIngrediente.setSituacaoIngrediente(SituacaoIngrediente.ESCONDIDO);
+		}
+
+		AlunoParticipaFase alunoParticipaFase = alunoConsultado.getAlunoParticipaFase().get(0);
+		Set<FaseObjetivo> objetivosFase = alunoParticipaFase.getFaseObjetivo();
+		for (FaseObjetivo faseObjetivo : objetivosFase) {
+			faseObjetivo.setRealizado(false);
+			this.em.merge(faseObjetivo);
+		}
+		this.atualiza(alunoConsultado);
 	}
 }

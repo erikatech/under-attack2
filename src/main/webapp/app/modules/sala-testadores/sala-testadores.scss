@@ -6,6 +6,8 @@
         padding: 10px;
         border-radius: 2px;
         margin: 0 20px;
+        font-size: 12px;
+        font-weight: bold;
     }
 
     .valor-de-entrada:hover {
@@ -42,11 +44,11 @@
     }
 
     .valor-correto {
-        color: green;
+        color: #8BC63F;
     }
 
     .valor-errado {
-        color: red;
+        color: #CD6773;
     }
 
     .table-container {

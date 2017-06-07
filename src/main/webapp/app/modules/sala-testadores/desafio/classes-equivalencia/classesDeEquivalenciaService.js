@@ -45,8 +45,9 @@
 				return ServiceAPI.get('/salaTestadores/getClassesAluno', config);
 			}
 
-			function _finalizaDesafio(idDesafio){
-				var requestData = {login: localStorage.getItem("login"), idDesafio: idDesafio};
+			function _finalizaDesafio(idDesafio, classesAluno){
+				console.log("finaliza >>> ", classesAluno);
+				var requestData = {login: localStorage.getItem("login"), idDesafio: idDesafio, alunoClasses: classesAluno};
 				return ServiceAPI.post(requestData, '/salaTestadores/finalizaDesafio');
 			}
         }

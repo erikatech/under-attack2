@@ -42,7 +42,17 @@
                         }).then(function(desafioId){
                         	localStorage.setItem("desafioId", desafioId);
                         	$state.go('authenticated.valoresDeEntrada');
-						})
+						}).catch(function(desafioId){
+							SalaTestadoresService.restartaDesafio(desafioId)
+								.then(function(response){
+									console.log("Restarta desafio >>> ", response)
+                                    localStorage.setItem("desafioId", desafioId);
+                                    $state.go('authenticated.valoresDeEntrada');
+								})
+								.catch(function (errorResponse) {
+									console.error("Restarta desafio >>> ", errorResponse)
+                                })
+						});
 
                     })
 					.catch(function (errorResponse) {

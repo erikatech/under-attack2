@@ -46,7 +46,7 @@ public class FaseController {
     @Get
     public void getDesafio(Long idDesafio){
         Desafio desafio = this.desafioDao.getDesafio(idDesafio);
-        this.result.use(Results.json()).from(desafio, "desafio").include("programa").serialize();
+        this.result.use(Results.json()).from(desafio, "desafio").include("programa", "alunoRealizaDesafio").serialize();
     }
 
 }

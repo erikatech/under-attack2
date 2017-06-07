@@ -20,7 +20,8 @@
 			return {
 				getItemsPocaoMagica: _getItemsPocaoMagica,
 				iniciaDesafio: _iniciaDesafio,
-				verificaSeDesbloqueouFase: _verificaSeDesbloqueouFase
+				verificaSeDesbloqueouFase: _verificaSeDesbloqueouFase,
+				restartaDesafio: _restartaDesafio
 			};
 
 			function _getItemsPocaoMagica(){
@@ -36,6 +37,11 @@
             function _verificaSeDesbloqueouFase(){
                 var requestData = { login: localStorage.getItem("login")};
                 return ServiceAPI.post(requestData, '/salaTestadores/checkIfUnblocked');
+			}
+
+			function _restartaDesafio(idDesafio){
+                var requestData = { login: localStorage.getItem("login")};
+                return ServiceAPI.post(requestData, '/salaTestadores/reiniciaDesafio');
 			}
 
 		}

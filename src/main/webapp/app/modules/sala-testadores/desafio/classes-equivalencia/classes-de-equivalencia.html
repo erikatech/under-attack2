@@ -11,16 +11,16 @@
         </div>
 
         <div layout="row" layout-align="center center" style="background: #232736">
-            <p style="margin: 0 20px; font-size: 30px; letter-spacing: 1px; text-align: center;padding: 15px 0">
+            <p style="margin: 0 20px; font-size: 24px; letter-spacing: 1px; font-family: texto;
+                text-align: center;padding: 15px 0">
                 {{ $classes.desafio.programa.descricao }}
             </p>
         </div>
 
         <div layout="row" style="margin-top: 15px">
-
             <div layout="column" layout-align="center center" flex="25">
                 <md-radio-group ng-model="$classes.valorSelecionado">
-                    <md-radio-button style="font-size:20px; letter-spacing: 1px"
+                    <md-radio-button style="font-size:20px; letter-spacing: 1px; font-family: texto; font-weight: bold"
                                  class="custom-radio-btn"
                             ng-repeat="alunoValor in $classes.alunoValores" ng-value="alunoValor.valorDeEntrada">
                         {{ alunoValor.valorDeEntrada.descricao }}
@@ -29,7 +29,7 @@
             </div>
 
             <div flex="25" layout="row" layout-align="center center">
-                <input style="background: #232736; color: white;
+                <input style="background: #232736; color: white; text-align: center;
                         border-radius: 3px; border: 2px solid #232736; margin-left: 10px"
                        ng-model="$classes.valorPreenchido"
                        type="text">
@@ -39,9 +39,9 @@
                 <img class="play-button" ng-click="$classes.validate()">
             </div>
 
-            <div flex style="background: #232736; min-height: 90px; border-radius: 5px"
+            <div flex style="background: #232736; min-height: 90px; border-radius: 5px; font-family: small-text"
                  layout="row" layout-align="center center">
-                <span>
+                <span style="text-align: center; font-size: 18px; letter-spacing: 1px">
                     {{ $classes.errorMessage }}
                 </span>
             </div>
@@ -49,7 +49,7 @@
 
         <div class="table-container" style="margin-top: 15px">
             <table style="width: 100%;" id="report-items">
-                <thead style="letter-spacing: 2px; font-size: 20px">
+                <thead style="letter-spacing: 2px; font-size: 20px; font-family: texto">
                     <th style="width: 275px">Valor de Entrada</th>
                     <th style="width: 250px">Resultado Esperado</th>
                     <th style="width: 250px">Saída</th>

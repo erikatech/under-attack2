@@ -19,10 +19,16 @@
 			var context = this;
 			context.desafio = desafioDialogInfo;
 
-			context.startDesafio = _startDesafio;
+            console.log(context.desafio);
+
+            context.startDesafio = _startDesafio;
 
 			function _startDesafio(){
                 $mdDialog.hide(context.desafio.id);
 			}
+
+            context.reiniciarDesafio = function(){
+                $mdDialog.cancel(context.desafio.id);
+            }
         }
 })();

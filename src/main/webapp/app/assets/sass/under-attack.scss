@@ -12,14 +12,14 @@ h1, h2 {
 }
 
 p {
-    font-family: texto;
-    color:white;
-    letter-spacing: 1px;
+    //font-family: texto;
+    color: white;
+    //letter-spacing: 1px;
     margin: 0;
 }
 
 span {
-    font-family: texto;
+    //font-family: texto;
     color: white;
     letter-spacing: 0.5px;
 }
@@ -33,6 +33,14 @@ span {
 
 @font-face {
     font-family: 'texto';
+    src: url('../fonts/Timeless.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'small-text';
     src: url('../fonts/Original Woody.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
@@ -151,10 +159,23 @@ span {
   background-color: #4D97ED;
 }
 
+md-radio-button.md-default-theme .md-off, md-radio-button .md-off {
+    border-color: #dc8833;
+}
+
 md-radio-button.md-default-theme.md-checked .md-off, md-radio-button.md-checked .md-off {
-    border-color: #232736;
+    border-color: #dc8833;
 }
 
 md-radio-button.md-default-theme .md-on, md-radio-button .md-on {
-    background-color: #232736;
+    background-color: #dc8833;
+}
+
+.header-background {
+    background: url(../images/geral/frame-header.png) no-repeat;
+    font-size: 20px;
+    font-family: small-text;
+    padding: 10px 0 10px 25px;
+    letter-spacing: 1px;
+    min-height: 50px;
 }

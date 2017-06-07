@@ -13,9 +13,9 @@
 		.module('under-attack')
 		.controller('PageHeaderCtrl', PageHeader );
 
-    	PageHeader.$inject = ['$rootScope', 'authService', 'PageHeaderService'];
+    	PageHeader.$inject = ['$rootScope', 'authService', 'PageHeaderService', '$state'];
 
-		function PageHeader($rootScope, authService, PageHeaderService) {
+		function PageHeader($rootScope, authService, PageHeaderService, $state) {
 			var context = this;
 
 			context.logout = _logout;
@@ -35,6 +35,10 @@
 
 			function _logout(){
                 authService.logout();
+			}
+
+			context.home = function(){
+				$state.go('authenticated.home');
 			}
 		}
 
