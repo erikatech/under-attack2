@@ -162,11 +162,43 @@ public class AlunoDao {
 		}
 	}
 
+
+	public List<AlunoEncontraClasseEquivalencia> encontraClassesEquivalencia(String login, String entradaAluno,
+						 List<ClasseEquivalencia> classes) {
+		final Aluno aluno = this.consulta(login);
+		for (ClasseEquivalencia classeEncontrada : classes) {
+			AlunoEncontraClasseEquivalencia alunoEncontraClasseEquivalencia = new AlunoEncontraClasseEquivalencia();
+			alunoEncontraClasseEquivalencia.setAluno(aluno);
+			alunoEncontraClasseEquivalencia.setEntradaAluno(entradaAluno);
+			alunoEncontraClasseEquivalencia.setClasseEquivalencia(classeEncontrada);
+			this.em.persist(alunoEncontraClasseEquivalencia);
+		}
+
+		return this.classesDoAluno(login);
+	}
+
+	public List<AlunoEncontraClasseEquivalencia> classesDoAluno(String login) {
+		final Aluno aluno = this.consulta(login);
+		TypedQuery<AlunoEncontraClasseEquivalencia> query =
+				this.em.createQuery("select ac from AlunoEncontraClasseEquivalencia ac where ac.aluno.login=:login",
+				AlunoEncontraClasseEquivalencia.class);
+		query.setParameter("login", login);
+		return query.getResultList();
+	}
+
 	public boolean alunoEncontrouValores(String login) {
 		TypedQuery<AlunoEncontraValorDeEntrada> query = this.em.createQuery("select av " +
 				"from AlunoEncontraValorDeEntrada av where av.aluno.login=:login", AlunoEncontraValorDeEntrada.class);
 		query.setParameter("login", login);
 		List<AlunoEncontraValorDeEntrada> resultList = query.getResultList();
 		return resultList.size() != 0;
+	}
+
+	public void atualiza(Aluno aluno){
+		this.em.merge(aluno);
+	}
+
+	public void atualizaDesafioAluno(AlunoRealizaDesafio alunoDesafio){
+		this.em.merge(alunoDesafio);
 	}
 }

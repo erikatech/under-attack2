@@ -3,14 +3,37 @@
 @import "../../modules/home/home";
 @import "../../modules/sala-testadores/sala-testadores";
 
-* {
+h1, h2 {
     font-family: janda;
     color: white;
+    text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000;
+    letter-spacing: 3px;
+    margin: 0;
+}
+
+p {
+    font-family: texto;
+    color:white;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+span {
+    font-family: texto;
+    color: white;
+    letter-spacing: 0.5px;
 }
 
 @font-face {
     font-family: 'janda';
     src: url('../fonts/JandaManateeSolid.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'texto';
+    src: url('../fonts/Original Woody.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -67,13 +90,51 @@
     }
 }
 
+.prosseguir-button-container {
+    img {
+        @extend .abstract-img-button;
+        width: 145px;
+        height: 50px;
+        content:url('../../assets/images/sala-testadores/botao_prosseguir_off.png');
+    }
+
+    img:hover {
+        content:url('../../assets/images/sala-testadores/botao_prosseguir_on.png');
+    }
+}
+
+.finalizar-button-container {
+    img {
+        @extend .abstract-img-button;
+        width: 145px;
+        height: 50px;
+        content:url('../../assets/images/geral/botao_finalizar_off.png');
+    }
+
+    img:hover {
+        content:url('../../assets/images/geral/botao_finalizar_on.png');
+    }
+
+}
+
 .page-header {
     height: 65px;
     border-bottom: 5px solid #202636;
     border-radius: 8px;
     h1 {
+        text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000;
+        letter-spacing: 2px;
         margin-left: 20px;
     }
+}
+
+.play-button {
+    @extend .abstract-img-button;
+    content: url(../images/geral/botao_play_off.png);
+}
+
+.play-button:hover{
+    content: url(../images/geral/botao_play_on.png);
 }
 
 .custom-button {

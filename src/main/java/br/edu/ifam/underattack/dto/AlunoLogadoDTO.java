@@ -9,9 +9,15 @@ public class AlunoLogadoDTO {
 
     private String token;
 
-    public AlunoLogadoDTO(String login, String token){
+    private String nivel;
+
+    private int pontos;
+
+    public AlunoLogadoDTO(String login, String token, String nivel, int pontos) {
         this.login = login;
         this.token = token;
+        this.nivel = nivel;
+        this.pontos = pontos;
     }
 
     public String getLogin() {
@@ -20,5 +26,17 @@ public class AlunoLogadoDTO {
 
     public String getToken() {
         return token;
+    }
+
+    public void setPontos(int pontos) {
+        this.pontos = pontos;
+    }
+
+    public int getPontos() {
+        return pontos;
+    }
+
+    public String getNivel() {
+        return nivel;
     }
 }

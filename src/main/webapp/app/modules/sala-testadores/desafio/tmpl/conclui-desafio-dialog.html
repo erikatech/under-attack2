@@ -1,0 +1,25 @@
+<md-dialog style="background: transparent; box-shadow: none">
+    <div class="background-popup" style="width: 735px; height: 400px">
+        <div layout="column" layout-align="center center"
+             style="padding-top: 100px;">
+
+            <h1>Você encontrou <strong>{{ $concluiDesafio.desempenho.totalBugsEncontrados }}</strong>
+                de <strong>{{ $concluiDesafio.desempenho.totalBugsFase }} Zombugs</strong>
+            </h1>
+
+            <div layout="row" layout-align="center center">
+                <img ng-src="{{$concluiDesafio.primeiraEstrelaImg}}"
+                     style="width: 75px; height: 75px;margin:30px 15px 0 15px">
+                <img ng-src="{{$concluiDesafio.segundaEstrelaImg}}" style="width: 75px; height: 75px;">
+                <img ng-src="{{$concluiDesafio.terceiraEstrelaImg}}" style="width: 75px; height: 75px;
+                    margin:30px 15px 0 15px">
+            </div>
+
+            <div layout="row" layout-align="center center" class="iniciar-button-container">
+                <img style="margin-top: 60px; width: 200px;" ng-click="$concluiDesafio.backToRoom()">
+                <img style="margin-left: 15px;margin-top: 60px; width: 200px;" ng-click="$concluiDesafio.tryAgain()">
+            </div>
+        </div>
+    </div>
+</md-dialog>
+

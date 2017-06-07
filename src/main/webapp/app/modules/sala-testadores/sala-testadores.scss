@@ -1,5 +1,17 @@
 .sala-testadores-namespace {
 
+    .valor-de-entrada {
+        cursor: pointer;
+        border: 2px solid #424661;
+        padding: 10px;
+        border-radius: 2px;
+        margin: 0 20px;
+    }
+
+    .valor-de-entrada:hover {
+        background: #373b52;
+    }
+
     .desafio {
         top: 260px;
         left: 122px;
@@ -8,11 +20,25 @@
     }
 
     .cerebros-container {
+        min-height: 100px;
+        padding: 8px 0;
+        background: url(../../assets/images/geral/cerebros_box_02.png) no-repeat;
+
         img {
             width: 75px;
             margin: 10px 10px;
         }
 
+        img:first-child {
+            margin-left: 60px;
+        }
+    }
+
+    .valores-entrada-container {
+        background: #232736;
+        margin-top: 15px;
+        word-break:break-all;
+        padding: 20px 0;
     }
 
     .valor-correto {
@@ -23,8 +49,58 @@
         color: red;
     }
 
-    .validate-classe-equivalencia {
-        content: url(../../assets/)
+    .table-container {
+        overflow: auto;
+        min-height: 170px;
+        margin-left: 30px;
+        table {
+            table-layout: fixed;
+            border-collapse: collapse;
+            word-break: break-all;
+            thead {
+                font-size: 20px;
+                border-bottom: 3px solid #efefef;
+                th {
+                    padding: 5px 0;
+                }
+            }
+
+            tbody {
+                font-size: 18px;
+                font-weight: 300;
+                text-align: center;
+                tr {
+                    border-bottom: 1px solid #efefef;
+                    height: 35px;
+                }
+                td {
+                    min-height: 200px;
+                }
+            }
+
+        }
+    }
+
+    .valor-de-entrada-container {
+        border: 2px solid #23262f;
+        border-radius: 25px;
+        min-height: 90px;
+        background: #709e61;
+
+        .line {
+            border: 2px solid #bcd82d;
+            margin: 5px;
+            border-radius: 19px;
+
+            .valores-selecionados {
+                border: 2px solid #23262f;
+                margin: 5px;
+                border-radius: 18px;
+                height: 90px;
+                background: #232736;
+                padding: 20px 0;
+            }
+        }
     }
 
 }

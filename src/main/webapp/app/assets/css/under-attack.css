@@ -1,4 +1,214 @@
 .auth-container .header {
   border-bottom: 1px solid #efefef; }
 
+.dashboard-namespace .fase-box {
+  border: 2px solid #efefef;
+  height: 100px;
+  margin: 20px 10px; }
+
+.home-namespace {
+  height: 100%;
+  overflow: auto; }
+  .home-namespace .fases-container h1 {
+    font-size: 27px; }
+  .home-namespace .fases-container p {
+    text-align: justify;
+    margin: 0;
+    font-family: texto;
+    font-size: 22px;
+    color: white;
+    line-height: 27px;
+    letter-spacing: 0.5px; }
+  .home-namespace .fases-container .cadeado {
+    width: 150px;
+    height: 150px; }
+  .home-namespace .fases-container .objetivos-container {
+    margin: 10px 0; }
+    .home-namespace .fases-container .objetivos-container img {
+      width: 20px;
+      height: 20px; }
+    .home-namespace .fases-container .objetivos-container p {
+      margin-left: 5px; }
+  .home-namespace .fases-container .testadores-container {
+    border-bottom: 5px solid #202636;
+    border-radius: 25px;
+    padding: 20px; }
+  .home-namespace .fases-container .desenvolvedores-container {
+    padding: 20px; }
+
+.sala-testadores-namespace .valor-de-entrada {
+  cursor: pointer;
+  border: 2px solid #424661;
+  padding: 10px;
+  border-radius: 2px;
+  margin: 0 20px; }
+.sala-testadores-namespace .valor-de-entrada:hover {
+  background: #373b52; }
+.sala-testadores-namespace .desafio {
+  top: 260px;
+  left: 122px;
+  position: fixed;
+  cursor: pointer; }
+.sala-testadores-namespace .cerebros-container {
+  min-height: 100px;
+  padding: 8px 0;
+  background: url(../../assets/images/geral/cerebros_box_02.png) no-repeat; }
+  .sala-testadores-namespace .cerebros-container img {
+    width: 75px;
+    margin: 10px 10px; }
+  .sala-testadores-namespace .cerebros-container img:first-child {
+    margin-left: 60px; }
+.sala-testadores-namespace .valores-entrada-container {
+  background: #232736;
+  margin-top: 15px;
+  word-break: break-all;
+  padding: 20px 0; }
+.sala-testadores-namespace .valor-correto {
+  color: green; }
+.sala-testadores-namespace .valor-errado {
+  color: red; }
+.sala-testadores-namespace .table-container {
+  overflow: auto;
+  min-height: 170px;
+  margin-left: 30px; }
+  .sala-testadores-namespace .table-container table {
+    table-layout: fixed;
+    border-collapse: collapse;
+    word-break: break-all; }
+    .sala-testadores-namespace .table-container table thead {
+      font-size: 20px;
+      border-bottom: 3px solid #efefef; }
+      .sala-testadores-namespace .table-container table thead th {
+        padding: 5px 0; }
+    .sala-testadores-namespace .table-container table tbody {
+      font-size: 18px;
+      font-weight: 300;
+      text-align: center; }
+      .sala-testadores-namespace .table-container table tbody tr {
+        border-bottom: 1px solid #efefef;
+        height: 35px; }
+      .sala-testadores-namespace .table-container table tbody td {
+        min-height: 200px; }
+.sala-testadores-namespace .valor-de-entrada-container {
+  border: 2px solid #23262f;
+  border-radius: 25px;
+  min-height: 90px;
+  background: #709e61; }
+  .sala-testadores-namespace .valor-de-entrada-container .line {
+    border: 2px solid #bcd82d;
+    margin: 5px;
+    border-radius: 19px; }
+    .sala-testadores-namespace .valor-de-entrada-container .line .valores-selecionados {
+      border: 2px solid #23262f;
+      margin: 5px;
+      border-radius: 18px;
+      height: 90px;
+      background: #232736;
+      padding: 20px 0; }
+
+h1, h2 {
+  font-family: janda;
+  color: white;
+  text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000;
+  letter-spacing: 3px;
+  margin: 0; }
+
+p {
+  font-family: texto;
+  color: white;
+  letter-spacing: 1px;
+  margin: 0; }
+
+span {
+  font-family: texto;
+  color: white;
+  letter-spacing: 0.5px; }
+
+@font-face {
+  font-family: 'janda';
+  src: url("../fonts/JandaManateeSolid.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+@font-face {
+  font-family: 'texto';
+  src: url("../fonts/Original Woody.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+.background {
+  background-position: center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-image: url("../../assets/images/geral/tela-lisa.png");
+  background-repeat: no-repeat; }
+
+.background-popup {
+  background-position: center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-image: url("../../assets/images/geral/pop_up_liso.png");
+  background-repeat: no-repeat; }
+
+.abstract-img-button, .sair-button-container img, .iniciar-button-container img, .prosseguir-button-container img, .finalizar-button-container img, .play-button {
+  cursor: pointer;
+  outline: none; }
+
+.sair-button-container img {
+  width: 95px;
+  height: 50px;
+  content: url("../../assets/images/geral/sair_off.png"); }
+.sair-button-container img:hover {
+  content: url("../../assets/images/geral/sair_on.png"); }
+
+.iniciar-button-container img {
+  width: 145px;
+  height: 50px;
+  content: url("../../assets/images/dashboard/iniciar_off.png"); }
+.iniciar-button-container img:hover {
+  content: url("../../assets/images/dashboard/iniciar_on.png"); }
+
+.prosseguir-button-container img {
+  width: 145px;
+  height: 50px;
+  content: url("../../assets/images/sala-testadores/botao_prosseguir_off.png"); }
+.prosseguir-button-container img:hover {
+  content: url("../../assets/images/sala-testadores/botao_prosseguir_on.png"); }
+
+.finalizar-button-container img {
+  width: 145px;
+  height: 50px;
+  content: url("../../assets/images/geral/botao_finalizar_off.png"); }
+.finalizar-button-container img:hover {
+  content: url("../../assets/images/geral/botao_finalizar_on.png"); }
+
+.page-header {
+  height: 65px;
+  border-bottom: 5px solid #202636;
+  border-radius: 8px; }
+  .page-header h1 {
+    text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000;
+    letter-spacing: 2px;
+    margin-left: 20px; }
+
+.play-button {
+  content: url(../images/geral/botao_play_off.png); }
+
+.play-button:hover {
+  content: url(../images/geral/botao_play_on.png); }
+
+.custom-button {
+  height: 36px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  background-color: #65acff;
+  color: #ffffff; }
+
+.custom-button:not([disabled]):hover {
+  background-color: #4D97ED; }
+
 /*# sourceMappingURL=under-attack.css.map */

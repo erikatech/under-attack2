@@ -1,10 +1,18 @@
 .home-namespace {
+    height: 100%;
+    overflow: auto;
     .fases-container {
+        h1 {
+            font-size: 27px;
+        }
         p {
             text-align: justify;
-        }
-        h1, h2, p {
             margin: 0;
+            font-family: texto;
+            font-size: 22px;
+            color: white;
+            line-height: 27px;
+            letter-spacing: 0.5px;
         }
 
         .cadeado {
@@ -13,6 +21,7 @@
         }
 
         .objetivos-container {
+            margin: 10px 0;
             img {
                 width: 20px;
                 height: 20px;
@@ -32,15 +41,5 @@
         .desenvolvedores-container {
             padding: 20px;
         }
-    }
-
-
-    h1, h2 {
-      text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000;
-      letter-spacing: 2px;
-    }
-
-    p {
-      letter-spacing: 1px;
     }
 }

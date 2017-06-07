@@ -18,7 +18,10 @@
 		function ClassesDeEquivalenciaService (ServiceAPI) {
 			return {
                 getDesafios: _getDesafios,
-				getValoresAluno: _getValoresAluno
+				getValoresAluno: _getValoresAluno,
+				validate: _validate,
+                getClassesAluno: _getClassesAluno,
+				finalizaDesafio: _finalizaDesafio
 			};
 
             function _getDesafios(idDesafio){
@@ -32,5 +35,20 @@
             	return ServiceAPI.get('/salaTestadores/getValoresAluno', config);
 			}
 
-		}
+			function _validate(dto){
+                var requestData = { testClasse: dto};
+            	return ServiceAPI.post(requestData, '/salaTestadores/testClasseEquivalencia');
+			}
+
+			function _getClassesAluno(){
+				var config = {params: {login: localStorage.getItem("login")}};
+				return ServiceAPI.get('/salaTestadores/getClassesAluno', config);
+			}
+
+			function _finalizaDesafio(idDesafio){
+				var requestData = {login: localStorage.getItem("login"), idDesafio: idDesafio};
+				return ServiceAPI.post(requestData, '/salaTestadores/finalizaDesafio');
+			}
+        }
+
 })();

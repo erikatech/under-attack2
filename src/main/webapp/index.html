@@ -27,7 +27,10 @@
 <!--End-->
 
 <!-- bower dependencies -->
+<script src="src/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="src/bower_components/jquery-ui/jquery-ui.min.js"></script>
 <script src="src/bower_components/angular/angular.js"></script>
+<script src="src/bower_components/angular-dragdrop/src/angular-dragdrop.js"></script>
 <script src="src/bower_components/angular-material/angular-material.min.js"></script>
 <script src="src/bower_components/angular-cookies/angular-cookies.js"></script>
 <script src="src/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
@@ -37,6 +40,8 @@
 <script src="src/bower_components/angular-messages/angular-messages.min.js"></script>
 <script src="src/bower_components/angular-loading-bar/build/loading-bar.min.js"></script>
 <script src="src/bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
+<script src="src/bower_components/angular-dragdrop/src/angular-dragdrop.min.js"></script>
+
 <!-- end bower dependencies -->
 
 <!-- injector:js -->
@@ -46,32 +51,55 @@
 <script src="app/modules/admin/dashboard/dashboardModule.js"></script>
 <script src="app/modules/admin/fase/faseModule.js"></script>
 <script src="app/modules/auth/authModule.js"></script>
+<script src="app/modules/home/homeModule.js"></script>
 <script src="app/modules/register/registerModule.js"></script>
+<script src="app/modules/sala-testadores/salaTestadoresModule.js"></script>
 <script src="app/modules/shared/directives/check-login/loginValidatorModule.js"></script>
 <script src="app/modules/admin/adminRoute.js"></script>
 <script src="app/modules/admin/dashboard/dashboardRoute.js"></script>
 <script src="app/modules/admin/fase/faseRoute.js"></script>
 <script src="app/modules/auth/authRoute.js"></script>
+<script src="app/modules/home/homeRoute.js"></script>
 <script src="app/modules/register/registerRoute.js"></script>
+<script src="app/modules/sala-testadores/salaTestadoresRoute.js"></script>
 <script src="app/modules/admin/adminCtrl.js"></script>
 <script src="app/modules/admin/dashboard/dashboardCtrl.js"></script>
 <script src="app/modules/admin/fase/classe-de-equivalencia/ClasseEquivalenciaCtrl.js"></script>
 <script src="app/modules/admin/fase/faseCtrl.js"></script>
 <script src="app/modules/admin/fase/valor-de-entrada/ValorDeEntradaCtrl.js"></script>
 <script src="app/modules/auth/authCtrl.js"></script>
+<script src="app/modules/home/homeCtrl.js"></script>
 <script src="app/modules/register/registerCtrl.js"></script>
+<script src="app/modules/sala-testadores/desafio/classes-equivalencia/classesDeEquivalenciaCtrl.js"></script>
+<script src="app/modules/sala-testadores/desafio/concluiDesafioDialogCtrl.js"></script>
+<script src="app/modules/sala-testadores/desafio/desafioDialogCtrl.js"></script>
+<script src="app/modules/sala-testadores/desafio/valores-de-entrada/valoresDeEntradaCtrl.js"></script>
+<script src="app/modules/sala-testadores/desbloqueio/desbloqueioFaseDialogCtrl.js"></script>
+<script src="app/modules/sala-testadores/salaTestadoresCtrl.js"></script>
+<script src="app/modules/shared/directives/page-header/pageHeaderCtrl.js"></script>
+<script src="app/modules/shared/game-over-dialog/GameOverDialogCtrl.js"></script>
 <script src="app/modules/admin/adminService.js"></script>
 <script src="app/modules/admin/dashboard/dashboardService.js"></script>
 <script src="app/modules/admin/fase/classe-de-equivalencia/ClasseEquivalenciaService.js"></script>
 <script src="app/modules/admin/fase/faseService.js"></script>
 <script src="app/modules/admin/fase/valor-de-entrada/ValorDeEntradaService.js"></script>
 <script src="app/modules/auth/authService.js"></script>
+<script src="app/modules/fase/faseService.js"></script>
+<script src="app/modules/home/homeService.js"></script>
 <script src="app/modules/register/registerService.js"></script>
+<script src="app/modules/sala-testadores/desafio/classes-equivalencia/classesDeEquivalenciaService.js"></script>
+<script src="app/modules/sala-testadores/desafio/valores-de-entrada/valoresDeEntradaService.js"></script>
+<script src="app/modules/sala-testadores/salaTestadoresService.js"></script>
 <script src="app/modules/shared/APIService.js"></script>
 <script src="app/modules/shared/custom-toast/customToastService.js"></script>
 <script src="app/modules/shared/directives/check-login/loginService.js"></script>
+<script src="app/modules/shared/directives/page-header/pageHeaderService.js"></script>
 <script src="app/modules/shared/directives/check-login/loginValidatorDirective.js"></script>
+<script src="app/modules/shared/directives/page-header/pageHeaderDirective.js"></script>
 <script src="app/modules/auth/authInterceptor.js"></script>
 <!-- endinjector -->
+
+<img src="app/assets/images/geral/pop_up_liso.png" style="display: none;">
+<img src="app/assets/images/geral/tela-lisa.png" style="display: none;">
 </body>
 </html>

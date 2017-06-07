@@ -3,39 +3,76 @@
 
     <div style="margin: 0 40px">
         <div layout="row" layout-align="start center">
-            <div style="background: #232736" class="cerebros-container" flex="30" layout="row" layout-align="center center">
-                <img src="app/assets/images/geral/cerebro_0.png" ng-repeat="cerebro in $classes.cerebrosDisponiveis">
+            <div class="cerebros-container" layout="row" flex="50" layout-align="start start">
+                <img ng-src="{{cerebro.imageSrc}}" ng-repeat="cerebro in $classes.cerebrosDisponiveis">
             </div>
-            <span flex="10"></span>
             <h1 flex style="letter-spacing: 2px;">{{ $classes.desafio.programa.titulo }}</h1>
         </div>
 
         <div layout="row" layout-align="center center" style="background: #232736">
-            <p style="margin: 0 20px; font-size: 30px; letter-spacing: 1px; text-align: center">
+            <p style="margin: 0 20px; font-size: 25px; letter-spacing: 1px; text-align: center">
                 {{ $classes.desafio.programa.descricao }}
             </p>
         </div>
 
-        <div layout="row" style="margin-top: 15px">
+        <div layout="row" style="margin: 15px 20px">
+            <div layout="column" layout-align="center start" flex="30">
+                <md-radio-group ng-model="$classes.valorSelecionado">
+                    <md-radio-button ng-repeat="alunoValor in $classes.alunoValores" ng-value="alunoValor.valorDeEntrada">
+                        {{ alunoValor.valorDeEntrada.descricao }}
+                    </md-radio-button>
+                </md-radio-group>
+            </div>
 
-            <div layout="column" layout-align="center end" flex="55">
-                <div style="font-size: 24px; margin-top:10px" layout="row" layout-align="end"
-                     ng-repeat="alunoValor in $classes.alunoValores">
-                    <span>{{ alunoValor.valorDeEntrada.descricao }}</span>
-                    <input style="background: #232736; border-radius: 3px; border: 2px solid #232736; margin-left: 10px"
-                           type="text">
-                </div>
+            <div flex="30" layout="row" layout-align="center center">
+                <input style="background: #232736; border-radius: 3px; border: 2px solid #232736; margin-left: 10px"
+                       ng-model="$classes.valorPreenchido"
+                       type="text">
             </div>
 
             <div layout="row" layout-align="center center" flex="10">
-                <img class="validate-classe-equivalencia">
+                <img class="play-button" ng-click="$classes.validate()">
             </div>
 
             <div flex style="background: #232736; min-height: 90px;" layout="row" layout-align="center center">
                 <span>
-
+                    {{ $classes.errorMessage }}
                 </span>
             </div>
+        </div>
+
+        <div class="table-container">
+            <table style="width: 100%" id="report-items">
+                <thead style="letter-spacing: 1px;">
+                    <th style="width: 275px">Valor de Entrada</th>
+                    <th style="width: 250px">Resultado Esperado</th>
+                    <th style="width: 250px">Saída</th>
+                    <th style="width: 250px">Classe de Equivalência</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in $classes.classesAluno">
+                        <td style="width: 275px">{{ item.classeEquivalencia.valorDeEntrada.descricao }}</td>
+                        <td style="width: 250px">{{ item.classeEquivalencia.resultadoEsperado }}</td>
+                        <td style="width: 250px">{{ item.classeEquivalencia.saida }}</td>
+                        <td style="width: 250px"> Classe {{ item.classeEquivalencia.tipo === 'VALIDA' ? 'Válida' : 'Inválida' }}
+                            ({{ item.classeEquivalencia.descricao }})
+                        </td>
+                        <td>
+                            <span ng-if="item.classeEquivalencia.bugExistente">
+                                TEM BUG
+                            </span>
+                            <span ng-if="item.classeEquivalencia.ingrediente">
+                                TEM INGREDIENTE
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="finalizar-button-container" layout="row" layout-align="end center" style="margin-top: 10px">
+            <img ng-click="$classes.finalizar()">
         </div>
     </div>
 </div>

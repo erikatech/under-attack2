@@ -133,7 +133,7 @@ public class AlunoRealizaDesafio implements Serializable {
 		}
 
 		for (ClasseEquivalencia classe : todasAsClassesEquivalencia) {
-			if (classe.getBugExistente()) {
+			if (classe.getBugExistente() != null) {
 				totalBugs++;
 			}
 		}
@@ -141,7 +141,7 @@ public class AlunoRealizaDesafio implements Serializable {
 		List<AlunoEncontraClasseEquivalencia> classesEncontradas = aluno
 				.getAlunoEncontraClasseEquivalencia();
 		for (AlunoEncontraClasseEquivalencia alunoClasse : classesEncontradas) {
-			if (alunoClasse.getClasseEquivalencia().getBugExistente()) {
+			if (alunoClasse.getClasseEquivalencia().getBugExistente() != null) {
 				totalbugsEncontrados++;
 			}
 		}

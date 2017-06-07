@@ -1,4 +1,4 @@
-<div layout-fill class="home-namespace background" layout="column">
+<div class="home-namespace background" layout="column">
     <page-header></page-header>
 
     <div layout="column" class="fases-container">
@@ -8,22 +8,24 @@
             <img flex="20">
             <div layout="column" flex style="margin-left: 10px;" flex="40">
                 <h1>{{ $home.fasesAluno[0].fase.titulo}}</h1>
-                <p>{{ $home.fasesAluno[0].fase.descricao}}</p>
+                <p style="margin: 10px 0;">{{ $home.fasesAluno[0].fase.descricao}}</p>
 
-                <h2>Objetivos:</h2>
-                <div layout="row" layout-align="start center">
-                    <div layout="column" class="objetivos-container" flex="80">
-                        <div ng-repeat="faseObjetivo in $home.fasesAluno[0].faseObjetivo" layout="row"
-                             layout-align="start center">
-                            <img ng-if="faseObjetivo.realizado" src="app/assets/images/dashboard/checked.png">
-                            <img ng-if="!faseObjetivo.realizado" src="app/assets/images/dashboard/unchecked.png">
-                            <p>
-                                {{ faseObjetivo.objetivo.descricao }}
-                            </p>
+                <div layout="column">
+                    <h2>Objetivos:</h2>
+                    <div layout="row" layout-align="start center">
+                        <div layout="column" class="objetivos-container" flex="80">
+                            <div ng-repeat="faseObjetivo in $home.fasesAluno[0].faseObjetivo" layout="row"
+                                 layout-align="start center">
+                                <img ng-if="faseObjetivo.realizado" src="app/assets/images/dashboard/checked.png">
+                                <img ng-if="!faseObjetivo.realizado" src="app/assets/images/dashboard/unchecked.png">
+                                <p >
+                                    {{ faseObjetivo.objetivo.descricao }}
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="iniciar-button-container" flex>
-                        <img ng-click="$home.iniciarFase($home.fasesAluno[0].fase)">
+                        <div class="iniciar-button-container" flex>
+                            <img ng-click="$home.iniciarFase($home.fasesAluno[0].fase)">
+                        </div>
                     </div>
                 </div>
             </div>

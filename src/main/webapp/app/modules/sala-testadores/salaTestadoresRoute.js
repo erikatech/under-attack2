@@ -15,8 +15,19 @@ angular.module('sala-testadores')
                 url:'/fases/testadores',
                 templateUrl: 'app/modules/sala-testadores/sala-testadores.html',
                 controller: 'SalaTestadoresCtrl',
-                controllerAs: '$testadores'
-
+                controllerAs: '$testadores',
+                resolve: {
+                    checkIfUnblocked:
+                        ['$q', '$state', 'SalaTestadoresService',
+                            function ($q, $state, SalaTestadoresService) {
+                                return SalaTestadoresService.verificaSeDesbloqueouFase()
+                                    .then(function (response) {
+                                        return response.data;
+                                    }).catch(function (errorResponse) {
+                                        console.error(errorResponse);
+                                    });
+                            }]
+                }
             })
             .state('authenticated.classesEquivalencia', {
                 url:'/fases/testadores/classes-de-equivalencia',

@@ -103,7 +103,7 @@ public class Fase implements Serializable {
 			List<ClasseEquivalencia> classesEquivalencia = desafio
 					.getClassesEquivalencia();
 			for (ClasseEquivalencia classeEquivalencia : classesEquivalencia) {
-				if (classeEquivalencia.getBugExistente()) {
+				if (classeEquivalencia.getBugExistente() != null) {
 					total++;
 				}
 			}

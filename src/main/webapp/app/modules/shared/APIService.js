@@ -17,7 +17,8 @@
 
 		function Service($http, $q) {
 
-			var baseEndPoint = "/under-attack";
+			var baseEndPoint = "http://localhost:8080/under-attack";
+            // var baseEndPoint = "/under-attack";
 
 			return {
 				post: _post,

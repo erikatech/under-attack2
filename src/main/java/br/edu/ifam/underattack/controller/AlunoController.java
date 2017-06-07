@@ -66,12 +66,9 @@ public class AlunoController {
         Aluno alunoConsultado = this.alunoDao.consulta(aluno.getLogin(), aluno.getSenha());
         validator.addIf(alunoConsultado == null, new I18nMessage("login","login.invalido"));
         validator.onErrorSendBadRequest();
-
         String token = JWTUtil.generateToken(alunoConsultado.getLogin());
-
-        AlunoLogadoDTO usuarioLogadoDTO = new AlunoLogadoDTO(aluno.getLogin(), token);
-
-//        this.alunoInfo.login(alunoConsultado);
+        AlunoLogadoDTO usuarioLogadoDTO = new AlunoLogadoDTO(alunoConsultado.getLogin(),
+                token, alunoConsultado.getNivelAluno().getDescricao(), alunoConsultado.getPontos());
 
         this.result.use(Results.json()).withoutRoot().from(usuarioLogadoDTO).serialize();
     }
@@ -79,5 +76,11 @@ public class AlunoController {
     @Get
     public void getUser(){
         result.use(Results.status()).ok();
+    }
+
+    @Get
+    public void getAlunoInfo(String login){
+        Aluno aluno = this.alunoDao.consulta(login);
+        this.result.use(Results.json()).from(aluno).include("nivelAluno").exclude("senha").serialize();
     }
 }

@@ -35,6 +35,7 @@
 			function logout(){
                 localStorage.removeItem("token");
                 localStorage.removeItem("login");
+                sessionStorage.removeItem("aluno");
                 location.href = '#/';
 			}
 
