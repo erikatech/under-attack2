@@ -138,6 +138,7 @@ span {
 
 .play-button {
     @extend .abstract-img-button;
+    width: 90px;
     content: url(../images/geral/botao_play_off.png);
 }
 
@@ -178,4 +179,11 @@ md-radio-button.md-default-theme .md-on, md-radio-button .md-on {
     padding: 10px 0 10px 25px;
     letter-spacing: 1px;
     min-height: 50px;
+}
+
+.descricao-programa-container {
+    background: url(../images/geral/frame-descricao-programa.png) no-repeat;
+    margin-top: 5px;
+    min-height: 130px;
+    min-width: 1200px;
 }

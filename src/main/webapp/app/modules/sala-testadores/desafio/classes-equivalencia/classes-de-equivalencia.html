@@ -2,17 +2,16 @@
     <page-header></page-header>
 
     <div style="margin: 0 40px">
-
         <div layout="row" layout-align="start center">
-            <div class="cerebros-container" layout="row" flex="40" layout-align="start start">
+            <h1 flex="70" style="letter-spacing: 2px;">{{ $classes.desafio.programa.titulo }}</h1>
+            <div class="cerebros-container" layout="row" flex layout-align="start start">
                 <img ng-src="{{cerebro.imageSrc}}" ng-repeat="cerebro in $classes.cerebrosDisponiveis">
             </div>
-            <h1 flex style="letter-spacing: 2px;">{{ $classes.desafio.programa.titulo }}</h1>
         </div>
 
-        <div layout="row" layout-align="center center" style="background: #232736">
+        <div layout="row" layout-align="center center" class="descricao-programa-container">
             <p style="margin: 0 20px; font-size: 24px; letter-spacing: 1px; font-family: texto;
-                text-align: center;padding: 15px 0">
+                text-align: center;padding-bottom: 10px">
                 {{ $classes.desafio.programa.descricao }}
             </p>
         </div>

@@ -4,23 +4,25 @@
     <div style="margin: 0 40px">
 
         <div layout="row" layout-align="start center">
-            <div class="cerebros-container" layout="row" flex="40" layout-align="start start">
+            <h1 flex="70" style="letter-spacing: 2px;">{{ $valores.desafio.programa.titulo }}</h1>
+            <div flex class="cerebros-container" layout="row" layout-align="start start">
                 <img ng-src="{{cerebro.imageSrc}}" ng-repeat="cerebro in $valores.cerebrosDisponiveis">
             </div>
-            <h1 flex style="letter-spacing: 2px;">{{ $valores.desafio.programa.titulo }}</h1>
         </div>
 
-        <div layout="row" layout-align="center center" style="background: #232736; margin-top: 5px">
-            <p style="margin: 0 20px; font-size: 24px; letter-spacing: 1px; text-align: center; padding: 15px 0">
+        <div layout="row" layout-align="center center" class="descricao-programa-container">
+            <p style="margin: 0 20px; font-size: 24px; padding-bottom: 10px;
+                    letter-spacing: 1px; font-family:texto; text-align: center;">
                 {{ $valores.desafio.programa.descricao }}
             </p>
         </div>
 
-        <div layout="column" style="margin-top: 15px">
+        <div layout="column">
             <p style="text-align: center; font-size: 18px; font-weight: bold">
                 Arraste os valores de entrada correspondentes a documentação acima
             </p>
-            <div layout="row" layout-align="center center" class="valores-entrada-container">
+            <div layout="row" layout-align="center center" style="padding-bottom: 35px"
+                 class="descricao-programa-container valores-entrada-container">
                 <span class="valor-de-entrada" ng-if="valorDeEntrada" data-drag="true"
                       data-jqyoui-options="{revert: 'invalid'}" ng-model="valorDeEntrada"
                       jqyoui-draggable="{animate:true, onStart:'$valores.startCallback(valorDeEntrada, $index)'}"
@@ -30,7 +32,7 @@
             </div>
         </div>
 
-        <div layout="column" style="margin-top: 15px">
+        <div layout="column">
             <h1 style="text-align: center">Valores Escolhidos</h1>
 
             <div class="valor-de-entrada-container">
