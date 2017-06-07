@@ -19,6 +19,7 @@ import javax.persistence.NoResultException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by erika.silva on 04/06/2017.
@@ -247,13 +248,18 @@ public class SalaTestadoresController {
                 bugsEncontrados++;
             }
         }
-
         aluno.setPontos(aluno.getPontos() + totalPontos);
 
-       /* AlunoParticipaFase faseTestadores = aluno.getAlunoParticipaFase().get(0);
-        int encontradosAtual = faseTestadores.getBugsEncontrados();
-        faseTestadores.setBugsEncontrados(encontradosAtual + bugsEncontrados);*/
-
+        int quantidadeBugsFase = aluno.getAlunoParticipaFase().get(0).getFase().getQuantidadeBugsFase();
+        if(quantidadeBugsFase == bugsEncontrados){
+            Set<FaseObjetivo> objetivos = aluno.getAlunoParticipaFase().get(0).getFaseObjetivo();
+            for (FaseObjetivo objetivo : objetivos) {
+                if(objetivo.getObjetivo().getTipoObjetivo().equals(TipoObjetivo.ZOMBUGS)){
+                    objetivo.setRealizado(true);
+                    break;
+                }
+            }
+        }
         AlunoRealizaDesafio alunoRealizaDesafio = alunoDao.desafiosDoAluno(login, idDesafio);
         alunoRealizaDesafio.getAluno().getAlunoParticipaFase().get(0).setBugsEncontrados(bugsEncontrados);
         alunoRealizaDesafio.setSituacaoDesafio(SituacaoDesafio.CONCLUIDO);
@@ -261,7 +267,6 @@ public class SalaTestadoresController {
 
         this.alunoDao.atualiza(aluno);
         this.alunoDao.atualizaDesafioAluno(alunoRealizaDesafio);
-
 
         // Valores pro retorno
         int total = aluno.getAlunoParticipaFase().get(0).getFase().getQuantidadeBugsFase();

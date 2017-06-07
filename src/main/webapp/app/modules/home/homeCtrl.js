@@ -13,15 +13,23 @@
 		.module('home')
 		.controller('HomeCtrl', HomeCtrl);
 
-    	HomeCtrl.$inject = ['HomeService', '$state'];
+    	HomeCtrl.$inject = ['checkIfUnblocked', 'HomeService', '$state', '$mdDialog'];
 
-		function HomeCtrl(HomeService, $state) {
+		function HomeCtrl(checkIfUnblocked, HomeService, $state, $mdDialog) {
 			var context = this;
             context.login = localStorage.getItem("login");
 
+            if(checkIfUnblocked.desbloqueou){
+                $mdDialog.show({
+                    controller: 'DesbloqueioFaseCtrl',
+                    controllerAs: '$desbloqueioDialog',
+                    templateUrl: 'app/modules/sala-testadores/desbloqueio/desbloqueio-fase-dialog.html',
+                    clickOutsideToClose: true
+                });
+            }
+
             HomeService.getFases(context.login)
                 .then(function (successResponse) {
-                    console.log("Fases Aluno >>> ",successResponse);
                     context.fasesAluno = successResponse.data.fasesAluno;
                 })
                 .catch(function (errorResponse) {

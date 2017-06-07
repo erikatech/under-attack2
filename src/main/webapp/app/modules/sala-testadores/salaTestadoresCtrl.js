@@ -13,22 +13,11 @@
 		.module('sala-testadores')
 		.controller('SalaTestadoresCtrl', SalaTestadoresCtrl);
 
-    	SalaTestadoresCtrl.$inject = ['checkIfUnblocked', 'SalaTestadoresService', 'FaseService', '$mdDialog', '$state'];
+    	SalaTestadoresCtrl.$inject = ['SalaTestadoresService', 'FaseService', '$mdDialog', '$state'];
 
-		function SalaTestadoresCtrl(checkIfUnblocked, SalaTestadoresService, FaseService, $mdDialog, $state) {
+		function SalaTestadoresCtrl(SalaTestadoresService, FaseService, $mdDialog, $state) {
 			var context = this;
 			var fase = JSON.parse(localStorage.getItem("fase"));
-
-            if(checkIfUnblocked.desbloqueou){
-                $mdDialog.show({
-                    controller: 'DesbloqueioFaseCtrl',
-                    controllerAs: '$desbloqueioDialog',
-                    templateUrl: 'app/modules/sala-testadores/desbloqueio/desbloqueio-fase-dialog.html',
-                    clickOutsideToClose: true
-                }).catch(function(){
-                    $state.go('authenticated.home');
-                })
-			}
 
 			context.desafios = fase.desafios;
 			context.openDesafio = _openDesafio;

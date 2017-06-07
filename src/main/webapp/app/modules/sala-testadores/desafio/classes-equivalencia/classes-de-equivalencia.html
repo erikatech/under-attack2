@@ -2,48 +2,54 @@
     <page-header></page-header>
 
     <div style="margin: 0 40px">
+
         <div layout="row" layout-align="start center">
-            <div class="cerebros-container" layout="row" flex="50" layout-align="start start">
+            <div class="cerebros-container" layout="row" flex="40" layout-align="start start">
                 <img ng-src="{{cerebro.imageSrc}}" ng-repeat="cerebro in $classes.cerebrosDisponiveis">
             </div>
             <h1 flex style="letter-spacing: 2px;">{{ $classes.desafio.programa.titulo }}</h1>
         </div>
 
         <div layout="row" layout-align="center center" style="background: #232736">
-            <p style="margin: 0 20px; font-size: 25px; letter-spacing: 1px; text-align: center">
+            <p style="margin: 0 20px; font-size: 30px; letter-spacing: 1px; text-align: center;padding: 15px 0">
                 {{ $classes.desafio.programa.descricao }}
             </p>
         </div>
 
-        <div layout="row" style="margin: 15px 20px">
-            <div layout="column" layout-align="center start" flex="30">
+        <div layout="row" style="margin-top: 15px">
+
+            <div layout="column" layout-align="center center" flex="25">
                 <md-radio-group ng-model="$classes.valorSelecionado">
-                    <md-radio-button ng-repeat="alunoValor in $classes.alunoValores" ng-value="alunoValor.valorDeEntrada">
+                    <md-radio-button style="font-size:20px; letter-spacing: 1px"
+                                 class="custom-radio-btn"
+                            ng-repeat="alunoValor in $classes.alunoValores" ng-value="alunoValor.valorDeEntrada">
                         {{ alunoValor.valorDeEntrada.descricao }}
                     </md-radio-button>
                 </md-radio-group>
             </div>
 
-            <div flex="30" layout="row" layout-align="center center">
-                <input style="background: #232736; border-radius: 3px; border: 2px solid #232736; margin-left: 10px"
+            <div flex="25" layout="row" layout-align="center center">
+                <input style="background: #232736; color: white;
+                        border-radius: 3px; border: 2px solid #232736; margin-left: 10px"
                        ng-model="$classes.valorPreenchido"
                        type="text">
             </div>
 
-            <div layout="row" layout-align="center center" flex="10">
+            <div layout="row" layout-align="center center" flex="25">
                 <img class="play-button" ng-click="$classes.validate()">
             </div>
 
-            <div flex style="background: #232736; min-height: 90px;" layout="row" layout-align="center center">
+            <div flex style="background: #232736; min-height: 90px; border-radius: 5px"
+                 layout="row" layout-align="center center">
                 <span>
                     {{ $classes.errorMessage }}
                 </span>
             </div>
         </div>
 
-        <div class="table-container">
-            <table style="width: 100%" id="report-items">
-                <thead style="letter-spacing: 1px;">
+        <div class="table-container" style="margin-top: 15px">
+            <table style="width: 100%;" id="report-items">
+                <thead style="letter-spacing: 2px; font-size: 20px">
                     <th style="width: 275px">Valor de Entrada</th>
                     <th style="width: 250px">Resultado Esperado</th>
                     <th style="width: 250px">Saída</th>
@@ -60,7 +66,7 @@
                         </td>
                         <td>
                             <span ng-if="item.classeEquivalencia.bugExistente">
-                                TEM BUG
+                                <img src="app/assets/images/geral/zombug_icon.png" style="width: 50px;">
                             </span>
                             <span ng-if="item.classeEquivalencia.ingrediente">
                                 TEM INGREDIENTE
