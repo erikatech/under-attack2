@@ -1,5 +1,30 @@
-.auth-container .header {
-  border-bottom: 1px solid #efefef; }
+.auth-container {
+  background-position: center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-image: url("../../assets/images/geral/login.png");
+  background-repeat: no-repeat; }
+  .auth-container .header {
+    border-bottom: 1px solid #efefef; }
+  .auth-container form {
+    background: url(../../assets/images/geral/frame-login.png) no-repeat;
+    margin-top: 5px;
+    min-height: 250px; }
+    .auth-container form .input-login {
+      margin-left: 8%;
+      color: white;
+      min-height: 50px;
+      border: none;
+      padding: 0 5%;
+      font-size: 18px;
+      font-family: janda;
+      text-align: center;
+      width: 285px;
+      background: url(../../assets/images/geral/frame-input-text.png) no-repeat left top; }
+    .auth-container form input[type="text"]:focus, .auth-container form input[type="password"]:focus {
+      outline: none; }
 
 .dashboard-namespace .fase-box {
   border: 2px solid #efefef;
@@ -47,10 +72,14 @@
 .sala-testadores-namespace .valor-de-entrada:hover {
   background: #373b52; }
 .sala-testadores-namespace .desafio {
-  top: 260px;
-  left: 122px;
+  top: 50%;
+  left: 3.4%;
   position: fixed;
-  cursor: pointer; }
+  content: url(../../assets/images/geral/pc.png);
+  cursor: pointer;
+  outline: none; }
+.sala-testadores-namespace .desafio:hover {
+  content: url(../../assets/images/geral/pc-iluminado.png); }
 .sala-testadores-namespace .cerebros-container {
   min-height: 100px;
   padding: 8px 0;
@@ -59,9 +88,8 @@
     width: 75px;
     margin: 10px 10px; }
   .sala-testadores-namespace .cerebros-container img:first-child {
-    margin-left: 60px; }
+    margin-left: 67px; }
 .sala-testadores-namespace .valores-entrada-container {
-  background: #232736;
   margin-top: 15px;
   word-break: break-all;
   padding: 20px 0; }
@@ -107,6 +135,9 @@
       height: 90px;
       background: #232736;
       padding: 20px 0; }
+.sala-testadores-namespace .sala-testadores-image {
+  content: url(../../assets/images/geral/sala_testadores.png);
+  width: 880px; }
 
 h1, h2 {
   font-family: janda;
@@ -156,7 +187,7 @@ span {
   background-image: url("../../assets/images/geral/pop_up_liso.png");
   background-repeat: no-repeat; }
 
-.abstract-img-button, .sair-button-container img, .iniciar-button-container img, .prosseguir-button-container img, .finalizar-button-container img, .play-button {
+.abstract-img-button, .sair-button-container img, .iniciar-button-container img, .prosseguir-button-container img, .finalizar-button-container img, .home-button-container img, .voltar-button-container img, .try-again-container img, .play-button {
   cursor: pointer;
   outline: none; }
 
@@ -188,6 +219,27 @@ span {
 .finalizar-button-container img:hover {
   content: url("../../assets/images/geral/botao_finalizar_on.png"); }
 
+.home-button-container img {
+  width: 145px;
+  height: 50px;
+  content: url("../../assets/images/geral/botao_home_off.png"); }
+.home-button-container img:hover {
+  content: url("../../assets/images/geral/botao_home__on.png"); }
+
+.voltar-button-container img {
+  width: 145px;
+  height: 50px;
+  content: url("../../assets/images/geral/botao_voltar_a_sala__off.png"); }
+.voltar-button-container img:hover {
+  content: url("../../assets/images/geral/botao_voltar_a_sala__on.png"); }
+
+.try-again-container img {
+  width: 145px;
+  height: 50px;
+  content: url("../../assets/images/geral/botao_tentar_novamente_off.png"); }
+.try-again-container img:hover {
+  content: url("../../assets/images/geral/botao_tentar_novamente_on.png"); }
+
 .page-header {
   height: 65px;
   border-bottom: 5px solid #202636;
@@ -198,6 +250,7 @@ span {
     margin-left: 20px; }
 
 .play-button {
+  width: 90px;
   content: url(../images/geral/botao_play_off.png); }
 
 .play-button:hover {
@@ -231,5 +284,11 @@ md-radio-button.md-default-theme .md-on, md-radio-button .md-on {
   padding: 10px 0 10px 25px;
   letter-spacing: 1px;
   min-height: 50px; }
+
+.descricao-programa-container {
+  background: url(../images/geral/frame-descricao-programa.png) no-repeat;
+  margin-top: 5px;
+  min-height: 130px;
+  min-width: 1200px; }
 
 /*# sourceMappingURL=under-attack.css.map */

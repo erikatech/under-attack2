@@ -28,6 +28,24 @@
 			}
 			context.desafio = alunoDesafio.desafio;
 
+			ValoresDeEntradaService.getValoresEncontados()
+				.then(function (response) {
+                    context.selecionados = response.data.valores;
+                    var ids = context.selecionados.map(function (item) {
+						return item.id;
+                    });
+                    angular.forEach(ids, function(id){
+                    	angular.forEach(context.desafio.programa.valoresEntrada, function(valorDeEntrada,index){
+							if(valorDeEntrada.id === id ){
+								context.desafio.programa.valoresEntrada.splice(index, 1);
+							}
+						});
+					});
+                })
+				.catch(function (response) {
+                    console.error("ValorDeEntrada >>> ", response);
+                });
+
 			context.validate = _validate;
 
 			function _validate(){
@@ -64,6 +82,7 @@
 					}, 350);
 				} else {
                 	context.count++;
+                    // $interval.cancel(context.brainsInterval);
 				}
 			}
 

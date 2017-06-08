@@ -20,7 +20,6 @@
             function responseError(responseError){
             	if(responseError.status === 401)
                     location.href = '#/';
-                console.log("[authInterceptor] response >>> ",responseError);
                 return $q.reject(responseError);
             };
 

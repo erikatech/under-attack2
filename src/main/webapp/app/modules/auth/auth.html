@@ -1,40 +1,31 @@
-<div layout-fill ng-cloak class="auth-container" layout="column" flex>
-	<div ng-cloak layout="column" layout-align="center center" flex layout-padding>
-		<md-button md-no-ink class="md-primary" ng-click="$authCtrl.register()">
-			Cadastre-se
-		</md-button>
+<div layout-fill ng-cloak class="auth-container" layout="row" flex>
+	<div flex="65">
+	</div>
+	<div flex layout="column" layout-align="end start">
+		<img src="app/assets/images/geral/logo.png" style="width: 440px; margin-top: 10px;">
 
-		<form novalidate name="registerForm" ng-submit="$authCtrl.authenticate()">
-			<md-card style="width: 400px;">
-				<md-card-content layout="column">
-					<md-input-container flex="100">
-						<label>Login</label>
-						<input required name="login" ng-model="$authCtrl.usuario.login">
-						<div ng-messages="registerForm.login.$error">
-							<div ng-message="required">Campo obrigatório</div>
-						</div>
-					</md-input-container>
+		<div flex style="width: 100%">
+			<form flex="100" style="margin: 20px 30px 0 40px;"
+				  novalidate name="registerForm">
+				<div layout="column">
+					<label style="margin-top: 5%; text-align: center; font-family: janda; letter-spacing: 1px;
+					 		font-size: 20px; color:white"
+						   for="login">Login</label>
+					<input class="input-login" id="login"
+						   type="text" required name="login" ng-model="$authCtrl.usuario.login">
 
-					<md-input-container flex="100">
-						<label>Senha</label>
-						<input required type="{{ $authCtrl.showPassword ? 'text' : 'password'}}"
-							   name="senha" ng-model="$authCtrl.usuario.senha">
-						<div ng-messages="registerForm.senha.$error">
-							<div ng-message="required">Campo obrigatório</div>
-						</div>
-						<md-checkbox md-no-ink aria-label="Mostrar senha"
-									 ng-model="$authCtrl.showPassword" style="margin-top: 10px"
-									 class="md-primary">
-							Exibir senha
-						</md-checkbox>
-					</md-input-container>
-				</md-card-content>
-				<md-card-actions layout="column" layout-align="center center">
-					<md-button class="md-raised md-primary" type="submit" style="width: 100%;">
-						Entrar
-					</md-button>
-				</md-card-actions>
-			</md-card>
-		</form>
+					<label for="password" style="text-align: center; font-family: janda; letter-spacing: 1px;
+					 		font-size: 20px; color:white">
+						Senha</label>
+					<input class="input-login" id="password"
+						   type="password" required name="password" ng-model="$authCtrl.usuario.senha">
+
+					<div class="iniciar-button-container" layout="row" layout-align="center center"
+						 style="margin-top: 3px">
+						<img style="height: 40px" ng-click="registerForm.$valid && $authCtrl.authenticate()"/>
+					</div>
+				</div>
+			</form>
+		</div>
 	</div>
 </div>

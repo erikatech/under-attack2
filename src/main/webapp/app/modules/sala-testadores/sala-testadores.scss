@@ -15,10 +15,16 @@
     }
 
     .desafio {
-        top: 260px;
-        left: 122px;
+        top: 50%;
+        left: 3.4%;
         position: fixed;
+        content: url(../../assets/images/geral/pc.png);
         cursor: pointer;
+        outline: none;
+    }
+
+    .desafio:hover {
+        content: url(../../assets/images/geral/pc-iluminado.png);
     }
 
     .cerebros-container {
@@ -102,6 +108,11 @@
                 padding: 20px 0;
             }
         }
+    }
+
+    .sala-testadores-image{
+        content: url(../../assets/images/geral/sala_testadores.png);
+        width: 880px;
     }
 
 }

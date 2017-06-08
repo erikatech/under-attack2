@@ -21,8 +21,8 @@
                 <md-radio-group ng-model="$classes.valorSelecionado">
                     <md-radio-button style="font-size:20px; letter-spacing: 1px; font-family: texto; font-weight: bold"
                                  class="custom-radio-btn"
-                            ng-repeat="alunoValor in $classes.alunoValores" ng-value="alunoValor.valorDeEntrada">
-                        {{ alunoValor.valorDeEntrada.descricao }}
+                            ng-repeat="valorDeEntrada in $classes.valoresAluno" ng-value="valorDeEntrada">
+                        {{ valorDeEntrada.descricao }}
                     </md-radio-button>
                 </md-radio-group>
             </div>
@@ -55,7 +55,7 @@
                     <th style="width: 250px">Classe de Equivalência</th>
                     <th></th>
                 </thead>
-                <tbody>
+                <tbody style="letter-spacing: 2px; font-size: 20px; font-family: texto">
                     <tr ng-repeat="item in $classes.classesAluno">
                         <td style="width: 275px">{{ item.classeEquivalencia.valorDeEntrada.descricao }}</td>
                         <td style="width: 250px">{{ item.classeEquivalencia.resultadoEsperado }}</td>
@@ -68,7 +68,7 @@
                                 <img src="app/assets/images/geral/zombug_icon.png" style="width: 50px;">
                             </span>
                             <span ng-if="item.classeEquivalencia.ingrediente">
-                                TEM INGREDIENTE
+                                <img src="app/assets/images/geral/card_encontrado_menor.png" style="width: 50px;">
                             </span>
                         </td>
                     </tr>

@@ -1,5 +1,5 @@
 <md-dialog style="background: transparent; box-shadow: none">
-    <div class="background-popup" style="width: 735px; height: 400px">
+    <div class="background-popup" style="width: 735px; height: 517px;">
         <div layout="column" layout-align="center center"
              style="padding-top: 100px;">
 
@@ -15,9 +15,13 @@
                     margin:30px 15px 0 15px">
             </div>
 
-            <div layout="row" layout-align="center center" class="iniciar-button-container">
-                <img style="margin-top: 60px; width: 200px;" ng-click="$concluiDesafio.backToRoom()">
-                <img style="margin-left: 15px;margin-top: 60px; width: 200px;" ng-click="$concluiDesafio.tryAgain()">
+            <div layout="row" layout-align="center center">
+                <div class="voltar-button-container">
+                    <img style="margin-top: 60px; width: 200px;" ng-click="$concluiDesafio.backToRoom()">
+                </div>
+                <div class="try-again-container">
+                    <img style="margin-left: 15px;margin-top: 60px; width: 200px;" ng-click="$concluiDesafio.tryAgain()">
+                </div>
             </div>
         </div>
     </div>

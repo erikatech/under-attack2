@@ -24,7 +24,7 @@
 
             SalaTestadoresService.getItemsPocaoMagica()
 				.then(function (successResponse) {
-					console.log("Items poção >>> ", successResponse);
+                    context.itensAluno = successResponse.data.ingredientes.pocaoIngredienteList;
                 })
 				.catch(function (errorResponse) {
 					console.error(errorResponse);
@@ -43,21 +43,28 @@
                         	localStorage.setItem("desafioId", desafioId);
                         	$state.go('authenticated.valoresDeEntrada');
 						}).catch(function(desafioId){
-							SalaTestadoresService.restartaDesafio(desafioId)
-								.then(function(response){
-									console.log("Restarta desafio >>> ", response)
-                                    localStorage.setItem("desafioId", desafioId);
-                                    $state.go('authenticated.valoresDeEntrada');
-								})
-								.catch(function (errorResponse) {
-									console.error("Restarta desafio >>> ", errorResponse)
-                                })
+                            if(desafioId !== undefined){
+                                SalaTestadoresService.restartaDesafio(desafioId)
+                                    .then(function(response){
+                                        console.log("Restarta desafio >>> ", response)
+                                        localStorage.setItem("desafioId", desafioId);
+                                        $state.go('authenticated.valoresDeEntrada');
+                                    })
+                                    .catch(function (errorResponse) {
+                                        console.error("Restarta desafio >>> ", errorResponse)
+                                    });
+							}
 						});
 
                     })
 					.catch(function (errorResponse) {
 						console.error("openDesafio >>> ", errorResponse);
                     })
+			}
+
+			context.getImageSrc = function(item){
+            	var rootFolder = "app/assets/images/geral/".concat(item.ingrediente.nomeImagem);
+            	return rootFolder.concat(item.situacaoIngrediente === 'ESCONDIDO' ? '-cinza.png' : '.png');
 			}
 		}
 })();

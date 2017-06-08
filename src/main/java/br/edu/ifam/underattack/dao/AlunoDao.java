@@ -3,18 +3,13 @@ package br.edu.ifam.underattack.dao;
 import br.edu.ifam.underattack.model.*;
 import br.edu.ifam.underattack.model.enums.SituacaoDesafio;
 import br.edu.ifam.underattack.model.enums.SituacaoFase;
-import br.edu.ifam.underattack.model.enums.SituacaoIngrediente;
 import br.edu.ifam.underattack.model.enums.TipoValorEntrada;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 public class AlunoDao {
@@ -154,9 +149,17 @@ public class AlunoDao {
 
     public Aluno encontraValoresDeEntrada(String login, List<ValorDeEntrada> valoresSelecionados) {
 		final Aluno aluno = this.consulta(login);
+		List<AlunoEncontraValorDeEntrada> valoresAluno = this.valorDeEntradaDao.getValoresAluno(login);
+		List<Long> idsValoresAluno = new ArrayList<>();
+
+		for (AlunoEncontraValorDeEntrada alunoEncontraValorDeEntrada : valoresAluno) {
+			idsValoresAluno.add(alunoEncontraValorDeEntrada.getValorDeEntrada().getId());
+		}
+
 		for (ValorDeEntrada valorSelecionado : valoresSelecionados) {
 			ValorDeEntrada valorEncontrado = this.valorDeEntradaDao.getValorDeEntrada(valorSelecionado.getId());
-			if(valorEncontrado.getTipo().equals(TipoValorEntrada.CORRETO)){
+			if(valorEncontrado.getTipo().equals(TipoValorEntrada.CORRETO) &&
+					!idsValoresAluno.contains(valorEncontrado.getId())){
 				AlunoEncontraValorDeEntrada alunoValor = new AlunoEncontraValorDeEntrada();
 				alunoValor.setAluno(aluno);
 				alunoValor.setValorDeEntrada(valorEncontrado);
@@ -195,6 +198,14 @@ public class AlunoDao {
 		return resultList.size() != 0;
 	}
 
+	public int getQuantidadeValoresEncontrados(String login) {
+		TypedQuery<AlunoEncontraValorDeEntrada> query = this.em.createQuery("select av " +
+				"from AlunoEncontraValorDeEntrada av where av.aluno.login=:login", AlunoEncontraValorDeEntrada.class);
+		query.setParameter("login", login);
+		List<AlunoEncontraValorDeEntrada> resultList = query.getResultList();
+		return resultList.size();
+	}
+
 	public void atualiza(Aluno aluno){
 		this.em.merge(aluno);
 	}
@@ -205,37 +216,9 @@ public class AlunoDao {
 
 	public void reiniciaDesafioAluno(String login) {
 		Aluno alunoConsultado = this.consulta(login);
-		//reseto a quantidade de bugs encontradas
-		alunoConsultado.getAlunoParticipaFase().get(0).setBugsEncontrados(0);
-
-		// Remove as classes encontradas
-		List<AlunoEncontraClasseEquivalencia> alunoEncontraClasseEquivalencias = this.classesDoAluno(login);
-		for (AlunoEncontraClasseEquivalencia alunoEncontraClasseEquivalencia : alunoEncontraClasseEquivalencias) {
-			this.em.remove(alunoEncontraClasseEquivalencia);
-		}
-
-		List<AlunoEncontraValorDeEntrada> valoresAluno = this.valorDeEntradaDao.getValoresAluno(login);
-		for (AlunoEncontraValorDeEntrada alunoEncontraValorDeEntrada : valoresAluno) {
-			this.em.remove(alunoEncontraValorDeEntrada);
-		}
-
 		AlunoRealizaDesafio alunoRealizaDesafio = alunoConsultado.getAlunoRealizaDesafio().get(0);
 		alunoRealizaDesafio.setCerebrosDisponiveis(3);
-		alunoRealizaDesafio.setDesempenho(null);
 		alunoRealizaDesafio.setSituacaoDesafio(SituacaoDesafio.EM_ANDAMENTO);
-
-
-		List<PocaoMagicaIngrediente> pocaoIngredienteList = alunoConsultado.getPocaoMagica().getPocaoIngredienteList();
-		for (PocaoMagicaIngrediente pocaoMagicaIngrediente : pocaoIngredienteList) {
-			pocaoMagicaIngrediente.setSituacaoIngrediente(SituacaoIngrediente.ESCONDIDO);
-		}
-
-		AlunoParticipaFase alunoParticipaFase = alunoConsultado.getAlunoParticipaFase().get(0);
-		Set<FaseObjetivo> objetivosFase = alunoParticipaFase.getFaseObjetivo();
-		for (FaseObjetivo faseObjetivo : objetivosFase) {
-			faseObjetivo.setRealizado(false);
-			this.em.merge(faseObjetivo);
-		}
 		this.atualiza(alunoConsultado);
 	}
 }

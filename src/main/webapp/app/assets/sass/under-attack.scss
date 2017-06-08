@@ -125,6 +125,45 @@ span {
 
 }
 
+.home-button-container {
+    img {
+        @extend .abstract-img-button;
+        width: 145px;
+        height: 50px;
+        content:url('../../assets/images/geral/botao_home_off.png');
+    }
+
+    img:hover {
+        content:url('../../assets/images/geral/botao_home__on.png');
+    }
+}
+
+.voltar-button-container {
+    img {
+        @extend .abstract-img-button;
+        width: 145px;
+        height: 50px;
+        content:url('../../assets/images/geral/botao_voltar_a_sala__off.png');
+    }
+
+    img:hover {
+        content:url('../../assets/images/geral/botao_voltar_a_sala__on.png');
+    }
+}
+
+.try-again-container {
+    img {
+        @extend .abstract-img-button;
+        width: 145px;
+        height: 50px;
+        content:url('../../assets/images/geral/botao_tentar_novamente_off.png');
+    }
+    img:hover {
+        content:url('../../assets/images/geral/botao_tentar_novamente_on.png');
+    }
+
+}
+
 .page-header {
     height: 65px;
     border-bottom: 5px solid #202636;

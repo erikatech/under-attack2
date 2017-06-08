@@ -1,6 +1,37 @@
 .auth-container {
+    background-position: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size:  cover;
+    background-image: url('../../assets/images/geral/login.png');
+    background-repeat: no-repeat;
+
     .header {
         border-bottom: 1px solid #efefef;
+    }
+
+    form {
+        background: url(../../assets/images/geral/frame-login.png) no-repeat;
+        margin-top: 5px;
+        min-height: 250px;
+
+        .input-login {
+            margin-left:8%;
+            color: white;
+            min-height: 50px;
+            border:none;
+            padding: 0 5%;
+            font-size: 18px;
+            font-family: janda;
+            text-align: center;
+            width: 285px;
+            background:url(../../assets/images/geral/frame-input-text.png) no-repeat left top;
+        }
+
+        input[type="text"]:focus, input[type="password"]:focus {
+            outline: none;
+        }
     }
 
 }

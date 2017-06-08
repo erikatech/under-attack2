@@ -42,5 +42,16 @@
 				localStorage.setItem("fase", JSON.stringify(fase));
                 $state.go('authenticated.salaTestadores');
 			};
+
+			context.hideIniciarButton = function(){
+				if(context.fasesAluno !== undefined){
+                    var faseTestadores = context.fasesAluno[0];
+                    var objetivosFase = faseTestadores.faseObjetivo.length;
+                    var objetivosRealizados = faseTestadores.faseObjetivo.filter(function(item){
+                    	return item.realizado;
+					});
+                    return objetivosFase === objetivosRealizados.length;
+				}
+            }
 		}
 })();

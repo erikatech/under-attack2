@@ -19,8 +19,6 @@
 			var context = this;
 			context.desafio = desafioDialogInfo;
 
-            console.log(context.desafio);
-
             context.startDesafio = _startDesafio;
 
 			function _startDesafio(){

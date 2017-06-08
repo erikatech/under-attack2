@@ -13,6 +13,8 @@ public class ResultadoDesafioDto {
 
     private double totalEstrelas;
 
+    private int pontosAluno;
+
     public void setTotalBugsFase(int totalBugsFase) {
         this.totalBugsFase = totalBugsFase;
     }
@@ -27,5 +29,9 @@ public class ResultadoDesafioDto {
 
     public void setTotalEstrelas(double totalEstrelas) {
         this.totalEstrelas = totalEstrelas;
+    }
+
+    public void setPontosAluno(int pontosAluno) {
+        this.pontosAluno = pontosAluno;
     }
 }

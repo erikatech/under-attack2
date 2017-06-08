@@ -36,4 +36,12 @@ public class ValorDeEntradaDao {
         return query.getResultList();
     }
 
+    public int getTotalValoresCorretos() {
+        TypedQuery<ValorDeEntrada> query =
+                this.em.createQuery("select v from ValorDeEntrada v where v.tipo =:tipo", ValorDeEntrada.class);
+        query.setParameter("tipo", TipoValorEntrada.CORRETO);
+        return query.getResultList().size();
+
+
+    }
 }

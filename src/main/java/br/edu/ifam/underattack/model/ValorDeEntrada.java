@@ -38,6 +38,8 @@ public class ValorDeEntrada implements Serializable {
     @Enumerated(EnumType.STRING)
     private Dificuldade dificuldade;
 
+    private transient int pontos;
+
     public ValorDeEntrada() {
         this.classesEquivalencia = new ArrayList<ClasseEquivalencia>();
     }
@@ -125,7 +127,12 @@ public class ValorDeEntrada implements Serializable {
     }
 
     public int getPontos() {
-        return dificuldade.getPontos();
+        return pontos;
     }
+
+    public void setPontos(int pontos) {
+        this.pontos = pontos;
+    }
+
 
 }

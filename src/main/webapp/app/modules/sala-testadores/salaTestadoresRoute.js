@@ -50,7 +50,6 @@ angular.module('sala-testadores')
                                         return response.data.alunoDesafio;
                                     }).catch(function () {
                                         $state.go('authenticated.classesEquivalencia');
-                                        // console.error("Catch valor de entrada >>> ", errorResponse);
                                     });
                             }]
                 }

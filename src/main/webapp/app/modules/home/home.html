@@ -5,7 +5,7 @@
 
         <!-- FASE DOS TESTADORES -->
         <div layout="row" class="testadores-container">
-            <img flex="20">
+            <img flex="20" src="app/assets/images/geral/sala_dos_testadores.png">
             <div layout="column" flex style="margin-left: 10px;" flex="40">
                 <h1>{{ $home.fasesAluno[0].fase.titulo}}</h1>
                 <p style="margin: 10px 0;">{{ $home.fasesAluno[0].fase.descricao}}</p>
@@ -23,8 +23,8 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="iniciar-button-container" flex>
-                            <img ng-click="$home.iniciarFase($home.fasesAluno[0].fase)">
+                        <div class="iniciar-button-container" flex >
+                            <img ng-hide="$home.hideIniciarButton()" ng-click="$home.iniciarFase($home.fasesAluno[0].fase)">
                         </div>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                 </div>
             </div>
 
-            <img flex="20">
+            <img flex="20" src="app/assets/images/geral/sala_dos_desenvolvedores.png">
         </div> <!-- END FASE DOS DESENVOLVEDORES -->
     </div>
 

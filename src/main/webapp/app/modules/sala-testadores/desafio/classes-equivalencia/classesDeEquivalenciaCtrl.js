@@ -20,7 +20,7 @@
                    $interval, $state, SalaTestadoresService) {
 
 			var context = this;
-            context.classesAluno = [];
+            // context.classesAluno = [];
             context.count = 1;
             context.cerebrosDisponiveis = [];
             for(var i = 0; i < alunoDesafio.cerebrosDisponiveis; i++){
@@ -31,21 +31,21 @@
 
 			ClassesDeEquivalenciaService.getValoresAluno()
 				.then(function (success) {
-					context.alunoValores = success.data.valores;
-                    context.valorSelecionado = context.alunoValores[0].valorDeEntrada;
+					context.valoresAluno = success.data.valores;
+                    context.valorSelecionado = context.valoresAluno[0];
                 })
 				.catch(function (error) {
 					console.error("classesEquivalencia >>> ", error);
                 });
 
 
-            /*ClassesDeEquivalenciaService.getClassesAluno()
+            ClassesDeEquivalenciaService.getClassesAluno()
                 .then(function (success) {
                     context.classesAluno = success.data.classesAluno;
                 })
                 .catch(function () {
                     context.classesAluno = [];
-                });*/
+                });
 
 
 			context.validate = _validate;
@@ -101,6 +101,9 @@
             function _finalizar(){
                 ClassesDeEquivalenciaService.finalizaDesafio(context.desafio.id, context.classesAluno)
                     .then(function (response) {
+                        var alunoInSession = JSON.parse(sessionStorage.getItem("aluno"));
+                        alunoInSession.pontos = response.data.resultadoDesafio.pontosAluno;
+                        sessionStorage.setItem("aluno", JSON.stringify(alunoInSession));
                         $mdDialog.show({
                             controller: 'ConcluiDesafioCtrl',
                             controllerAs: '$concluiDesafio',

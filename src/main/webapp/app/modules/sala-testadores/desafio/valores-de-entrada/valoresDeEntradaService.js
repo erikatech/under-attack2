@@ -18,7 +18,8 @@
 		function ValoresDeEntradaService (ServiceAPI) {
 			return {
                 validateValorDeEntrada: _validateValorDeEntrada,
-				goToNextStage: _gotoNextStage
+				goToNextStage: _gotoNextStage,
+				getValoresEncontados: _getValoresEncontrados
 			};
 
 
@@ -31,6 +32,11 @@
 			function _gotoNextStage(valoresSelecionados){
                 var requestData = { login: localStorage.getItem("login"), valoresSelecionados: valoresSelecionados};
                 return ServiceAPI.post(requestData, '/salaTestadores/goToNextStage');
+			}
+
+			function _getValoresEncontrados(){
+                var config = { params: {login: localStorage.getItem("login")}};
+                return ServiceAPI.get('/salaTestadores/getValoresAluno', config);
 			}
 
 		}
