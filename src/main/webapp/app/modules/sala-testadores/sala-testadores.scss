@@ -15,8 +15,8 @@
     }
 
     .desafio {
-        top: 50%;
-        left: 3.4%;
+        top: 313px;
+        left: 40px;
         position: fixed;
         content: url(../../assets/images/geral/pc.png);
         cursor: pointer;
@@ -110,9 +110,16 @@
         }
     }
 
-    .sala-testadores-image{
+    /*.sala-testadores-image{
         content: url(../../assets/images/geral/sala_testadores.png);
         width: 880px;
+    }*/
+
+    .sala-testadores-image{
+        background: url(../../assets/images/geral/sala_testadores.png) no-repeat;
+        width: 880px;
+        height: 100%;
+        position: relative;
     }
 
 }

@@ -2,11 +2,15 @@
 <div style="height: 100%; overflow-y: auto" class="sala-testadores-namespace background" layout="column" flex>
     <page-header></page-header>
 
-    <div layout="row" flex>
-        <div flex="70">
-            <img class="sala-testadores-image"/>
+    <div layout="row" style="height: 100%">
+        <div>
+            <div class="sala-testadores-image">
+                <img class="desafio" ng-repeat="desafio in $testadores.desafios"
+                     ng-click="$testadores.openDesafio(desafio.id)" />
+            </div>
+            <!--<img class="sala-testadores-image"/>
             <img class="desafio" ng-repeat="desafio in $testadores.desafios"
-                 ng-click="$testadores.openDesafio(desafio.id)" />
+                 ng-click="$testadores.openDesafio(desafio.id)" />-->
         </div>
         <div layout="column" flex layout-align="start center">
             <h1 style="text-align: center">Chave da Sala dos Desenvolvedores</h1>
