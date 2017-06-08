@@ -14,19 +14,6 @@
         background: #373b52;
     }
 
-    .desafio {
-        top: 313px;
-        left: 40px;
-        position: fixed;
-        content: url(../../assets/images/geral/pc.png);
-        cursor: pointer;
-        outline: none;
-    }
-
-    .desafio:hover {
-        content: url(../../assets/images/geral/pc-iluminado.png);
-    }
-
     .cerebros-container {
         min-height: 100px;
         padding: 8px 0;
@@ -117,9 +104,23 @@
 
     .sala-testadores-image{
         background: url(../../assets/images/geral/sala_testadores.png) no-repeat;
-        width: 880px;
         height: 100%;
+        width: 880px;
         position: relative;
     }
+
+    .desafio {
+        top: 247px;
+        left: 40px;
+        position: absolute;
+        content: url(../../assets/images/geral/pc.png);
+        cursor: pointer;
+        outline: none;
+    }
+
+    .desafio:hover {
+        content: url(../../assets/images/geral/pc-iluminado.png);
+    }
+
 
 }
