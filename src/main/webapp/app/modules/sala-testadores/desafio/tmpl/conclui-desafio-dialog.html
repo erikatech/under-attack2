@@ -16,10 +16,10 @@
             </div>
 
             <div layout="row" layout-align="center center">
-                <div class="voltar-button-container">
+                <div class="voltar-button-container" >
                     <img style="margin-top: 60px; width: 200px;" ng-click="$concluiDesafio.backToRoom()">
                 </div>
-                <div class="try-again-container">
+                <div class="try-again-container" ng-hide="$concluiDesafio.desempenho.concluido">
                     <img style="margin-left: 15px;margin-top: 60px; width: 200px;" ng-click="$concluiDesafio.tryAgain()">
                 </div>
             </div>

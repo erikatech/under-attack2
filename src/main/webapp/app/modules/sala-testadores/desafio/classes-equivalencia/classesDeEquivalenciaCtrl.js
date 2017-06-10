@@ -63,7 +63,6 @@
                         angular.forEach(successResponse.data.testResult.alunoEncontraClasseEquivalencia, function(classe){
                             context.classesAluno.push(classe);
                         });
-                        // context.classesAluno = successResponse.data.testResult.alunoEncontraClasseEquivalencia;
                     })
 					.catch(function (errorResponse) {
 						context.errorMessage = errorResponse.data;

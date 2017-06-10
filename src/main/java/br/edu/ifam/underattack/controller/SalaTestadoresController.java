@@ -287,26 +287,16 @@ public class SalaTestadoresController {
                         }
                     }
                 }
-                if(classeEquivalencia.getBugExistente() != null){
+                if(classeEquivalencia.getBugExistente() != null && !alunoEncontraClasseEquivalencia.isBugEncontrado()){
                     bugsEncontradosNoDesafioAtual++;
+                    alunoEncontraClasseEquivalencia.setBugEncontrado(true);
+                    this.alunoDao.atualizaBugEncontrado(alunoEncontraClasseEquivalencia);
                 }
-
-            }
-
-        }
-        /*List<ClasseEquivalencia> classesDoDesafio = classeEquivalenciaDao.getClassesDesafioAtual(idDesafio);
-        // pega a quantidade de bugs do desafio atual
-        int quantidadeBugsDesafio = 0;
-        for (ClasseEquivalencia classeEquivalencia : classesDoDesafio) {
-            if(classeEquivalencia.getBugExistente() != null){
-                quantidadeBugsDesafio++;
             }
         }
-*/
          AlunoParticipaFase salaTestadores = aluno.getAlunoParticipaFase().get(0);
         salaTestadores.setBugsEncontrados(salaTestadores.getBugsEncontrados() + bugsEncontradosNoDesafioAtual);
         alunoDao.atualiza(aluno);
-
 
         int quantidadeBugsFase = salaTestadores.getFase().getQuantidadeBugsFase();
         if(quantidadeBugsFase == salaTestadores.getBugsEncontrados()){
@@ -320,6 +310,7 @@ public class SalaTestadoresController {
             }
         }
 
+        aluno.setPontos(aluno.getPontos() + totalPontos);
         classesJaEncontradas = this.alunoDao.idsClassesDoDesafioAtual(login, idDesafio);
         AlunoRealizaDesafio alunoRealizaDesafio = alunoDao.desafiosDoAluno(login, idDesafio);
         // Se o aluno já encontrou todas as classes de equivalencia...
@@ -331,6 +322,8 @@ public class SalaTestadoresController {
         this.alunoDao.atualizaDesafioAluno(alunoRealizaDesafio);
 
         ResultadoDesafioDto resultadoDesafio = getResultadoDesafioDto(aluno, alunoRealizaDesafio, bugsEncontradosNoDesafioAtual);
+        resultadoDesafio.setConcluido(alunoRealizaDesafio.getSituacaoDesafio().equals(SituacaoDesafio.CONCLUIDO));
+
         this.result.use(Results.json()).from(resultadoDesafio, "resultadoDesafio").serialize();
     }
 

@@ -24,7 +24,7 @@
                             </div>
                         </div>
                         <div class="iniciar-button-container" flex >
-                            <img ng-hide="$home.hideIniciarButton()" ng-click="$home.iniciarFase($home.fasesAluno[0].fase)">
+                            <img ng-click="$home.iniciarFase($home.fasesAluno[0].fase)">
                         </div>
                     </div>
                 </div>
@@ -56,10 +56,10 @@
                 <p>{{ $home.fasesAluno[1].fase.descricao}}</p>
 
                 <div layout="row" style="width: 100%;" flex layout-align="start center">
-                    <div class="iniciar-button-container" layout="row" layout-align="start center">
+                    <!--<div class="iniciar-button-container" layout="row" layout-align="start center">
                         <img>
-                    </div>
-                    <div layout="column" layout-align="end end" class="objetivos-container" flex="80">
+                    </div>-->
+                    <div layout="column" layout-align="end end" class="objetivos-container" flex="100">
                         <h2>Objetivos:</h2>
                         <div ng-repeat="faseObjetivo in $home.fasesAluno[1].faseObjetivo" layout="row"
                              layout-align="start center">

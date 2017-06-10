@@ -242,4 +242,8 @@ public class AlunoDao {
 		alunoRealizaDesafio.setSituacaoDesafio(SituacaoDesafio.EM_ANDAMENTO);
 		this.atualiza(alunoConsultado);
 	}
+
+	public void atualizaBugEncontrado(AlunoEncontraClasseEquivalencia alunoEncontraClasseEquivalencia) {
+		this.em.merge(alunoEncontraClasseEquivalencia);
+	}
 }

@@ -15,6 +15,8 @@ public class ResultadoDesafioDto {
 
     private int pontosAluno;
 
+    private boolean concluido;
+
     public void setTotalBugsFase(int totalBugsFase) {
         this.totalBugsFase = totalBugsFase;
     }
@@ -33,5 +35,9 @@ public class ResultadoDesafioDto {
 
     public void setPontosAluno(int pontosAluno) {
         this.pontosAluno = pontosAluno;
+    }
+
+    public void setConcluido(boolean concluido) {
+        this.concluido = concluido;
     }
 }
