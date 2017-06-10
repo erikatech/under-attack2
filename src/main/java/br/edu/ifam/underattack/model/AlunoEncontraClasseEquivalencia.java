@@ -20,7 +20,7 @@ public class AlunoEncontraClasseEquivalencia implements Serializable {
 	@JoinColumn(name = "aluno_id")
 	private Aluno aluno;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "classe_equivalencia_id")
 	private ClasseEquivalencia classeEquivalencia;
 

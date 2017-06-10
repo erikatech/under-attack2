@@ -32,7 +32,7 @@ public class ValorDeEntrada implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "valorDeEntrada")
     private List<AlunoEncontraValorDeEntrada> alunoEncontraValorDeEntrada;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Programa programa;
 
     @Enumerated(EnumType.STRING)

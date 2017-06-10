@@ -36,10 +36,12 @@ public class ValorDeEntradaDao {
         return query.getResultList();
     }
 
-    public int getTotalValoresCorretos() {
+    public int getTotalValoresCorretos(Long idDesafio) {
         TypedQuery<ValorDeEntrada> query =
-                this.em.createQuery("select v from ValorDeEntrada v where v.tipo =:tipo", ValorDeEntrada.class);
+                this.em.createQuery("select v from ValorDeEntrada v where v.tipo =:tipo " +
+                        "and v.programa.desafio.id=:idDesafio", ValorDeEntrada.class);
         query.setParameter("tipo", TipoValorEntrada.CORRETO);
+        query.setParameter("idDesafio", idDesafio);
         return query.getResultList().size();
 
 

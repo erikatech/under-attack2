@@ -181,12 +181,31 @@ public class AlunoDao {
 		this.em.persist(alunoEncontraClasseEquivalencia);
 	}
 
-	public List<AlunoEncontraClasseEquivalencia> classesDoAluno(String login) {
-		final Aluno aluno = this.consulta(login);
+	public List<AlunoEncontraClasseEquivalencia> classesDoAluno(String login, Long desafioId) {
 		TypedQuery<AlunoEncontraClasseEquivalencia> query =
-				this.em.createQuery("select ac from AlunoEncontraClasseEquivalencia ac where ac.aluno.login=:login",
-				AlunoEncontraClasseEquivalencia.class);
+				this.em.createQuery("select ac from AlunoEncontraClasseEquivalencia ac where ac.aluno.login=:login" +
+								" and ac.classeEquivalencia.valorDeEntrada.programa.desafio.id=:idDesafio",
+						AlunoEncontraClasseEquivalencia.class);
 		query.setParameter("login", login);
+		query.setParameter("idDesafio", desafioId);
+		return query.getResultList();
+	}
+
+	public List<Long> idsClassesDoDesafioAtual(String login, Long desafioId) {
+		TypedQuery<Long> query =
+				this.em.createQuery("select ac.classeEquivalencia.id from AlunoEncontraClasseEquivalencia ac where ac.aluno.login =:login " +
+				"and ac.classeEquivalencia.valorDeEntrada.programa.desafio.id =:desafioId", Long.class);
+		query.setParameter("login", login);
+		query.setParameter("desafioId", desafioId);
+		return query.getResultList();
+	}
+
+	public List<ClasseEquivalencia> classesDoDesafioAtual(String login, Long desafioId) {
+		TypedQuery<ClasseEquivalencia> query =
+				this.em.createQuery("select ac.classeEquivalencia from AlunoEncontraClasseEquivalencia ac where ac.aluno.login =:login " +
+						"and ac.classeEquivalencia.valorDeEntrada.programa.desafio.id =:desafioId", ClasseEquivalencia.class);
+		query.setParameter("login", login);
+		query.setParameter("desafioId", desafioId);
 		return query.getResultList();
 	}
 
@@ -198,10 +217,12 @@ public class AlunoDao {
 		return resultList.size() != 0;
 	}
 
-	public int getQuantidadeValoresEncontrados(String login) {
+	public int getQuantidadeValoresEncontrados(String login, Long idDesafio) {
 		TypedQuery<AlunoEncontraValorDeEntrada> query = this.em.createQuery("select av " +
-				"from AlunoEncontraValorDeEntrada av where av.aluno.login=:login", AlunoEncontraValorDeEntrada.class);
+				"from AlunoEncontraValorDeEntrada av where av.aluno.login=:login " +
+				"and av.valorDeEntrada.programa.desafio.id=:idDesafio", AlunoEncontraValorDeEntrada.class);
 		query.setParameter("login", login);
+		query.setParameter("idDesafio", idDesafio);
 		List<AlunoEncontraValorDeEntrada> resultList = query.getResultList();
 		return resultList.size();
 	}

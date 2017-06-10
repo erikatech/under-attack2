@@ -30,6 +30,9 @@ public class Programa implements Serializable {
     @OneToMany(mappedBy = "programa")
     private List<Classe> classes;
 
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Desafio desafio;
+
     public String getTitulo() {
         return titulo;
     }
@@ -90,5 +93,11 @@ public class Programa implements Serializable {
         valorEntrada.setPrograma(this);
     }
 
+    public Desafio getDesafio() {
+        return desafio;
+    }
 
+    public void setDesafio(Desafio desafio) {
+        this.desafio = desafio;
+    }
 }

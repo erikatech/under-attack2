@@ -28,7 +28,7 @@
 			}
 			context.desafio = alunoDesafio.desafio;
 
-			ValoresDeEntradaService.getValoresEncontados()
+			ValoresDeEntradaService.getValoresEncontados(context.desafio.id)
 				.then(function (response) {
                     context.selecionados = response.data.valores;
                     var ids = context.selecionados.map(function (item) {

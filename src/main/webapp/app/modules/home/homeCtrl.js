@@ -30,6 +30,7 @@
 
             HomeService.getFases(context.login)
                 .then(function (successResponse) {
+                	console.log("FASES >>> ",successResponse);
                     context.fasesAluno = successResponse.data.fasesAluno;
                 })
                 .catch(function (errorResponse) {

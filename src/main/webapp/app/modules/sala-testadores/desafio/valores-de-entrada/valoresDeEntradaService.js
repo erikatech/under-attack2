@@ -34,8 +34,8 @@
                 return ServiceAPI.post(requestData, '/salaTestadores/goToNextStage');
 			}
 
-			function _getValoresEncontrados(){
-                var config = { params: {login: localStorage.getItem("login")}};
+			function _getValoresEncontrados(idDesafio){
+                var config = { params: {login: localStorage.getItem("login"), idDesafio: idDesafio}};
                 return ServiceAPI.get('/salaTestadores/getValoresAluno', config);
 			}
 

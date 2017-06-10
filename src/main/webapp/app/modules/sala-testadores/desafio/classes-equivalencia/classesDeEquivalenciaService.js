@@ -30,8 +30,8 @@
                 return ServiceAPI.get('/desafio/getDesafiosAluno', config);
             }
 
-            function _getValoresAluno(){
-            	var config = {params: {login: localStorage.getItem("login")}};
+            function _getValoresAluno(idDesafio){
+            	var config = {params: {login: localStorage.getItem("login"), idDesafio: idDesafio}};
             	return ServiceAPI.get('/salaTestadores/getValoresAluno', config);
 			}
 
@@ -40,8 +40,8 @@
             	return ServiceAPI.post(requestData, '/salaTestadores/testClasseEquivalencia');
 			}
 
-			function _getClassesAluno(){
-				var config = {params: {login: localStorage.getItem("login")}};
+			function _getClassesAluno(idDesafio){
+				var config = {params: {login: localStorage.getItem("login"), idDesafio: idDesafio}};
 				return ServiceAPI.get('/salaTestadores/getClassesAluno', config);
 			}
 

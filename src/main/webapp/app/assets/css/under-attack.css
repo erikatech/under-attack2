@@ -10,6 +10,7 @@
     border-bottom: 1px solid #efefef; }
   .auth-container form {
     background: url(../../assets/images/geral/frame-login.png) no-repeat;
+    background-size: 100% 100%;
     margin-top: 5px;
     min-height: 250px; }
     .auth-container form .input-login {
@@ -61,90 +62,85 @@
   .home-namespace .fases-container .desenvolvedores-container {
     padding: 20px; }
 
-.sala-testadores-namespace {
-  /*.sala-testadores-image{
-      content: url(../../assets/images/geral/sala_testadores.png);
-      width: 880px;
-  }*/ }
-  .sala-testadores-namespace .valor-de-entrada {
-    cursor: pointer;
-    border: 2px solid #424661;
-    padding: 10px;
-    border-radius: 2px;
-    margin: 0 20px;
-    font-size: 12px;
-    font-weight: bold; }
-  .sala-testadores-namespace .valor-de-entrada:hover {
-    background: #373b52; }
-  .sala-testadores-namespace .desafio {
-    top: 313px;
-    left: 40px;
-    position: fixed;
-    content: url(../../assets/images/geral/pc.png);
-    cursor: pointer;
-    outline: none; }
-  .sala-testadores-namespace .desafio:hover {
-    content: url(../../assets/images/geral/pc-iluminado.png); }
-  .sala-testadores-namespace .cerebros-container {
-    min-height: 100px;
-    padding: 8px 0;
-    background: url(../../assets/images/geral/cerebros_box_02.png) no-repeat; }
-    .sala-testadores-namespace .cerebros-container img {
-      width: 75px;
-      margin: 10px 10px; }
-    .sala-testadores-namespace .cerebros-container img:first-child {
-      margin-left: 67px; }
-  .sala-testadores-namespace .valores-entrada-container {
-    margin-top: 15px;
-    word-break: break-all;
-    padding: 20px 0; }
-  .sala-testadores-namespace .valor-correto {
-    color: #8BC63F; }
-  .sala-testadores-namespace .valor-errado {
-    color: #CD6773; }
-  .sala-testadores-namespace .table-container {
-    overflow: auto;
-    min-height: 170px;
-    margin-left: 30px; }
-    .sala-testadores-namespace .table-container table {
-      table-layout: fixed;
-      border-collapse: collapse;
-      word-break: break-all; }
-      .sala-testadores-namespace .table-container table thead {
-        font-size: 20px;
-        border-bottom: 3px solid #efefef; }
-        .sala-testadores-namespace .table-container table thead th {
-          padding: 5px 0; }
-      .sala-testadores-namespace .table-container table tbody {
-        font-size: 18px;
-        font-weight: 300;
-        text-align: center; }
-        .sala-testadores-namespace .table-container table tbody tr {
-          border-bottom: 1px solid #efefef;
-          height: 35px; }
-        .sala-testadores-namespace .table-container table tbody td {
-          min-height: 200px; }
-  .sala-testadores-namespace .valor-de-entrada-container {
-    border: 2px solid #23262f;
-    border-radius: 25px;
-    min-height: 90px;
-    background: #709e61; }
-    .sala-testadores-namespace .valor-de-entrada-container .line {
-      border: 2px solid #bcd82d;
+.sala-testadores-namespace .valor-de-entrada {
+  cursor: pointer;
+  border: 2px solid #424661;
+  padding: 10px;
+  border-radius: 2px;
+  margin: 0 20px;
+  font-size: 12px;
+  font-weight: bold; }
+.sala-testadores-namespace .valor-de-entrada:hover {
+  background: #373b52; }
+.sala-testadores-namespace .cerebros-container {
+  min-height: 100px;
+  padding: 8px 0;
+  background: url(../../assets/images/geral/cerebros_box_02.png) no-repeat; }
+  .sala-testadores-namespace .cerebros-container img {
+    width: 75px;
+    margin: 10px 10px; }
+  .sala-testadores-namespace .cerebros-container img:first-child {
+    margin-left: 67px; }
+.sala-testadores-namespace .valores-entrada-container {
+  margin-top: 15px;
+  word-break: break-all;
+  padding: 20px 0; }
+.sala-testadores-namespace .valor-correto {
+  color: #8BC63F; }
+.sala-testadores-namespace .valor-errado {
+  color: #CD6773; }
+.sala-testadores-namespace .table-container {
+  overflow: auto;
+  min-height: 170px;
+  margin-left: 30px; }
+  .sala-testadores-namespace .table-container table {
+    table-layout: fixed;
+    border-collapse: collapse;
+    word-break: break-all; }
+    .sala-testadores-namespace .table-container table thead {
+      font-size: 20px;
+      border-bottom: 3px solid #efefef; }
+      .sala-testadores-namespace .table-container table thead th {
+        padding: 5px 0; }
+    .sala-testadores-namespace .table-container table tbody {
+      font-size: 18px;
+      font-weight: 300;
+      text-align: center; }
+      .sala-testadores-namespace .table-container table tbody tr {
+        border-bottom: 1px solid #efefef;
+        height: 35px; }
+      .sala-testadores-namespace .table-container table tbody td {
+        min-height: 200px; }
+.sala-testadores-namespace .valor-de-entrada-container {
+  border: 2px solid #23262f;
+  border-radius: 25px;
+  min-height: 90px;
+  background: #709e61; }
+  .sala-testadores-namespace .valor-de-entrada-container .line {
+    border: 2px solid #bcd82d;
+    margin: 5px;
+    border-radius: 19px; }
+    .sala-testadores-namespace .valor-de-entrada-container .line .valores-selecionados {
+      border: 2px solid #23262f;
       margin: 5px;
-      border-radius: 19px; }
-      .sala-testadores-namespace .valor-de-entrada-container .line .valores-selecionados {
-        border: 2px solid #23262f;
-        margin: 5px;
-        border-radius: 18px;
-        height: 90px;
-        background: #232736;
-        padding: 20px 0; }
-  .sala-testadores-namespace .sala-testadores-image {
-    background: url(../../assets/images/geral/sala_testadores.png) no-repeat;
-    width: 880px;
-    height: 100%;
-    position: relative; }
+      border-radius: 18px;
+      height: 90px;
+      background: #232736;
+      padding: 20px 0; }
+.sala-testadores-namespace .sala-testadores-image {
+  background: url(../../assets/images/geral/sala-testadores.png) no-repeat;
+  height: 100%;
+  width: 880px;
+  position: relative; }
+.sala-testadores-namespace .desafio {
+  /* top: 240px;
+   left: 30px;*/
+  position: absolute;
+  content: url(../../assets/images/geral/pc.png);
+  cursor: pointer;
+  outline: none; }
+.sala-testadores-namespace .desafio:hover {
+  content: url(../../assets/images/geral/pc-iluminado.png); }
 
 h1, h2 {
   font-family: janda;
@@ -296,6 +292,7 @@ md-radio-button.md-default-theme .md-on, md-radio-button .md-on {
   background: url(../images/geral/frame-descricao-programa.png) no-repeat;
   margin-top: 5px;
   min-height: 130px;
-  min-width: 1200px; }
+  min-width: 1200px;
+  background-size: 100% 100%; }
 
 /*# sourceMappingURL=under-attack.css.map */

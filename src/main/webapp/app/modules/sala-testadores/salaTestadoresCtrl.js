@@ -13,11 +13,13 @@
 		.module('sala-testadores')
 		.controller('SalaTestadoresCtrl', SalaTestadoresCtrl);
 
-    	SalaTestadoresCtrl.$inject = ['SalaTestadoresService', 'FaseService', '$mdDialog', '$state'];
+    	SalaTestadoresCtrl.$inject = ['SalaTestadoresService', 'FaseService', '$mdDialog', '$state', '$window'];
 
-		function SalaTestadoresCtrl(SalaTestadoresService, FaseService, $mdDialog, $state) {
+		function SalaTestadoresCtrl(SalaTestadoresService, FaseService, $mdDialog, $state, $window) {
+
 			var context = this;
-			var fase = JSON.parse(localStorage.getItem("fase"));
+
+            var fase = JSON.parse(localStorage.getItem("fase"));
 
 			context.desafios = fase.desafios;
 			context.openDesafio = _openDesafio;
@@ -65,6 +67,11 @@
 			context.getImageSrc = function(item){
             	var rootFolder = "app/assets/images/geral/".concat(item.ingrediente.nomeImagem);
             	return rootFolder.concat(item.situacaoIngrediente === 'ESCONDIDO' ? '-cinza.png' : '.png');
+			}
+
+			context.getPosition = function(item){
+				console.log(item);
+				return { top: item.top + 'px', left: item.leftPos + 'px'};
 			}
 		}
 })();

@@ -5,7 +5,7 @@
     <div layout="row" style="height: 100%">
         <div>
             <div class="sala-testadores-image">
-                <img class="desafio" ng-repeat="desafio in $testadores.desafios"
+                <img ng-style="$testadores.getPosition(desafio)" class="desafio" ng-repeat="desafio in $testadores.desafios"
                      ng-click="$testadores.openDesafio(desafio.id)" />
             </div>
         </div>

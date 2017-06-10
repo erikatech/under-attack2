@@ -14,119 +14,129 @@ import java.util.Set;
 @Table(name = "desafio")
 public class Desafio implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -1822263825561055884L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -1822263825561055884L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@Enumerated(EnumType.STRING)
-	private NivelDesafio nivel;
+    @Enumerated(EnumType.STRING)
+    private NivelDesafio nivel;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Programa programa;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Programa programa;
 
-	@OneToMany(mappedBy = "desafio", fetch = FetchType.EAGER)
-	private List<AlunoRealizaDesafio> alunoRealizaDesafio;
+    @OneToMany(mappedBy = "desafio", fetch = FetchType.EAGER)
+    private List<AlunoRealizaDesafio> alunoRealizaDesafio;
 
-	private String classeCSS;
+    private Integer top;
 
-	public Long getId() {
-		return id;
-	}
+    private Integer leftPos;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public NivelDesafio getNivel() {
-		return nivel;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setNivel(NivelDesafio nivel) {
-		this.nivel = nivel;
-	}
+    public NivelDesafio getNivel() {
+        return nivel;
+    }
 
-	public List<AlunoRealizaDesafio> getAlunoRealizaDesafio() {
-		return alunoRealizaDesafio;
-	}
+    public void setNivel(NivelDesafio nivel) {
+        this.nivel = nivel;
+    }
 
-	public void setAlunoRealizaDesafio(
-			List<AlunoRealizaDesafio> alunoRealizaDesafio) {
-		this.alunoRealizaDesafio = alunoRealizaDesafio;
-	}
+    public List<AlunoRealizaDesafio> getAlunoRealizaDesafio() {
+        return alunoRealizaDesafio;
+    }
 
-	public Programa getPrograma() {
-		return programa;
-	}
+    public void setAlunoRealizaDesafio(
+            List<AlunoRealizaDesafio> alunoRealizaDesafio) {
+        this.alunoRealizaDesafio = alunoRealizaDesafio;
+    }
 
-	public void setPrograma(Programa programa) {
-		this.programa = programa;
-	}
+    public Programa getPrograma() {
+        return programa;
+    }
 
-	public String getClasseCSS() {
-		return classeCSS;
-	}
+    public void setPrograma(Programa programa) {
+        this.programa = programa;
+    }
 
-	public void setClasseCSS(String classeCSS) {
-		this.classeCSS = classeCSS;
-	}
+    public Integer getTop() {
+        return top;
+    }
 
-	public int getTotalTestesDesafio() {
-		int totalTestesDoDesafio = 0;
-		Set<ValorDeEntrada> valoresSemRepeticao = new HashSet<ValorDeEntrada>();
-		for (ValorDeEntrada valorDeEntrada : this.programa.getValoresEntrada()) {
-			valoresSemRepeticao.add(valorDeEntrada);
-		}
-		for (ValorDeEntrada valor : valoresSemRepeticao) {
-			if (valor.isValorEntradaCorreto()) {
-				totalTestesDoDesafio += valor.getClassesEquivalencia().size();
-			}
-		}
-		return totalTestesDoDesafio;
-	}
+    public void setTop(Integer top) {
+        this.top = top;
+    }
 
-	public List<ClasseEquivalencia> getClassesEquivalencia() {
-		Set<ValorDeEntrada> valoresCorretos = new HashSet<ValorDeEntrada>();
-		List<ClasseEquivalencia> classesEquivalencia = new ArrayList<ClasseEquivalencia>();
-		List<ValorDeEntrada> valoresEntrada = this.programa.getValoresEntrada();
-		for (ValorDeEntrada valorDeEntrada : valoresEntrada) {
-			if (valorDeEntrada.isValorEntradaCorreto()) {
-				valoresCorretos.add(valorDeEntrada);
-			}
-		}
+    public Integer getLeftPos() {
+        return leftPos;
+    }
 
-		for (ValorDeEntrada valor : valoresCorretos) {
-			classesEquivalencia.addAll(valor.getClassesEquivalencia());
-		}
-		return classesEquivalencia;
-	}
+    public void setLeftPos(Integer leftPos) {
+        this.leftPos = leftPos;
+    }
 
-	public String getSituacaoTestadores(Long idAluno) {
-		for (AlunoRealizaDesafio ad : alunoRealizaDesafio) {
-			if (ad.getDesafio().getId().equals(this.getId())
-					&& ad.getAluno().getId().equals(idAluno)
-					&& ad.getIndicadorFase().equals(
-							IndicadorFase.FASE_TESTADORES)) {
-				return ad.getSituacaoDesafio().getLabel();
-			}
-		}
-		return null;
-	}
+    public int getTotalTestesDesafio() {
+        int totalTestesDoDesafio = 0;
+        Set<ValorDeEntrada> valoresSemRepeticao = new HashSet<ValorDeEntrada>();
+        for (ValorDeEntrada valorDeEntrada : this.programa.getValoresEntrada()) {
+            valoresSemRepeticao.add(valorDeEntrada);
+        }
+        for (ValorDeEntrada valor : valoresSemRepeticao) {
+            if (valor.isValorEntradaCorreto()) {
+                totalTestesDoDesafio += valor.getClassesEquivalencia().size();
+            }
+        }
+        return totalTestesDoDesafio;
+    }
 
-	public String getSituacaoDesenvolvedores(Long idAluno) {
-		for (AlunoRealizaDesafio ad : alunoRealizaDesafio) {
-			if (ad.getDesafio().getId().equals(this.getId())
-					&& ad.getAluno().getId().equals(idAluno)
-					&& ad.getIndicadorFase().equals(
-							IndicadorFase.FASE_DESENVOLVEDORES)) {
-				return ad.getSituacaoDesafio().getLabel();
-			}
-		}
-		return null;
-	}
+    public List<ClasseEquivalencia> getClassesEquivalencia() {
+        Set<ValorDeEntrada> valoresCorretos = new HashSet<ValorDeEntrada>();
+        List<ClasseEquivalencia> classesEquivalencia = new ArrayList<ClasseEquivalencia>();
+        List<ValorDeEntrada> valoresEntrada = this.programa.getValoresEntrada();
+        for (ValorDeEntrada valorDeEntrada : valoresEntrada) {
+            if (valorDeEntrada.isValorEntradaCorreto()) {
+                valoresCorretos.add(valorDeEntrada);
+            }
+        }
+
+        for (ValorDeEntrada valor : valoresCorretos) {
+            classesEquivalencia.addAll(valor.getClassesEquivalencia());
+        }
+        return classesEquivalencia;
+    }
+
+    public String getSituacaoTestadores(Long idAluno) {
+        for (AlunoRealizaDesafio ad : alunoRealizaDesafio) {
+            if (ad.getDesafio().getId().equals(this.getId())
+                    && ad.getAluno().getId().equals(idAluno)
+                    && ad.getIndicadorFase().equals(
+                    IndicadorFase.FASE_TESTADORES)) {
+                return ad.getSituacaoDesafio().getLabel();
+            }
+        }
+        return null;
+    }
+
+    public String getSituacaoDesenvolvedores(Long idAluno) {
+        for (AlunoRealizaDesafio ad : alunoRealizaDesafio) {
+            if (ad.getDesafio().getId().equals(this.getId())
+                    && ad.getAluno().getId().equals(idAluno)
+                    && ad.getIndicadorFase().equals(
+                    IndicadorFase.FASE_DESENVOLVEDORES)) {
+                return ad.getSituacaoDesafio().getLabel();
+            }
+        }
+        return null;
+    }
 
 }

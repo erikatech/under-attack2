@@ -36,7 +36,7 @@ public class ClasseEquivalencia implements Serializable {
     @OneToOne(fetch = FetchType.EAGER)
     private Ingrediente ingrediente;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private ValorDeEntrada valorDeEntrada;
 
     @OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL)
@@ -153,4 +153,5 @@ public class ClasseEquivalencia implements Serializable {
     public void setSaida(String saida) {
         this.saida = saida;
     }
+
 }

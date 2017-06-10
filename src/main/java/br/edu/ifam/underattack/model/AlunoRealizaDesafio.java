@@ -117,7 +117,7 @@ public class AlunoRealizaDesafio implements Serializable {
 		this.totalTestesEscritos = totalTestesEscritos;
 	}
 
-	public Desempenho calcularDesempenho() {
+	/*public Desempenho calcularDesempenho() {
 		int totalBugs = 0;
 		int totalbugsEncontrados = 0;
 
@@ -149,9 +149,9 @@ public class AlunoRealizaDesafio implements Serializable {
 		double desempenho = (totalbugsEncontrados * 100) / totalBugs;
 
 		return getDesempenho(desempenho);
-	}
+	}*/
 
-	public Desempenho calcularDesempenhoEscritaTestes(int totalTestesEscritos) {
+	/*public Desempenho calcularDesempenhoEscritaTestes(int totalTestesEscritos) {
 		int totalTestes = 0;
 
 		List<ValorDeEntrada> valoresEntradaDoDesafio = desafio.getPrograma().getValoresEntrada();
@@ -162,9 +162,9 @@ public class AlunoRealizaDesafio implements Serializable {
 		double desempenho = (totalTestesEscritos * 100) / totalTestes;
 
 		return getDesempenho(desempenho);
-	}
+	}*/
 
-	private Desempenho getDesempenho(double desempenho) {
+	/*private Desempenho getDesempenho(double desempenho) {
 		if (desempenho >= 0 && desempenho <= 25) {
 			return Desempenho.RUIM;
 		} else if (desempenho > 25 && desempenho <= 50) {
@@ -175,7 +175,7 @@ public class AlunoRealizaDesafio implements Serializable {
 			return Desempenho.OTIMO;
 		}
 		return null;
-	}
+	}*/
 	
 	public boolean getFaseDesenvolvedores(){
 		return this.indicadorFase.equals(IndicadorFase.FASE_DESENVOLVEDORES);

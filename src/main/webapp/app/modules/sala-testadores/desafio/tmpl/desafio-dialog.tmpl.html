@@ -12,14 +12,18 @@
                 Nível: <strong>{{ $desafioDialog.desafio.nivel }}</strong>
             </span>
 
-            <!-- FIXME Ajustar pra pegar o status dinamicamente dinamicamente -->
+            <span style="font-size: 28px; letter-spacing: 1px; font-family: small-text; margin-top: 15px"
+                  ng-if="$desafioDialog.desafio.alunoRealizaDesafio.length &&
+                    $desafioDialog.desafio.alunoRealizaDesafio[0].situacaoDesafio  === 'CONCLUIDO'">
+                Parabéns! Você já concluiu esse desafio!
+            </span>
+
             <img ng-if="!$desafioDialog.desafio.alunoRealizaDesafio.length ||
                     $desafioDialog.desafio.alunoRealizaDesafio[0].situacaoDesafio !== 'CONCLUIDO'"
                  style="margin-top: 60px; width: 200px;" ng-click="$desafioDialog.startDesafio()">
-
-            <img ng-if="$desafioDialog.desafio.alunoRealizaDesafio.length &&
+            <!--<img ng-if="$desafioDialog.desafio.alunoRealizaDesafio.length &&
                     $desafioDialog.desafio.alunoRealizaDesafio[0].situacaoDesafio  === 'CONCLUIDO'"
-                 style="margin-top: 60px; width: 200px;" ng-click="$desafioDialog.reiniciarDesafio()">
+                 style="margin-top: 60px; width: 200px;" ng-click="$desafioDialog.reiniciarDesafio()">-->
         </div>
     </div>
 </md-dialog>

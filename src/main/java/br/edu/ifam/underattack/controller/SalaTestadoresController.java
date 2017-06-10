@@ -4,10 +4,7 @@ import br.com.caelum.vraptor.*;
 import br.com.caelum.vraptor.validator.I18nMessage;
 import br.com.caelum.vraptor.validator.Validator;
 import br.com.caelum.vraptor.view.Results;
-import br.edu.ifam.underattack.dao.AlunoDao;
-import br.edu.ifam.underattack.dao.DesafioDao;
-import br.edu.ifam.underattack.dao.PocaoMagicaIngredienteDao;
-import br.edu.ifam.underattack.dao.ValorDeEntradaDao;
+import br.edu.ifam.underattack.dao.*;
 import br.edu.ifam.underattack.dto.*;
 import br.edu.ifam.underattack.model.*;
 import br.edu.ifam.underattack.model.enums.*;
@@ -37,21 +34,25 @@ public class SalaTestadoresController {
 
     private PocaoMagicaIngredienteDao pocaoIngredienteDao;
 
+    private ClasseEquivalenciaDao classeEquivalenciaDao;
+
     @Inject
     public SalaTestadoresController(Result result, AlunoDao alunoDao,
                     DesafioDao desafioDao, ValorDeEntradaDao valorDeEntradaDao, Validator validator,
-                    PocaoMagicaIngredienteDao pocaoIngredienteDao){
+                    PocaoMagicaIngredienteDao pocaoIngredienteDao, ClasseEquivalenciaDao classeEquivalenciaDao){
         this.result = result;
         this.alunoDao = alunoDao;
         this.desafioDao = desafioDao;
         this.valorDeEntradaDao = valorDeEntradaDao;
         this.validator = validator;
         this.pocaoIngredienteDao = pocaoIngredienteDao;
+        this.classeEquivalenciaDao = classeEquivalenciaDao;
     }
 
     @Deprecated
     public SalaTestadoresController(){
-        this(null, null, null, null, null, null);
+        this(null, null, null, null,
+                null, null, null);
     }
 
 
@@ -79,17 +80,14 @@ public class SalaTestadoresController {
                 alunoRealizaDesafio.setCerebrosDisponiveis(3);
             }
 
-            int totalValoresCorretos = this.valorDeEntradaDao.getTotalValoresCorretos();
-            int valorEncontrados = this.alunoDao.getQuantidadeValoresEncontrados(login);
+            int totalValoresCorretos = this.valorDeEntradaDao.getTotalValoresCorretos(idDesafio);
+
+            int valorEncontrados = this.alunoDao.getQuantidadeValoresEncontrados(login, idDesafio);
             if(totalValoresCorretos == valorEncontrados){
                 this.result.use(Results.http()).body("Aluno já encontrou valores").setStatusCode(400);
                 return;
             }
-            /*boolean alunoEncontrouValores = this.alunoDao.alunoEncontrouValores(login);
-            if(alunoEncontrouValores){
-                this.result.use(Results.http()).body("Aluno já encontrou valores").setStatusCode(400);
-                return;
-            }*/
+
             Collections.shuffle(alunoRealizaDesafio.getDesafio().getPrograma().getValoresEntrada());
             this.result.use(Results.json()).from(alunoRealizaDesafio, "alunoDesafio")
                     .include("desafio", "desafio.programa", "desafio.programa.valoresEntrada")
@@ -136,22 +134,26 @@ public class SalaTestadoresController {
     }
 
     @Get
-    public void getValoresAluno(String login){
+    public void getValoresAluno(String login, Long idDesafio){
         List<ValorDeEntradaDTO> valoresValidos = new ArrayList<>();
         List<AlunoEncontraValorDeEntrada> valoresAluno = this.valorDeEntradaDao.getValoresAluno(login);
+
         for (AlunoEncontraValorDeEntrada alunoEncontraValorDeEntrada : valoresAluno) {
-            ValorDeEntradaDTO valorDeEntrada = new ValorDeEntradaDTO();
-            valorDeEntrada.setId(alunoEncontraValorDeEntrada.getValorDeEntrada().getId());
-            valorDeEntrada.setDescricao(alunoEncontraValorDeEntrada.getValorDeEntrada().getDescricao());
-            valorDeEntrada.setPontos(alunoEncontraValorDeEntrada.getValorDeEntrada().getDificuldade().getPontos());
-            valoresValidos.add(valorDeEntrada);
+            if(alunoEncontraValorDeEntrada.getValorDeEntrada().getPrograma().getDesafio().getId().equals(idDesafio)){
+                ValorDeEntradaDTO valorDeEntrada = new ValorDeEntradaDTO();
+                valorDeEntrada.setId(alunoEncontraValorDeEntrada.getValorDeEntrada().getId());
+                valorDeEntrada.setDescricao(alunoEncontraValorDeEntrada.getValorDeEntrada().getDescricao());
+                valorDeEntrada.setPontos(alunoEncontraValorDeEntrada.getValorDeEntrada().getDificuldade().getPontos());
+                valoresValidos.add(valorDeEntrada);
+            }
         }
         this.result.use(Results.json()).from(valoresValidos, "valores").serialize();
     }
 
     @Get
-    public void getClassesAluno(String login){
-        List<AlunoEncontraClasseEquivalencia> alunoEncontraClasseEquivalencias = this.alunoDao.classesDoAluno(login);
+    public void getClassesAluno(String login, Long idDesafio){
+        List<AlunoEncontraClasseEquivalencia> alunoEncontraClasseEquivalencias =
+                this.alunoDao.classesDoAluno(login, idDesafio);
         this.result.use(Results.json()).from(alunoEncontraClasseEquivalencias, "classesAluno")
                 .include("classeEquivalencia", "classeEquivalencia.ingrediente", "classeEquivalencia.valorDeEntrada")
                 .serialize();
@@ -232,16 +234,23 @@ public class SalaTestadoresController {
     @Post
     @Consumes(value = "application/json")
     public void finalizaDesafio(String login, Long idDesafio, List<AlunoEncontraClasseEquivalencia> alunoClasses){
-        // Pego os ids das classes que o aluno já encontrou
-        List<Long> idsClassesJaEncontradas = new ArrayList<>();
-        List<AlunoEncontraClasseEquivalencia> classesJaEncontradas = this.alunoDao.classesDoAluno(login);
-        for (AlunoEncontraClasseEquivalencia classesJaEncontrada : classesJaEncontradas) {
-            idsClassesJaEncontradas.add(classesJaEncontrada.getClasseEquivalencia().getId());
-        }
-
-        // Já encontrou todas as classes!
+        //Pegar os ids das classes que o aluno já encontrou pro desafio atual!
+        List<Long> classesJaEncontradas = this.alunoDao.idsClassesDoDesafioAtual(login, idDesafio);
         if(classesJaEncontradas.size() == alunoClasses.size()){
-            ResultadoDesafioDto resultadoDesafio = getResultadoDesafioDto(this.alunoDao.consulta(login), alunoDao.desafiosDoAluno(login, idDesafio));
+            int bugsEncontradosNoDesafioAtual = 0;
+            Aluno alunoConsultado = this.alunoDao.consulta(login);
+            for (AlunoEncontraClasseEquivalencia alunoEncontraClasseEquivalencia :
+                    alunoConsultado.getAlunoEncontraClasseEquivalencia()) {
+                ClasseEquivalencia classeEquivalencia =
+                        this.classeEquivalenciaDao.consulta(alunoEncontraClasseEquivalencia.getClasseEquivalencia().getId());
+                if(classeEquivalencia.getValorDeEntrada().getPrograma().getDesafio().getId().equals(idDesafio)){
+                    if(classeEquivalencia.getBugExistente() != null){
+                        bugsEncontradosNoDesafioAtual++;
+                    }
+                }
+            }
+            ResultadoDesafioDto resultadoDesafio = getResultadoDesafioDto(this.alunoDao.consulta(login),
+                    alunoDao.desafiosDoAluno(login, idDesafio), bugsEncontradosNoDesafioAtual);
             this.result.use(Results.json()).from(resultadoDesafio, "resultadoDesafio").serialize();
             return; // Só continua se o aluno ainda não encontrou todas as classes de equivalência
         }
@@ -249,7 +258,7 @@ public class SalaTestadoresController {
         // Salva as classes encontradas
         for (AlunoEncontraClasseEquivalencia alunoEncontraClasseEquivalencia : alunoClasses) {
             // Se o aluno ainda não encontrou a classe, salva!
-            if(!idsClassesJaEncontradas.contains(alunoEncontraClasseEquivalencia.getClasseEquivalencia().getId())){
+            if(!classesJaEncontradas.contains(alunoEncontraClasseEquivalencia.getClasseEquivalencia().getId())){
                 this.alunoDao.encontraClassesEquivalencia(login, alunoEncontraClasseEquivalencia.getEntradaAluno(),
                         alunoEncontraClasseEquivalencia.getClasseEquivalencia());
             }
@@ -257,65 +266,141 @@ public class SalaTestadoresController {
         // Termina o registro
 
 
-        //Calcula variáveis do aluno, como pontos, quantidade de bugs encontrados e objetivos concluídos
-        int bugsEncontrados = 0;
         Aluno aluno = this.alunoDao.consulta(login);
+        int bugsEncontradosNoDesafioAtual = 0;
         int totalPontos = 0;
         for (AlunoEncontraClasseEquivalencia alunoEncontraClasseEquivalencia : aluno.getAlunoEncontraClasseEquivalencia()) {
-            totalPontos += alunoEncontraClasseEquivalencia.getClasseEquivalencia().getPontos();
-            if (alunoEncontraClasseEquivalencia.getClasseEquivalencia().hasItemPocao()){
-                for (PocaoMagicaIngrediente pocaoMagicaIngrediente : aluno.getPocaoMagica().getPocaoIngredienteList()) {
-                    if(pocaoMagicaIngrediente.getIngrediente().getId()
-                            .equals(alunoEncontraClasseEquivalencia.getClasseEquivalencia().getIngrediente().getId())){
-                        pocaoMagicaIngrediente.setSituacaoIngrediente(SituacaoIngrediente.ENCONTRADO);
-                        AlunoParticipaFase salaTestadores = aluno.getAlunoParticipaFase().get(0);
-                        salaTestadores.setSituacaoFase(SituacaoFase.ESPERA);
-                        this.pocaoIngredienteDao.atualiza(pocaoMagicaIngrediente);
-                        break;
+            ClasseEquivalencia classeEquivalencia =
+                    this.classeEquivalenciaDao.consulta(alunoEncontraClasseEquivalencia.getClasseEquivalencia().getId());
+            // se a classe de equivalencia pertence ao desafio  atual...
+            if(classeEquivalencia.getValorDeEntrada().getPrograma().getDesafio().getId().equals(idDesafio)){
+                totalPontos += classeEquivalencia.getPontos();
+                if(classeEquivalencia.hasItemPocao()){
+                    for (PocaoMagicaIngrediente pocaoMagicaIngrediente : aluno.getPocaoMagica().getPocaoIngredienteList()) {
+                        if(pocaoMagicaIngrediente.getIngrediente().getId()
+                                .equals(classeEquivalencia.getIngrediente().getId())){
+                            pocaoMagicaIngrediente.setSituacaoIngrediente(SituacaoIngrediente.ENCONTRADO);
+                            AlunoParticipaFase salaTestadores = aluno.getAlunoParticipaFase().get(0);
+                            salaTestadores.setSituacaoFase(SituacaoFase.ESPERA);
+                            this.pocaoIngredienteDao.atualiza(pocaoMagicaIngrediente);
+                            break;
+                        }
                     }
                 }
+                if(classeEquivalencia.getBugExistente() != null){
+                    bugsEncontradosNoDesafioAtual++;
+                }
+
             }
-            if (alunoEncontraClasseEquivalencia.getClasseEquivalencia().getBugExistente() != null) {
-                bugsEncontrados++;
+
+        }
+        /*List<ClasseEquivalencia> classesDoDesafio = classeEquivalenciaDao.getClassesDesafioAtual(idDesafio);
+        // pega a quantidade de bugs do desafio atual
+        int quantidadeBugsDesafio = 0;
+        for (ClasseEquivalencia classeEquivalencia : classesDoDesafio) {
+            if(classeEquivalencia.getBugExistente() != null){
+                quantidadeBugsDesafio++;
             }
         }
-        aluno.setPontos(aluno.getPontos() + totalPontos);
-        int quantidadeBugsFase = aluno.getAlunoParticipaFase().get(0).getFase().getQuantidadeBugsFase();
-        if(quantidadeBugsFase == bugsEncontrados){
-            Set<FaseObjetivo> objetivos = aluno.getAlunoParticipaFase().get(0).getFaseObjetivo();
+*/
+         AlunoParticipaFase salaTestadores = aluno.getAlunoParticipaFase().get(0);
+        salaTestadores.setBugsEncontrados(salaTestadores.getBugsEncontrados() + bugsEncontradosNoDesafioAtual);
+        alunoDao.atualiza(aluno);
+
+
+        int quantidadeBugsFase = salaTestadores.getFase().getQuantidadeBugsFase();
+        if(quantidadeBugsFase == salaTestadores.getBugsEncontrados()){
+            Set<FaseObjetivo> objetivos = salaTestadores.getFaseObjetivo();
             for (FaseObjetivo objetivo : objetivos) {
                 if(objetivo.getObjetivo().getTipoObjetivo().equals(TipoObjetivo.ZOMBUGS)){
+                    totalPontos += objetivo.getObjetivo().getPontos();
                     objetivo.setRealizado(true);
                     break;
                 }
             }
         }
+
+        classesJaEncontradas = this.alunoDao.idsClassesDoDesafioAtual(login, idDesafio);
         AlunoRealizaDesafio alunoRealizaDesafio = alunoDao.desafiosDoAluno(login, idDesafio);
-        alunoRealizaDesafio.getAluno().getAlunoParticipaFase().get(0).setBugsEncontrados(bugsEncontrados);
-        if(classesJaEncontradas.size() == alunoClasses.size()){
+        // Se o aluno já encontrou todas as classes de equivalencia...
+        if(classesJaEncontradas.size() == alunoRealizaDesafio.getDesafio().getClassesEquivalencia().size()){
             alunoRealizaDesafio.setSituacaoDesafio(SituacaoDesafio.CONCLUIDO);
         }
-        alunoRealizaDesafio.setDesempenho(alunoRealizaDesafio.calcularDesempenho());
-
+        alunoRealizaDesafio.setDesempenho(calculaDesempenho(login, idDesafio));
         this.alunoDao.atualiza(aluno);
         this.alunoDao.atualizaDesafioAluno(alunoRealizaDesafio);
 
-        ResultadoDesafioDto resultadoDesafio = getResultadoDesafioDto(aluno, alunoRealizaDesafio);
+        ResultadoDesafioDto resultadoDesafio = getResultadoDesafioDto(aluno, alunoRealizaDesafio, bugsEncontradosNoDesafioAtual);
         this.result.use(Results.json()).from(resultadoDesafio, "resultadoDesafio").serialize();
     }
 
-    private ResultadoDesafioDto getResultadoDesafioDto(Aluno aluno, AlunoRealizaDesafio alunoRealizaDesafio) {
+    /**
+     * Calcula o desempenho do aluno
+     * @param login
+     * @param idDesafio
+     * @return
+     */
+    private Desempenho calculaDesempenho(String login, Long idDesafio){
+        Desafio desafioAtual = this.desafioDao.getDesafio(idDesafio);
+        int totalBugs = 0;
+        int totalbugsEncontrados = 0;
+        List<ClasseEquivalencia> todasAsClassesEquivalencia = new ArrayList<ClasseEquivalencia>();
+        List<ValorDeEntrada> valoresEntradaDoDesafio = desafioAtual.getPrograma().getValoresEntrada();
+        for (ValorDeEntrada valorDeEntrada : valoresEntradaDoDesafio) {
+            if (valorDeEntrada.isValorEntradaCorreto()) {
+                todasAsClassesEquivalencia.addAll(valorDeEntrada
+                        .getClassesEquivalencia());
+            }
+        }
+        for (ClasseEquivalencia classe : todasAsClassesEquivalencia) {
+            if (classe.getBugExistente() != null) {
+                totalBugs++;
+            }
+        }
+
+        List<ClasseEquivalencia> classesDoDesafioAtual = alunoDao.classesDoDesafioAtual(login, idDesafio);
+        for (ClasseEquivalencia classeEquivalencia : classesDoDesafioAtual) {
+            if(classeEquivalencia.getBugExistente() != null){
+                totalbugsEncontrados++;
+            }
+        }
+        double desempenho = (totalbugsEncontrados * 100) / totalBugs;
+        return getDesempenho(desempenho);
+    }
+
+    private Desempenho getDesempenho(double desempenho) {
+        if (desempenho >= 0 && desempenho <= 25) {
+            return Desempenho.RUIM;
+        } else if (desempenho > 25 && desempenho <= 50) {
+            return Desempenho.NORMAL;
+        } else if (desempenho > 50 && desempenho <= 85) {
+            return Desempenho.BOM;
+        } else if (desempenho > 85) {
+            return Desempenho.OTIMO;
+        }
+        return null;
+    }
+
+
+
+
+
+    private ResultadoDesafioDto getResultadoDesafioDto(Aluno aluno, AlunoRealizaDesafio alunoRealizaDesafio,
+                               int bugsEncontradosNoDesafioAtual) {
         // Valores pro retorno
-        int total = aluno.getAlunoParticipaFase().get(0).getFase().getQuantidadeBugsFase();
-        int totalBugsEncontrados = aluno.getAlunoParticipaFase().get(0).getBugsEncontrados();
+        AlunoParticipaFase alunoParticipaFase = aluno.getAlunoParticipaFase().get(0);
+        int totalBugsDesafio = 0;
+        for (ClasseEquivalencia classeEquivalencia : alunoRealizaDesafio.getDesafio().getClassesEquivalencia()) {
+            if(classeEquivalencia.getBugExistente() != null){
+                totalBugsDesafio++;
+            }
+        }
         String desempenho = alunoRealizaDesafio.getDesempenho().getDescricao();
         double totalEstrelas = alunoRealizaDesafio.getDesempenho().getTotalEstrelas();
-
-
         ResultadoDesafioDto resultadoDesafio = new ResultadoDesafioDto();
         resultadoDesafio.setDesempenho(desempenho);
-        resultadoDesafio.setTotalBugsFase(total);
-        resultadoDesafio.setTotalBugsEncontrados(totalBugsEncontrados);
+        resultadoDesafio.setTotalBugsFase(totalBugsDesafio);
+        resultadoDesafio.setTotalBugsEncontrados(bugsEncontradosNoDesafioAtual);
         resultadoDesafio.setTotalEstrelas(totalEstrelas);
         resultadoDesafio.setPontosAluno(aluno.getPontos());
         return resultadoDesafio;
@@ -367,5 +452,13 @@ public class SalaTestadoresController {
             }
         }
         return finalList.size() != 0;
+    }
+
+    public static void main(String[] args) {
+
+        System.out.println("1111111111".matches("^([\\da-zA-Z]){0,9}$"));
+
+
+
     }
 }

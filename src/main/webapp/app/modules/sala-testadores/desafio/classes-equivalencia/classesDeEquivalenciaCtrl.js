@@ -29,7 +29,7 @@
             context.desafio = alunoDesafio.desafio;
             context.finalizar = _finalizar;
 
-			ClassesDeEquivalenciaService.getValoresAluno()
+			ClassesDeEquivalenciaService.getValoresAluno(context.desafio.id)
 				.then(function (success) {
 					context.valoresAluno = success.data.valores;
                     context.valorSelecionado = context.valoresAluno[0];
@@ -39,7 +39,7 @@
                 });
 
 
-            ClassesDeEquivalenciaService.getClassesAluno()
+            ClassesDeEquivalenciaService.getClassesAluno(context.desafio.id)
                 .then(function (success) {
                     context.classesAluno = success.data.classesAluno;
                 })
