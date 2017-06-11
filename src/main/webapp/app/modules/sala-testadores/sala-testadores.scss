@@ -101,21 +101,13 @@
         background: url(../../assets/images/geral/sala-testadores.png) no-repeat;
         height: 100%;
         width: 880px;
+        background-size: 100%;// FIXME remove if goes wrong
         position: relative;
     }
 
     .desafio {
-       /* top: 240px;
-        left: 30px;*/
         position: absolute;
-        content: url(../../assets/images/geral/pc.png);
         cursor: pointer;
         outline: none;
     }
-
-    .desafio:hover {
-        content: url(../../assets/images/geral/pc-iluminado.png);
-    }
-
-
 }

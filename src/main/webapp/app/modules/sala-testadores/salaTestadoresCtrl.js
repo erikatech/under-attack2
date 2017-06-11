@@ -22,6 +22,15 @@
             var fase = JSON.parse(localStorage.getItem("fase"));
 
 			context.desafios = fase.desafios;
+
+            context.desafioCSS = context.desafios.map(function(item){
+            	return {
+                    'content': "url(app/assets/images/geral/"+item.imagem+".png)",
+                    top: item.top + 'px',
+                    left: item.leftPos + 'px'
+				}
+			});
+
 			context.openDesafio = _openDesafio;
 
             SalaTestadoresService.getItemsPocaoMagica()
@@ -67,11 +76,14 @@
 			context.getImageSrc = function(item){
             	var rootFolder = "app/assets/images/geral/".concat(item.ingrediente.nomeImagem);
             	return rootFolder.concat(item.situacaoIngrediente === 'ESCONDIDO' ? '-cinza.png' : '.png');
-			}
+			};
 
-			context.getPosition = function(item){
-				console.log(item);
-				return { top: item.top + 'px', left: item.leftPos + 'px'};
-			}
+			context.setItemHover = function(item, desafio){
+                item.content = "url(app/assets/images/geral/"+desafio.imagem+"-iluminado.png)";
+			};
+
+            context.removeItemHover = function(item, desafio){
+                item.content = "url(app/assets/images/geral/"+desafio.imagem+".png)";
+            }
 		}
 })();

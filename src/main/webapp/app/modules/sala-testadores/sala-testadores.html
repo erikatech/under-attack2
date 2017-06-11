@@ -5,7 +5,10 @@
     <div layout="row" style="height: 100%">
         <div>
             <div class="sala-testadores-image">
-                <img ng-style="$testadores.getPosition(desafio)" class="desafio" ng-repeat="desafio in $testadores.desafios"
+                <img ng-style="$testadores.desafioCSS[$index]"
+                     ng-mouseover="$testadores.setItemHover($testadores.desafioCSS[$index], desafio)"
+                     ng-mouseleave="$testadores.removeItemHover($testadores.desafioCSS[$index], desafio)"
+                     class="desafio" ng-repeat="desafio in $testadores.desafios track by $index"
                      ng-click="$testadores.openDesafio(desafio.id)" />
             </div>
         </div>
