@@ -26,8 +26,6 @@ public class ClasseEquivalencia implements Serializable {
 
     private Boolean bugExistente;
 
-    private boolean bugEncontrado;
-
     @Enumerated(EnumType.STRING)
     private TipoClasseEquivalencia tipo;
 
@@ -156,11 +154,4 @@ public class ClasseEquivalencia implements Serializable {
         this.saida = saida;
     }
 
-    public boolean isBugEncontrado() {
-        return bugEncontrado;
-    }
-
-    public void setBugEncontrado(boolean bugEncontrado) {
-        this.bugEncontrado = bugEncontrado;
-    }
 }
