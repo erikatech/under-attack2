@@ -47,18 +47,10 @@ public class InitialDataObserver {
 	private List<Ingrediente> criaIngredientes() {
 		List<Ingrediente> ingredientes = new ArrayList<>();
 		Ingrediente cogumelo = new Ingrediente();
-		cogumelo.setDescricao("Mucho loco cogumelo");
-		cogumelo.setNomeImagem("cogumelo");
+		cogumelo.setDescricao("Código");
+		cogumelo.setNomeImagem("card");
 
-		Ingrediente cabeloGoku = new Ingrediente();
-		cabeloGoku.setDescricao("Fio de cabelo do Goku");
-		cabeloGoku.setNomeImagem("cabelo-goku");
-
-		Ingrediente espada = new Ingrediente();
-		espada.setDescricao("Espada");
-		espada.setNomeImagem("espada");
-
-		ingredientes.addAll(Arrays.asList(cogumelo, cabeloGoku, espada));
+		ingredientes.addAll(Arrays.asList(cogumelo));
 		return ingredientes;
 	}
 
@@ -86,10 +78,9 @@ public class InitialDataObserver {
 	private List<Fase> criaFases() {
 		Fase testadores = new Fase();
 		testadores.setTitulo("Sala dos Testadores");
-		testadores.setDescricao("A fábrica foi invadida por procriadores de bugs zumbis" +
-				" disfarçados de desenvolvedores. Os procriadores infestaram trechos de códigos" +
-				" de bugs zumbis e aprisionaram os verdadeiros desenvolvedores em uma das " +
-				"salas da fábrica, impedindo-os de aniquilar os bugs");
+		testadores.setDescricao("Os Gambsters invadiram a fabrica de software espalhando zombugs por " +
+				"todos os códigos e aprisionando os desenvolvedores em uma das salas. Encontre os Zombugs e " +
+				"desvende o código para libertar os desenvolvedores desta enrascada.");
 		testadores.setNomeImagem("gambster.png");
 
 		Objetivo encontrarItens = new Objetivo();
@@ -105,11 +96,9 @@ public class InitialDataObserver {
 
 		Fase desenvolvedores = new Fase();
 		desenvolvedores.setTitulo("Sala dos Desenvolvedores");
-		desenvolvedores.setDescricao("Parabéns! Os verdadeiros desenvolvedores agora estão livres graças a sua ajuda." +
-				" Mas... espere um momento. Tem algo errado com eles! Parece que os gambsters serviram café batizado " +
-				"um poderoso sedativo aos desenvolvedores, que os deixarão inconscientes por dias, meses e porque não, " +
-				"AAAAAAAAANOOOOOOOOS! Sua missão agora é construir os testes automatizados que identifiquem os bugs zumbis" +
-				" nos códigos. Boa sorte!");
+		desenvolvedores.setDescricao("'Os Gambsters aprontaram novamente! Eles serviram aos desenvolvedores café " +
+				"batizado com um poderoso sedativo. Sua missão agora é de construir os testes automatizados que irão " +
+				"energizar a máquina de sons que poderá acordar os desenvolvedores. Vamos lá!'");
 		desenvolvedores.setNomeImagem("zombie-hand.png");
 
 		Objetivo energizarMaquina = new Objetivo();
@@ -158,21 +147,4 @@ public class InitialDataObserver {
 
 		return Arrays.asList(estagiario, aniquiladorJunior, aniquiladorSenior);
 	}
-
-
-		/**
-         *
-         * @param event
-
-	public void createProfessor(@Observes VRaptorInitialized event) {
-		EntityManager em = JPAUtil.criaEntityManager();
-		String jpql = "select p from Professor p";
-		List<Professor> professores = em.createQuery(jpql, Professor.class).getResultList();
-		if (professores.isEmpty()){
-			em.getTransaction().begin();
-			em.persist(new Professor("Jucimar Brito", "jucimar", "123"));
-			em.getTransaction().commit();
-			em.close();
-		}
-	}*/
 }
