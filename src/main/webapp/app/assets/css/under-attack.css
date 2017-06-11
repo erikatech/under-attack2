@@ -131,16 +131,12 @@
   background: url(../../assets/images/geral/sala-testadores.png) no-repeat;
   height: 100%;
   width: 880px;
+  background-size: 100%;
   position: relative; }
 .sala-testadores-namespace .desafio {
-  /* top: 240px;
-   left: 30px;*/
   position: absolute;
-  content: url(../../assets/images/geral/pc.png);
   cursor: pointer;
   outline: none; }
-.sala-testadores-namespace .desafio:hover {
-  content: url(../../assets/images/geral/pc-iluminado.png); }
 
 h1, h2 {
   font-family: janda;
