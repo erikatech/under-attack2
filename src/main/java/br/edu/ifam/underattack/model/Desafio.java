@@ -36,6 +36,8 @@ public class Desafio implements Serializable {
 
     private Integer leftPos;
 
+    private String imagem;
+
     public Long getId() {
         return id;
     }
@@ -83,6 +85,14 @@ public class Desafio implements Serializable {
 
     public void setLeftPos(Integer leftPos) {
         this.leftPos = leftPos;
+    }
+
+    public String getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
     }
 
     public int getTotalTestesDesafio() {
