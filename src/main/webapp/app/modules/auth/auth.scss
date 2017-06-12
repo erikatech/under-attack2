@@ -26,8 +26,9 @@
             font-size: 18px;
             font-family: janda;
             text-align: center;
-            width: 285px;
-            background:url(../../assets/images/geral/frame-input-text.png) no-repeat left top;
+            width: 450px;
+            background:url(../../assets/images/geral/frame-input-text.png) no-repeat;
+            background-size: 100% 100%;
         }
 
         input[type="text"]:focus, input[type="password"]:focus {

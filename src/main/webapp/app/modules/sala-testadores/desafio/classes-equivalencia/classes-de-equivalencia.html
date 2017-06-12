@@ -3,7 +3,7 @@
 
     <div style="margin: 0 40px">
         <div layout="row" layout-align="start center">
-            <h1 flex="70" style="letter-spacing: 2px;">{{ $classes.desafio.programa.titulo }}</h1>
+            <h1 flex="80" style="letter-spacing: 2px;">{{ $classes.desafio.programa.titulo }}</h1>
             <div class="cerebros-container" layout="row" flex layout-align="start start">
                 <img ng-src="{{cerebro.imageSrc}}" ng-repeat="cerebro in $classes.cerebrosDisponiveis">
             </div>
@@ -17,7 +17,7 @@
         </div>
 
         <div layout="row" style="margin-top: 15px">
-            <div layout="column" layout-align="center center" flex="25">
+            <div layout="column" layout-align="center center" flex="20">
                 <md-radio-group ng-model="$classes.valorSelecionado">
                     <md-radio-button style="font-size:20px; letter-spacing: 1px; font-family: texto; font-weight: bold"
                                  class="custom-radio-btn"
@@ -27,20 +27,18 @@
                 </md-radio-group>
             </div>
 
-            <div flex="25" layout="row" layout-align="center center">
-                <input style="background: #232736; color: white; text-align: center;
-                        border-radius: 3px; border: 2px solid #232736; margin-left: 10px"
+            <div flex="30" layout="row" layout-align="center center">
+                <input class="entrada-aluno"
                        ng-model="$classes.valorPreenchido"
                        type="text">
             </div>
 
-            <div layout="row" layout-align="center center" flex="25">
+            <div layout="row" layout-align="center center" flex="10">
                 <img class="play-button" ng-click="$classes.validate()">
             </div>
 
-            <div flex style="background: #232736; min-height: 90px; border-radius: 5px; font-family: small-text"
-                 layout="row" layout-align="center center">
-                <span style="text-align: center; font-size: 18px; letter-spacing: 1px">
+            <div flex layout="row" class="resultados" layout-align="center center">
+                <span style="">
                     {{ $classes.errorMessage }}
                 </span>
             </div>
