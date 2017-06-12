@@ -110,4 +110,35 @@
         cursor: pointer;
         outline: none;
     }
+
+    .entrada-aluno {
+        background:url(../../assets/images/geral/frame-input-text.png) no-repeat;
+        background-size: 100% 100%;
+        min-width: 590px;
+        min-height: 50px;
+        color: white;
+        text-align: center;
+        margin-left: 10px;
+        font-family: texto;
+        font-size: 25px;
+        border:none;
+        padding: 0 5%;
+    }
+
+    .entrada-aluno:focus {
+        outline: none;
+    }
+
+    .resultados {
+        background: url(../../assets/images/sala-testadores/frame-resultado.png) no-repeat;
+        background-size: 100% 100%;
+        min-height: 90px;
+        font-family: small-text;
+        span {
+            font-size: 30px;
+            padding-top: 10px;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+    }
 }
