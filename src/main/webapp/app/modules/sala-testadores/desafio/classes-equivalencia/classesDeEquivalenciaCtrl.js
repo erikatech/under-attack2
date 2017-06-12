@@ -14,10 +14,10 @@
 		.controller('ClassesDeEquivalenciaCtrl', ClassesDeEquivalenciaCtrl);
 
     	ClassesDeEquivalenciaCtrl.$inject = ['$mdDialog','alunoDesafio', 'ClassesDeEquivalenciaService', '$timeout',
-				'$interval', '$state', 'SalaTestadoresService'];
+				'$interval', '$state', 'SalaTestadoresService', 'CustomToastService'];
 
 		function ClassesDeEquivalenciaCtrl($mdDialog, alunoDesafio, ClassesDeEquivalenciaService, $timeout,
-                   $interval, $state, SalaTestadoresService) {
+                   $interval, $state, SalaTestadoresService, CustomToastService) {
 
 			var context = this;
             // context.classesAluno = [];
@@ -98,6 +98,11 @@
             }
 
             function _finalizar(){
+                if(!context.classesAluno.length){
+                    CustomToastService.show("Encontre pelo menos uma classe de equivalência", "top right", 2000);
+                    return;
+                }
+
                 ClassesDeEquivalenciaService.finalizaDesafio(context.desafio.id, context.classesAluno)
                     .then(function (response) {
                         var alunoInSession = JSON.parse(sessionStorage.getItem("aluno"));
