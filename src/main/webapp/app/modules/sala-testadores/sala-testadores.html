@@ -1,16 +1,14 @@
 <!--<img src="app/assets/images/geral/popup-liso.png" style="display: none;">-->
-<div style="height: 100%; overflow-y: auto" class="sala-testadores-namespace background" layout="column" flex>
+<div style="height: 100%; overflow-y: auto" class="sala-testadores-namespace background" layout="column">
     <page-header></page-header>
 
-    <div layout="row" style="height: 100%">
-        <div>
-            <div class="sala-testadores-image">
-                <img ng-style="$testadores.desafioCSS[$index]"
-                     ng-mouseover="$testadores.setItemHover($testadores.desafioCSS[$index], desafio)"
-                     ng-mouseleave="$testadores.removeItemHover($testadores.desafioCSS[$index], desafio)"
-                     class="desafio" ng-repeat="desafio in $testadores.desafios track by $index"
-                     ng-click="$testadores.openDesafio(desafio.id)" />
-            </div>
+    <div layout="row" style="height: 100%" layout-align="center center">
+        <div class="sala-testadores-image" layout="column" layout-align="center">
+            <img ng-style="$testadores.desafioCSS[$index]"
+                 ng-mouseover="$testadores.setItemHover($testadores.desafioCSS[$index], desafio)"
+                 ng-mouseleave="$testadores.removeItemHover($testadores.desafioCSS[$index], desafio)"
+                 class="desafio" ng-repeat="desafio in $testadores.desafios track by $index"
+                 ng-click="$testadores.openDesafio(desafio.id)" />
         </div>
         <div layout="column" flex layout-align="start center">
             <h1 style="text-align: center">Chave da Sala dos Desenvolvedores</h1>
