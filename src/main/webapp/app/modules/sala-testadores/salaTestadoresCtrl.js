@@ -53,11 +53,11 @@
                         }).then(function(desafioId){
                         	localStorage.setItem("desafioId", desafioId);
                         	$state.go('authenticated.valoresDeEntrada');
-						}).catch(function(desafioId){
+						})/*.catch(function(desafioId){
+							console.log("restarta")
                             if(desafioId !== undefined){
                                 SalaTestadoresService.restartaDesafio(desafioId)
-                                    .then(function(response){
-                                        console.log("Restarta desafio >>> ", response)
+                                    .then(function(){
                                         localStorage.setItem("desafioId", desafioId);
                                         $state.go('authenticated.valoresDeEntrada');
                                     })
@@ -65,7 +65,7 @@
                                         console.error("Restarta desafio >>> ", errorResponse)
                                     });
 							}
-						});
+						});*/
 
                     })
 					.catch(function (errorResponse) {

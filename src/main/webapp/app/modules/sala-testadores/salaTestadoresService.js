@@ -40,7 +40,7 @@
 			}
 
 			function _restartaDesafio(idDesafio){
-                var requestData = { login: localStorage.getItem("login")};
+                var requestData = { login: localStorage.getItem("login"), idDesafio: idDesafio};
                 return ServiceAPI.post(requestData, '/salaTestadores/reiniciaDesafio');
 			}
 

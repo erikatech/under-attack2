@@ -235,12 +235,10 @@ public class AlunoDao {
 		this.em.merge(alunoDesafio);
 	}
 
-	public void reiniciaDesafioAluno(String login) {
-		Aluno alunoConsultado = this.consulta(login);
-		AlunoRealizaDesafio alunoRealizaDesafio = alunoConsultado.getAlunoRealizaDesafio().get(0);
-		alunoRealizaDesafio.setCerebrosDisponiveis(3);
-		alunoRealizaDesafio.setSituacaoDesafio(SituacaoDesafio.EM_ANDAMENTO);
-		this.atualiza(alunoConsultado);
+	public void reiniciaDesafioAluno(String login, Long idDesafio) {
+		AlunoRealizaDesafio desafioAluno = this.desafiosDoAluno(login, idDesafio);
+		desafioAluno.setCerebrosDisponiveis(3);
+		this.atualizaDesafioAluno(desafioAluno);
 	}
 
 	public void atualizaBugEncontrado(AlunoEncontraClasseEquivalencia alunoEncontraClasseEquivalencia) {
