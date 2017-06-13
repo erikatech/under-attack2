@@ -18,7 +18,7 @@
         min-height: 250px;
 
         .input-login {
-            margin-left:8%;
+            margin: 0 25px;
             color: white;
             min-height: 50px;
             border:none;
@@ -26,7 +26,6 @@
             font-size: 18px;
             font-family: janda;
             text-align: center;
-            width: 450px;
             background:url(../../assets/images/geral/frame-input-text.png) no-repeat;
             background-size: 100% 100%;
         }

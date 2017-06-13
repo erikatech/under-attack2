@@ -3,7 +3,7 @@
 
     <div style="margin: 0 40px">
         <div layout="row" layout-align="start center">
-            <h1 flex="80" style="letter-spacing: 2px;">{{ $classes.desafio.programa.titulo }}</h1>
+            <h1 flex="70" style="letter-spacing: 2px;">{{ $classes.desafio.programa.titulo }}</h1>
             <div class="cerebros-container" layout="row" flex layout-align="start start">
                 <img ng-src="{{cerebro.imageSrc}}" ng-repeat="cerebro in $classes.cerebrosDisponiveis">
             </div>
@@ -47,18 +47,18 @@
         <div class="table-container" style="margin-top: 15px">
             <table style="width: 100%;" id="report-items">
                 <thead style="letter-spacing: 2px; font-size: 20px; font-family: texto">
-                    <th style="width: 275px">Valor de Entrada</th>
-                    <th style="width: 250px">Resultado Esperado</th>
-                    <th style="width: 250px">Saída</th>
-                    <th style="width: 250px">Classe de Equivalência</th>
+                    <th style="width: 300px;">Valor de Entrada</th>
+                    <th>Resultado Esperado</th>
+                    <th>Saída</th>
+                    <th style="width: 300px;">Classe de Equivalência</th>
                     <th></th>
                 </thead>
                 <tbody style="letter-spacing: 2px; font-size: 20px; font-family: texto">
                     <tr ng-repeat="item in $classes.classesAluno">
-                        <td style="width: 275px">{{ item.classeEquivalencia.valorDeEntrada.descricao }}</td>
-                        <td style="width: 250px">{{ item.classeEquivalencia.resultadoEsperado }}</td>
-                        <td style="width: 250px">{{ item.classeEquivalencia.saida }}</td>
-                        <td style="width: 250px"> Classe {{ item.classeEquivalencia.tipo === 'VALIDA' ? 'Válida' : 'Inválida' }}
+                        <td >{{ item.classeEquivalencia.valorDeEntrada.descricao }}</td>
+                        <td>{{ item.classeEquivalencia.resultadoEsperado }}</td>
+                        <td>{{ item.classeEquivalencia.saida }}</td>
+                        <td> Classe {{ item.classeEquivalencia.tipo === 'VALIDA' ? 'Válida' : 'Inválida' }}
                             ({{ item.classeEquivalencia.descricao }})
                         </td>
                         <td>

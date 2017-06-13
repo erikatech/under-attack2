@@ -116,7 +116,7 @@
                             locals: { desempenhoInfo: response.data.resultadoDesafio }
                         }).then(function(){
                             SalaTestadoresService.restartaDesafio(context.desafio.id)
-                                .then(function(response){
+                                .then(function(){
                                     $state.go('authenticated.valoresDeEntrada');
                                 })
                                 .catch(function (errorResponse) {
